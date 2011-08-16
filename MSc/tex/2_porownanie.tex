@@ -1,0 +1,587 @@
+% !TeX root = main.tex
+
+
+\begin{savequote}[70mm]
+,,Człowiek jest tak długo mądry, dopóki szuka mądrości. Jeżeli mniema, że ją już
+znalazł, wówczas staje się błaznem.''
+\qauthor{Talmud}
+\end{savequote}
+
+\chapter{Metody pozyskiwania trójwymiarowego obrazu sceny}
+\label{chap:porownanie}
+
+
+Metody pozyskiwania trójwymiarowego obrazu sceny można podzielić ze względu
+na wykorzystywane do tego celu urządzenia -- od ogólnodostępnych kamer, przez
+kamery wspomagane dodatkowymi projektorami aż do dedykowanych urządzeń i
+skanerów laserowych. Innym kryterium podziału może być sposób pobierania
+informacji z otoczenia -- tutaj wyróżnić można metody biernie rejestrujące
+światło ze środowiska i aktywnie to środowisko doświetlające. W porównaniu
+skupiono się na praktycznych cechach przedstawionych rozwiązań, ponieważ
+ostatecznie wykorzystywane będą gotowe algorytmy, ich implementacja nie jest
+celem tej pracy.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Agregacja danych z czujników odległości}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Pierwszą z omawianych metod pozyskiwania trójwymiarowej informacji o scenie jest
+wykorzystanie tradycyjnych czujników odległości (np. dalmierzy bądź skanerów
+laserowych). Montując taki czujnik na ruchomej głowicy można zebrać serię
+skanów, które ostatecznie dadzą pełną mapę głębi. Koszt zastosowania takich
+rozwiązań na robotach mobilnych często jest niewielki, gdyż można wykorzystać
+czujniki już obecne, dodając do nich tylko serwomechanizmy. 
+
+\subsection{Uzyskiwane parametry}
+
+Rozdzielczość tak tworzonych map głębi ograniczona jest dokładnością
+zastosowanych serwomechanizmów (chodzi głównie o możliwą do uzyskania
+kątową rozdzielczość ustawianej pozycji). Jeśli jjako sensor zastosuje się
+skaner laserowy, to jego rozdzielczość kątowa i zakres pomiaru ograniczają
+efektywna rozdzielczość pomiaru w jednym z kierunków -- poziomym lub pionowym
+(w zależności od sposobu mocowania i osi obrotu). Rozdzielczość zależy też
+wprost od czasu, jaki może zostać poświęcony na pojedynczy, pełny skan. Jeśli
+sceny są statyczne, to skanowac można w mniejszych krokach, jeśli natomiast
+wymagany jest szybki skan całego otoczenia, wykonuje się większe kroki.
+
+Rozdzielczość i dokładność uzyskiwanej głębi zależy praktycznie jedynie od
+zastosowanego sensora -- najsłabsze wyniki uzyskuje się przy stosowaniu
+czujników ultradźwiękowych bądź tanich czujników podczerwonych, te jednak są
+jednymi z najtańszych możliwych do zastosowania. Na drugim biegunie jest
+stosowanie skanerów laserowych (np. Sick LMS), te jednak są drogie i ciężkie, co
+wymusza stosowanie droższych i dokładniejszych serw. Przykładowa konstrukcja
+takiego skanera przedstawiona jest na rysunku~\ref{fig:sick_obrotnica}
+(konstrukcja wykonana przez Rafała Chojeckiego, Michała Walęckiego i Piotra
+Trojanka jako moduł do robota Elektron).
+ 
+\begin{figure}[h!]
+\centering
+\includegraphics[height=6cm]{../../Common/img/sick_obrotnica} 
+\caption{Skaner laserowy Sick LMS200 zamocowany na obrotnicy}
+\label{fig:sick_obrotnica}
+\end{figure}
+
+\subsection{Sposoby interpolacji map głębi} 
+
+Najprostszym sposobem wykorzystania uzyskiwanej informacji jest zapisanie
+uzyskiwanych wyników wprost w mapie głębi. Można jednak wykorzystać fakt, że
+skany wykonywane są w pewnych określonych sekwencjach, głównie liniami. Dzięki
+temu w trakcie zbierania kolejnych pomiarów można dokonywać od razu
+interpretacji i przetwarzania tych danych w celu stworzenia innej reprezentacji
+otoczenia. W każdej kolejnej zeskanowanej linii można wyszukiwać za pomocą
+odpowiednich algorytmów odcinki proste, a te zebrane w kolejnych skanach mogą
+byc składane w większe płaszczyzny. Obliczenia te wykonywane są w tym samym
+czasie, co zbieranie pomiarów, dzięki czemu praktycznie od razu po wykonaniu
+ostatniego skanu dostajemy oprócz samej mapy głębi dodatkowe informacje o
+geometrii sceny. Kolejne etapy opisanej agregacji danych
+pokazane są na rysunku~\ref{fig:laser_aggregate}~\cite{Surmann01a3d}.
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=12cm]{../../Common/img/laser_aggregate} 
+\caption{Kolejne poziomy agregacji danych zebranych przy pomocy skanera
+laserowego}
+\label{fig:laser_aggregate}
+\end{figure}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Stereowizja}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%-------------------------------------------------------------------------------
+\subsection{Zasada działania}
+%-------------------------------------------------------------------------------
+
+Stereowizja jest techniką obrazowania opierającą się na analizie obrazów wielu
+(najczęściej dwóch) kamer. Algorytmy bazują na dysparacji, czyli względnej
+odległości pomiędzy obrazami tego samego punktu w różnych kamerach, można w
+nich wydzielić 3 kroki:
+
+\begin{enumerate}
+\item detekcja punktów charakterystycznych
+\item dopasowanie odpowiedników
+\item rekonstrukcja współrzędnych 3D
+\end{enumerate}
+
+Rysunek~\ref{fig:epipolar} przedstawia poglądowo zasadę działania algorytmów
+stereowizyjnych. Rzeczywiste punkty $X$, $X_1$, $X_2$ oraz $X_3$ są współliniowe
+względem lewej kamery (widoczne w obrazie jako ten sam punkt $X_L$). W obrazie z
+prawej kamery punkty te są już rozróżnialne (punkt $X$ jest widoczny jako punkt
+$X_R$). Znając współrzędne środków optycznych ($O_L$, $O_R$) i orientacje obu
+kamer można wyznaczyć współrzędne linii epipolarnych dla badanych punktów, a
+także rzeczywiste współrzędne tych punktów (na podstawie ich współrzędnych w
+obu obrazach). W stereowizji najczęściej kamery ustawia się tak, aby ich osie
+optyczne były możliwie równoległe, dzięki czemu łatwo wyznacza się linie
+epipolarne (są poziome w obrazie) oraz odpowiednie punkty charakterystyczne.
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=8cm]{../../Common/img/Epipolar_geometry} 
+\caption{Geometria dwubiegunowa}
+\label{fig:epipolar}
+\end{figure}
+
+Dodatkowo konieczne jest wstępne przetworzenie obrazów tak, aby przedstawiały
+one widok w taki sposób, jakby płaszczyzny obrazowania kamer były równoległe
+(proces ten zwany jest rektyfikacją obrazu). W tym celu konieczna jest wstępna
+kalibracja układu kamer, dająca w wyniku położenie kamer względem siebie
+(przesunięcie oraz obrót), a także wyliczająca parametry wewnętrzne każdej z
+kamer (zniekształcenia wnoszone przez soczewki obiektywu). Proces kalibracji
+przeprowadza się raz dla danego położenia kamer, po każdorazowej zmianie ich
+pozycji konieczna jest powtórna kalibracja. Rysunek~\ref{fig:stereo_steps}
+przedstawia koleejne kroki podczas odtwarzania informacji o głębi z dwóch kamer.
+
+\begin{figure}[h!]
+\centering
+\includegraphics{../../Common/img/stereo_steps} 
+\caption[Kolejne kroki podczas przetwarzania w stereowizji]
+{Kolejne kroki podczas przetwarzania w stereowizji. 1: obraz pobrany
+bezpośrednio z kamer; 2: obraz po interpolacji kolorów i rektyfikacji,
+zaznaczone są także przykładowe, dopasowane punkty charakterystyczne; 3:
+wynikowa mapa głebi dla podanej sceny.}
+\label{fig:stereo_steps}
+\end{figure}
+
+%-------------------------------------------------------------------------------
+\subsection{Wymagania sprzętowe}
+%-------------------------------------------------------------------------------
+
+Najważniejszym elementem przy stereowizji są kamery -- uzyskane rezultaty zależą
+bezpośrednio od ich jakości. Stosowanie kamer z interfejsem analogowym jest
+możliwe, jednak nie jest zalecane przy dynamicznych scenach. Obiekty
+poruszające się z dużą szybkością są wykrywane błędnie bądź całkowicie
+ignorowane ze względu na występujące rozmycie wynikające ze stosowania
+przeplotu podczas akwizycji z kamer analogowych. Najlepsze wyniki uzyskuje się
+stosując dobrej jakości kamery z interfejsami cyfrowymi, jednak ich koszt jest
+dużo wyższy.
+
+Samo rozmieszczenie kamer również ma istotny wpływ na uzyskiwane wyniki --
+kamery umieszczone blisko siebie będą dawały dobre wyniki dla obiektów
+znajdujących się blisko nich, kamery rozmieszczone szerzej pozwalają na
+uzyskanie lepszej rozdzielczości dla obiektów znajdujących się daleko kosztem
+częściowej bądź całkowitej utraty informacji o obiektach bliskich. Od
+rozdzielczości kamery zależy uzyskiwana rozdzielczość przy rekonstrukcji sceny
+3D, jednak wraz z jej wzrostem rośnie czas wymagany do przetworzenia
+pojedynczej klatki obrazu.
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=8cm]{../../Common/img/bumblebee} 
+\caption{Kamera do stereowizji Bumblebee X2}
+\label{fig:bumblebee}
+\end{figure}
+
+Problemem może być samo mechaniczne mocowanie kamer. Musi być ono wykonane
+bardzo solidnie, gdyż w przypadku nawet małej zmiany orientacji kamer względem
+siebiewymagana jest ponowna kalibracja całego systemu. Aby pozbyć się tej wady
+można stosować zintegrowane moduły zawierające dwie (bądź więcej) kamery w
+jednej obudowie, to jednak uniemożliwia eksperymentowanie z odległością kamer
+od siebie (patrz rysunek~\ref{fig:bumblebee}).
+
+%-------------------------------------------------------------------------------
+\subsection{Złożoność obliczeń}
+%-------------------------------------------------------------------------------
+
+% TODO: wstawić odwołania w odpowiednie miejsca
+\cite{4670774} \cite{Hirschmuller:2008:SPS:1340087.1340245}
+
+Przy wykorzystaniu programowej wersji algorytmów stereowizyjnych działających
+na przeciętnym komputerze domowym, można osiągnąć wydajność od kilku do
+kilkunastu klatek na sekundę. W związku z tym rozwiązania programowe słabo
+nadają się do wykorzystania w środowisku, które ulega częstym i dynamicznym
+zmianom (a takie jest otoczenie robota mobilnego).
+
+Dużo lepiej sprawdzają się rozwiązania sprzętowe, w których algorytm tworzenia
+mapy dysparacji zaimplementowany jest w układach FPGA zintegrowanych w jednym
+module z kamerami. W tym przypadku wydajność jest stała i niezależna od platformy,
+na której uruchomione będą algorytmy sterowania robota, i wynosi (w zależności
+od producenta) od kilkunastu do ponad 30 FPS. Największą wadą takiego rozwiązania
+jest jego koszt -- wynoszący od kilkuset do kilku tysięcy dolarów. Dla porównania
+dwie kamery analogowe można kupić za ok. 200\$.
+
+%-------------------------------------------------------------------------------
+\subsection{Zastosowania}
+%-------------------------------------------------------------------------------
+
+Algorytm opiera się o wykrywanie punktów charakterystycznych w obrazie, a to
+najczęściej sprowadza się do analizy obrazu krawędziowego. W związku z tym
+obiekty o jednolitej, drobnej teksturze (bądź całkowicie gładkie) są słabo bądź
+całkowicie niewykrywalne. W najlepszym wypadku wykrywane są jedynie ich
+krawędzie, co prowadzi do powstawania dużych, niezidentyfikowanych obszarów w
+obrazie (rysunek~\ref{fig:stereo_3} przedstawia taką sytuację).
+
+Jednym z rozwiązań tego problemu może być zastosowanie dodatkowego projektora
+wyświetlającego specjalnie przygotowany wzór (przykład na
+rysunku~\ref{fig:stereo_texture}) w celu pokrycia obiektów sztuczną teksturą
+umożliwiającą poprawę wyników stereowizji. Drugą możlwością poprawy sytuacji
+jest stosowanie dodatkowego etapu przetwarzania obrazu po wygenerowaniu
+wstępnej mapy głębokości. Po segmentacji obrazu na podstawie koloru wybierane
+są obszary jednolite, a następnie w mapie głębi wypełniane są interpolowanymi
+wartościami z ich krawędzi.
+
+\begin{figure}[htpb!]
+\centering
+\includegraphics[width=16cm]{../../Common/img/stereo_texture} 
+\caption[Przykład projekcji tekstury w celu poprawy jakości
+stereowizji]{Przykład projekcji tekstury w celu poprawy jakości stereowizji
+\cite{konolige-icra-2010-a} W kolejności od lewej: scena bez dodatkowego
+oświetlenia, wygenerowana mapa głębi, scena z rzutowaną teksturą, poprawiona
+mapa głębi}
+\label{fig:stereo_texture}
+\end{figure}
+
+Oba rozwiązania dają dobre rezultaty, jednak komplikują bądź budowę urządzenia,
+bądź wprowadzają dodatkowy narzut obliczeniowy. Projekcja tekstury bywa
+z powodzeniem wykorzystywana w robotach mobilnych \cite{piorkowski2008}, a
+bardziej skomplikowane algorytmy stosowane są na dużych robotach
+manipulacyjno-przemysłowych, które są wyposażone w odpowiednio wydajne
+jednostki obliczeniowe (np. robot PR2). Natomiast w robotach poruszających się
+w naturalnym środowisku, gdzie występuje bardzo dużo szczegółów (a więc i
+punktów charakterystycznych) stereowizja stosowana jest praktycznie bez żadnych
+dodatkowych usprawnień i sprawdza się znakomicie (zwracane mapy głębi są
+wypełnione w ponad 80\%, a algorytm działa w tempie powyżej 10FPS)
+\cite{outdoor-stereo}.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Światło strukturalne}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%-------------------------------------------------------------------------------
+\subsection{Zasada działania}
+%-------------------------------------------------------------------------------
+
+Inną metodą pomiaru i odtwarzania informacji i głębi sceny bazującą na analizie
+obrazu jest wykorzystanie światła strukturalnego. Na scenę rzucane jest światło
+formujące znany wzór, a kamera umieszczona jest w taki sposób, aby obserwować
+scenę pod innym kątem niż orientacja rzutnika. Na podstawie odczytanej deformacji
+wzorca prz użyciu algorytmów bazujących na riangulacji wyliczane są rzeczywiste
+współrzędne punktów w obrazie. 
+
+\begin{figure}[htb!]
+\centering
+\includegraphics[width=10cm]{../../Common/img/struct} 
+\caption[Schemat działania skanera opartego o światło strukturalne]
+{Schemat działania skanera opartego o światło strukturalne. Na podstawie:
+http://en.wikipedia.org/wiki/File:1-stripesx7.svg}
+\label{fig:struct_principle}
+\end{figure}
+
+Rzutowane mogą być różne wzory, zaczynając od pojedynczego punktu, przez
+wzory złożone z linii (statycznych bądź przesuwających się po
+scenie, w takim przypadku scena jest analizowana stopniowo), aż po złożone,
+pseudoloswe wzory (także kolorowe) oraz sekwencje wzorów \cite{1588327}. W
+przypadku korzystania z sekwencji wzorów wymagany jest statyczny charakter
+sceny, sceny dynamiczne wymagają stosowania pojedynczych, skomplikowanych
+struktur.
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=8cm]{../../Common/img/struct_patterns} 
+\caption[Wzorce wykorzystywane przy obrazowaniu światłem strukturalnym]
+{Wzorce wykorzystywane przy obrazowaniu światłem strukturalnym}
+\label{fig:struct_patterns}
+\end{figure}
+
+%-------------------------------------------------------------------------------
+\subsection{Zastosowania}
+%-------------------------------------------------------------------------------
+
+Głównym kryterium przy wyborze konkretnej realizacji skanera opartego o światło
+strukturalne jest charakter analizowanej sceny. W przypadku skanowania obiektów
+statycznych (np. podczas automatycznego tworzenia modeli trójwymiarowych)
+możliwe jest zastosowanie sekwencji wzorców, np. kodu Graya. Stosowane są też
+różne rozwiązania pomocnicze w celu zeskanowania obiektu ze wszystkich stron bez
+jego obracania (np. zestaw specjalnie ustawionych luster) \cite{LanmanCT07}.
+
+\begin{figure}[!ht]
+\centering
+\includegraphics[width=14cm]{../../Common/img/struct_all} 
+\caption[Przykład wykorzystania światła strukturalnego do modelowania obiektów]
+{Przykład wykorzystania światła strukturalnego do modelowania obiektów. Na
+pierwszym zdjęciu widać układ pomiarowy, następnie dwa wybrane etapy oświetlania
+kodem Graya oraz wynikowy model otrzymany po oświetleniu 40-toma wzorcami.
+Źródło: http://web.media.mit.edu/~dlanman/}
+\label{fig:struct_all}
+\end{figure}
+
+Do zastosowań czasu rzeczywistego, jak już wspomniano wcześniej, nadają się
+jedynie wzorce pojedyncze. Dzięki temu każda otrzymana klatka obrazu zawiera
+informacje o całym modelu, w metodach opartych o wzorce sekwencyjne obiekt
+przesuwający się pomiędzy kolejnymi naświetleniami powoduje zakłamanie wyników. 
+Wśród takich metod wyróżnić można oparte o wzorce kodowane geometrycznie i
+kolorowo. Pierwsza z metod wykorzystuje jednobarwne wzorce geometryczne
+zakodowane w taki sposób, aby poszczególne jego bloki były unikalne w pewnym
+otoczeniu. W przypadku tej drugiej metody stosowane są np. różnokolorowe pasy
+bądź szachownice, a z układu kolorów rekonstruowana jest powierzchnia obiektów.
+Rozwiązania te cechują się dużą szybkością działania, od kilkunastu do ponad
+stu klatek przetwarzanych w ciągu sekundy \cite{4429304}.
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=8cm]{../../Common/img/struct_color} 
+\caption[Wzorzec kodowany kolorem]
+{Jedna z możliwości kolorowego kodowania wzorców \cite{4429304}}
+\label{fig:struct_color}
+\end{figure}
+
+W zastosowaniach robotycznych, w przypadku, kiedy maszyny mają działać we
+wspólnym otoczeniu z ludźmi, wzorce kodowane kolorami są niewygodne -- musza one
+działać w paśmie światła widzialnego, co może przeszkadzać będącym w pobliżu
+ludziom. W takim wypadkuz zdecydowanie lepiej sprawdzają się wzorce
+geometryczne, których rzutniki mogą działać w podczerwieni, a więc w sposób
+niewidoczny i nieprzeszkadzający użytkownikom. W taki właśnie sposób działa
+Microsoft Kinect, opisany dokładnie w rozdziale~\ref{chap:sprzet}.  
+
+Największą niedogodnością związaną z wykorzystaniem obrazowania opartego o
+rzutowanie wzorców jest konieczność dokładnego wykrycia tego wzoru. Dlatego też
+najczęściej stosowane jest ono na niewielkie odległości, przy skanowaniu
+pojedynczych obiektów. Przy stosowaniu na większe odległości konieczne jest
+stosowanie bądź projekcji w paśmie podczerwonym (aby wykluczyć zakłócenia od
+tradycyjnych źródeł światła), bądź wykorzystanie projektorów o bardzo dużej
+mocy. Żaden z wariantów nie sprawdza się jednak na otwartej przestrzeni, gdzie
+światło słoneczne zakłóca działanie praktycznie wszystkich sensorów tego typu.
+
+%-------------------------------------------------------------------------------
+\subsection{Rozwiązania programowe i sprzętowe} 
+%-------------------------------------------------------------------------------
+
+W przypadku stosowania algorytmów zaimplementowanych programowo uruchamianych na
+komputerze sterującym można wymienić praktycznie takie same wady, jak przy
+stereowizji, Największą z nich jest obciążenie systemu, gdyż algorytm jest
+dość skomplikowany. Rozwiązania sprzętowe rozwiązują problem szybkości działania
+i obciążenia komputera sterującego, jednak ich cena przez bardzo długi czas
+była wysoka (rzędu setek do tysięcy dolarów). Pod koniec 2010 roku pojawił się
+na runku wspomniany wcześniej Microsoft Kinect -- urządzenie o cenie o
+rząd wielkości niższej, będące faktycznie sprzętowym sensorem głębi opartym o
+analizę światła strukturalnego. Niską cenę zawdzięcza masowej produkcji -- jest
+produkowany jako kontroler do gier, i jako taki ma zdecydowanie większy rynek
+zbytu niż tradycyjne, specjalizowane rozwiązania. 
+
+Przed pojawieniem się na rynku urządzenia Microsoft Kinect, w robotyce mobilnej
+stosowane były głównie rozwiązania oparte o obrazowanie na podstawie projekcji
+pojedynczych linii (\cite{120445,5246792}), głównie ze względu na prostotę
+koniecznych obliczeń i szybkość działania całego systemu. 
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Pomiar czasu przelotu wiązki światła}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Kamery TOF\footnote{z ang. {\it time-of-flight}, czas przelotu} działają na zasadzie
+pomiaru czasu przelotu wiązki światła od projektora do kamery po jego odbiciu od
+obiektów. Działanie to jest analogiczne do działania skanerów laserowych, z tą różnicą,
+że w przypadku skanerów emitowana jest pojedyncza wiązka światła, natomiast kamery TOF
+oświetlają i wykonują pomiar całej sceny naraz.
+
+%-------------------------------------------------------------------------------
+\subsection{Zasada działania i wykorzystanie}
+%-------------------------------------------------------------------------------
+
+Kamery TOF mogą działać w oparciu o dwie główne metody: bezpośredni pomiar
+czasu przelotu wiązki światła (od błysku naświetlającego scenę do jego
+zarejestrowania na matrycy) bądź pośredni pomiar tej wielkości z różnicy fazy
+emitowanego światła (w tym przypadku bez przerwy emitowane jest modulowane
+światło~\cite{910448}). W obu wypadkach wyliczony czas przelotu dla każdego
+punktu zarejestrowanego obrazu jest proporcjonalny do jego odległości od kamery.
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=8cm]{../../Common/img/tof} 
+\caption{Schemat działania kamer TOF mierzących bezpośrednio czas przelotu}
+\label{fig:tof}
+\end{figure}
+
+Kamery typu TOF są wykorzystywane w robotyce mobilnej głównie w robotach
+operujących w pomieszczeniach~\cite{Prusak:2008:PEM:1462089.1462102}. Dokładność
+uzyskiwanych pomiarów, szybkość działania i niskie obciążenie komputera
+sterującego pozwalają na wykorzystanie otrzymywanego obrazu nie tylko do
+wykrywania i omijania przeszkód, ale także do budowy mapy otoczenia i
+samolokalizacji robota (na podstawie obserwacji punktów charakterystycznych w
+mapie głębi). Sama technologia wykonania sensora sprawia jednak, że do
+rejestracji obrazu kolorowego wymagana jest dodatkowa kamera, skalibrowana z
+modułem głębi (niedogodność ta nie wystepuje przy stosowaniu stereowizji oraz
+wielu metod opartych o analizę światła strukturalnego).
+
+%-------------------------------------------------------------------------------
+\subsection{Właściwości metody}
+%-------------------------------------------------------------------------------
+
+Zastosowanie metody opartej o pomiar czasu powrotu wiązki światła pozwala na
+umieszczenie projektora i matrycy rejestrującej obraz bardzo blisko siebie (w
+szczególności współosiowo, z diodami projektora umieszczonymi dookoła obiektywu
+kamery), dzięki czemu nie występuje największa wada systemów opartych o
+triangulację (stereowizja i światło strukturalne), czyli powstawanie cieni.
+Spośród innych zalet tej metody pomiaru wymienić można chociażby zwartą
+konstrukcję sensora (cały system składa się z pojedynczego modułu zawierającego
+zarówno kamerę jak i oświetlacz), dzięki czemu jest on bardzo łatwy do
+zastosowania w gotowym robocie. Nie bez znaczenia jest też szybkość działania --
+dzięki naświetlaniu całej klatki jednocześnie oraz biorąc pod uwagę prędkość 
+światła, możliwe jest uzyskanie prędkości nawet 100 klatek na sekundę, a dzięki
+całkowicie sprzętowemu przetwarzaniu danych uzyskuje się bardzo niskie
+obciążenie systemu -- kamera zwraca obraz zawierający bądź czas przelotu
+światła, z którego w prosty sposób obliczyć można odległość, bądź od razu gotową
+mapę głębi. Widać tutaj dużą przewagę nad innymi rozwiązaniami, gdzie wymagane
+jest stosowanie skomplikowanych algorytmów w celu wyliczenia ostatecznej
+odległości do obiektów.
+
+\begin{figure}[h!]
+\centering
+\includegraphics[height=5cm]{../../Common/img/sr4000} 
+\caption[Kamera TOF SwissRanger SR4000]{Kamera TOF SwissRanger SR4000.
+Rozdzielczość obrazu: 176x144px przy 54FPS, cena ok. 9000\$}
+\label{fig:sr4000}
+\end{figure}
+ 
+Własności te sprawiają, że kamery TOF wydają się być bardzo dobrym rozwiązaniem
+do zastosowania przy nawigacji robota. Niestety, mają też kilka wad, które to
+wykorzystanie utrudniają. Pierwszą z nich jest cena -- jako że rozwiązania te są
+stosunkowo nowe a także bardzo skomplikowane pod względem technicznym, ich cena
+jest wielokrotnie wyższa od układów opartych na stereowizji lub świetle
+strukturalnym. W porównaniu do tych metod niższa jest także rozdzielczość
+uzyskiwanej mapy głębi -- obecnie produkowane sensory posiadają rozdzielczość
+maksymalną rzędu 320x240px, a tańsze modele często posiadają rozdzielczość 
+poniżej 100x100px. Sama technika wykonywania pomiaru ma kilka cech, które mogą
+utrudniać jej wykorzystanie, np. występowanie wielokrotnych odbić, przez co
+do sensora może dotrzeć i zostać zarejestrowane światło odbite i załamane od
+obiektów znajdujących się bliżej, niż faktyczny punkt widziany w danym miejscu
+matrycy. Podobnie zafałszowane pomiary mogą wystąpić przy obecności w
+obserwowanej scenie silnych źródeł światła, praktycznie niemożliwe jest także
+stosowanie tych metod w słoneczny dzień w terenie otwartym. Przy stosowaniu
+wielu kamer TOF jednocześnie należy uwzględnić problem interferencji emitowanego
+światła -- najczęściej rozwiązywany przez sekwencyjne odczyty z kolejnych kamer
+(co z kolei zmniejsza faktyczną szybkość akwizycji danych).
+
+\begin{figure}[h!]
+\centering
+\includegraphics[height=5cm]{../../Common/img/dimager} 
+\caption[Kamera TOF Panasonic D-IMager]{Kamera TOF Panasonic D-IMager.
+Rozdzielczość obrazu: 160x120px przy 20FPS, cena ok. 3000\$}
+\label{fig:dimager}
+\end{figure}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Porównanie dostępnych rozwiązań}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Ta część ma na celu porównanie dwóch dostępnych dla autora pracy rozwiązań --
+stereowizji dwukamerowej i światła strukturalnego (sensora Microsoft Kinect).
+Celem testów jest porównanie szybkości działania, obciążenia systemu i pokrycia
+mapy głębi. Dokładność odwzorowania mapy głębi nie była obiektem testów, dlatego
+wygenerowane mapy głębi mają różniące się skale kolorystyczne.
+
+%-------------------------------------------------------------------------------
+\subsection{Stereowizja -- Global Block Matching}
+%-------------------------------------------------------------------------------
+
+W celu sprawdzenia w praktyce jakie rezultaty można osiągnąć na dostępnym sprzęcie
+przygotowano prosty układ pomiarowy i zebrano kilka pomiarów dla różnych scen.
+Para stereowizyjna została złożona z dwóch kamer firmy Ganz, model ZC-NAF27, które
+ustawione zostały w taki sposób, aby ich osie optyczne były możliwie równoległe,
+a ich odległość wynosiła 12cm (podytkowane właściwościami mechanicznymi platformy,
+na której zostały zamontowane). Po kalibracji obu kamer uruchomiono algorytm
+dopasowania i generacji mapy dysparacji (wykorzystujący bibliotekę OpenCV) na
+komputerze wyposażonym w procesor Intel Core2Duo E6550 2.33GHz oraz 4GB pamięci
+RAM, pracującym pod kontrolą systemu Ubuntu 10.04. Wygenerowanie pojedynczej mapy
+głębi zajmowało ok. 130ms (7.7 klatki na sekundę).
+
+Poniżej przedstawione są wygenerowane mapy głębi nałożone na obraz z którego powstały
+(dokładnie na obraz z lewej kamery, ponieważ w jej układzie mapa ta jest wyliczana).
+Przedstawione są trzy sceny przedstawiające charakterystyczne cechy tej metody
+pozyskiwania informacji o głebi. Scena przedstawiona na rysunku~\ref{fig:stereo_1}
+zawiera dwie jednakowe przeszkody umieszczone w różnej odległości przed robotem.
+Algorytm dobrze wykrywa krawędzie przeszkód, jednak na ich powierzchni oznaczane
+są jedynie miejsca, gdzie naniesione są napisy i rysunki. W niektórych miejscach
+widać błędne dopasowania punktów charakterystycznych (widoczne jako plama w kolorze
+znacznie odbiegającym od otoczenia, np. na dole prawego pudełka). Szary kolor na
+mapie głębi oznacza piksele niezidentyfikowane. Kolor piksela oznacza jego odległość
+od kamery, najbliższe są czerwone, najdalsze są niebieskie.
+
+\begin{figure}[h!]
+\centering
+\includegraphics{../../Common/img/stereo_1}
+\caption[Pierwsza scena testowa stereowizji]{Pierwsza scena testowa stereowizji.}
+\label{fig:stereo_1}
+\end{figure}
+
+Scena na rysunku~\ref{fig:stereo_2} zawiera przeszkody pokryte bardziej zróżnicowaną
+teksturą, dzięki czemu są one znacznie lepiej wykrywane, a mapa głębi jest bardziej
+wypełniona.
+
+Ostatni eksperyment (rysunek~\ref{fig:stereo_3}) miał na celu pokazanie problemu
+przy wykrywaniu dużych, jednolitych obiektów. Tablica zajmuje dużą część obrazu
+i stanowi poważną przeszkodę dla robota. Na mapie głębi jednak oznaczone są jedynie
+jej boczne krawędzie, co mogłoby doprowadzić do próby przejazdu pomiędzy nimi.
+
+\begin{figure}[h!]
+\centering
+\includegraphics{../../Common/img/stereo_2}
+\caption[Druga scena testowa stereowizji]{Druga scena testowa stereowizji zawierająca obiekty o zróżnicowanej teksturze.}
+\label{fig:stereo_2}
+\end{figure}
+
+\begin{figure}[h!]
+\centering
+\includegraphics{../../Common/img/stereo_3}
+\caption[Trzecia scena testowa stereowizji]{Trzecia scena testowa stereowizji pokazująca problemy z dużymi, jednolitymi przeszkodami.}
+\label{fig:stereo_3}
+\end{figure} 
+
+%-------------------------------------------------------------------------------
+\subsection{Światło strukturalne -- Microsoft Kinect}
+%-------------------------------------------------------------------------------
+
+Celem pomiarów było porównanie działania sensora Kinect i pary stereowizyjnej.
+W tym celu przeanalizowano te same sceny, a obrazy wynikowe przedstawione są
+poniżej. Największą różnicę widać w pokryciu obrazu na mapie głębi (w przypadku
+Kinecta fragmenty nierozpoznane oznaczane są na czarno). Drugą różnicą, której
+nie widać na obrazkach, jest prędkość działania. W przypadku sensora
+firmy Microsoft algorytm jest zaimplementowany sprzętowo, co ma dwie zalety:
+po pierwsze system komputera sterującego jest mniej obciążony, po drugie niezależnie
+od jego obciążenia akwizycja danych działa z prędkością 30 klatek na sekundę.
+
+\begin{figure}[h!]
+\centering
+\includegraphics{../../Common/img/kinect_1}
+\caption[Kinect -- pierwsza scena testowa]{Kinect -- pierwsza scena testowa}
+\label{fig:kinect_1}
+\end{figure}
+
+Na rysunkach pokazany jest obraz z kamery RGB orazbraz widziany przez sensor
+podczerwieni. Mapa głębi wyliczona na podstawie tego obrazu jest dodatkowo nakładana
+na obraz RGB aby pokazać, w jaki sposób punkty z mapy głebi są skalibrowane z obrazem RGB.
+Ogólnie dane dostarczane przez ten sensor są dużo lepszej jakości niż uzyskiwane
+ze stereowizji, jednak istnieją przypadki trudne. Jednym z nich jest wykrywanie
+wąskich, ciemnych przedmiotów (takich jak nogi od krzesła widoczne na
+rysunku~\ref{fig:kinect_3}). Obiekty takie są zbyt małe, aby ich pokrycie przez
+wzór referencyjny było odpowiednio duże, dodatkowo czarny kolor w dużym stopniu
+pochłania światło podczerwone utrudniając ich lokalizację. W przypadku
+korzystania ze stereowizji podobne przypadki nie stanowią problemu, ponieważ
+wąskie, wyraźnie widoczne linie w obrazie są wykrywane jako punkty charakterystyczne
+i są wykorzystywane w procesie tworzenia mapy dysparycji (można to zaobserwować
+na rysunku~\ref{fig:stereo_3}, gdzie pomimo słabego wykrywania całej powierzchni
+podłogi doskonale zaznaczane są czarne linie fug pomiędzy płytkami).
+
+\begin{figure}[h!]
+\centering
+\includegraphics{../../Common/img/kinect_2}
+\caption[Kinect -- druga scena testowa]{Kinect -- druga scena testowa}
+\label{fig:kinect_2}
+\end{figure}
+
+\begin{figure}[h!]
+\centering
+\includegraphics{../../Common/img/kinect_3}
+\caption[Kinect -- trzecia scena testowa]{Kinect -- trzecia scena testowa}
+\label{fig:kinect_3}
+\end{figure}

@@ -1,0 +1,106 @@
+% !TeX root = main.tex
+
+
+\begin{savequote}[70mm]
+,,''
+\qauthor{}
+\end{savequote}
+
+
+\chapter{Aplikacje}
+\label{chap:aplikacje}
+
+\section{Automatyczna kalibracja odometrii i żyroskopu}
+
+Proces kalibracji odometrii oraz pomiarów uzyskiwanych z żyroskopu został
+przestawiony w rozdziale~\ref{chap:software}. W celu jego ułatwienia i
+zautomatyzowania stworzona została aplikacja przeprowadzająca dwuetapową
+kalibrację -- najpierw wyliczająca poprawki dla współczynników kątowych
+żyroskopu i odometrii, a następnie licząca poprawkę dla składnika liniowego
+odometrii. Aby poprawnie przeprowadzić cały proces wymagana jest pusta
+przestrzeń o powierzchni ok. 2x2m, oraz płaska powierzchnia na jednym z końców
+(np. ściana).
+
+\subsection{Wyznaczanie odległości i kąta obrotu względem ściany}
+
+W celu wyznaczenia faktycznej wartości obrotu wykonanego przez robota oraz
+określenia pokonanej odległości, wymagana jest obecność sensora zwracającego
+odczyty laserowe (w przypadku robota Elektron możliwe jest wykorzystanie
+zarówno skanera SICK jak i sensora Kinect z dodatkowym komponentem
+zamieniającym pomiary z chmury punktów na symulację odczytu laserowego). Na
+podstawie punktów zwracanych przez sensor ustawiony na przeciwko ściany
+wyliczana jest orientacja robota względem niej, a także odległość.
+
+\subsubsection{Orientacja}
+
+Dane odczytane z lasera mają postać zbioru punktów we współrzędnych biegunowych.
+Pierwszym krokiem jest ich przeliczenie na współrzędne kartezjańskie w układzie
+związanym ze środkiem sensora. Po takim przeliczeniu, wykorzystując metodę
+najmniejszych kwadratów, wyliczane są parametry prostej przechodzącej możliwie
+blisko danych punktów. Współczynnik kierunkowy tej prostej określa jednocześnie
+orientację robota względem ściany.
+
+Mając dane punkty w postaci $(x_i, y_i)$, gdzie $i=1\ldots n$, oraz przyjmując
+oznaczenia:
+
+\[
+S_x = \sum_{i=1}^n x_i \mathsp
+S_y = \sum_{i=1}^n y_i \mathsp
+S_{xx} = \sum_{i=1}^n x_i^2 \mathsp
+S_{xy} = \sum_{i=1}^n x_i \cdot y_i \mathsp
+%S_{yy} = \sum_{i=1}^n y_i^2 \mathsp
+\Delta = n \cdot S_{xx} - S_x^2
+\]
+
+Współczynniki prostej o równaniu $y=a\cdot x+b$ wyznaczane są przez wzory:
+
+\[
+a = \frac{n \cdot S_{xy} - S_x \cdot S_y}{\Delta} \mathsp
+b = \frac{S_{xx} \cdot S_y - S_x \cdot S_{xy}}{\Delta}
+\]
+
+Skąd orientację robota względem ściany (wyznaczonej prostej) uzyskujemy ze
+wzoru:
+
+\[
+\phi=atan(a)
+\]
+
+\subsubsection{Odległość}
+
+Wykorzystując już punkty we współrzędnych kartezjańskich, odległość od ściany
+wyliczana jest jako średnia z wartości $y$ wszystkich punktów. 
+
+\subsection{Właściwy proces kalibracji}
+
+Przed rozpoczęciem kalibracji robot powinien zostać ustawiony na wprost ściany,
+w odległości ok. 50cm od niej. Pierwszą czynnością po uruchomieniu zadania jest
+wyznaczenie składowej stałej pomiarów z żyroskopu, po czym następują trzy
+pełne obroty robota z różnymi prędkościami (fakt wykonania pełnego obrotu
+wyznaczany jest na podstawie odczytów z odometrii). Po wykonaniu każdego obrotu
+wyliczana jest faktyczna jego wartość (na podstawie porównania orientacji
+względem ściany zmierzonej przed i po wykonaniu obrotu), a razem z nią
+zapamiętywane są wartości obrotu odczytane z odometrii i żyroskopu. Pomiędzy
+kolejnymi pomiarami robot jest pozycjonowany powtórnie na wprost ściany (z
+pewną, niewielką tolerancją) wykorzystując pomiary laserowe. Po wykonaniu
+wszystkich obrotów wyliczane są błędy wskazań odometrii i żyroskopu (stosunek
+wartości odczytanej do zmierzonej laserem), a z nich wyliczana jest średnia
+wartość poprawki, którą należy wprowadzić do współczynników obrotowych obu
+badanych czujników.
+
+Po wykonaniu kalibracji obrotów robot powtórnie ustawia się na wprost ściany, a
+następnie odjeżdża od niej na odległość ok. 2 metrów. Następnie przejeżdża 1.5
+metra do przodu, a po przejechaniu tego dystansu wyliczana jest poprawka
+współczynnika liniowego odometrii (stosunek przejechanej odległości wyliczonej
+przez odometrię do odległości uzyskanej z pomiarów laserowych). Ostateczna
+wartość poprawki wyliczana jest jako średnia z trzech takich przejazdów z
+różnymi prędkościami. Uzyskane w tym procesie wartości współczynników należy
+pomnożyć przez współczynniki już ustawione w sterownikach robota.
+
+
+
+\section{Prosta, losowa eksploracja}
+
+\section{Budowa mapy}
+
+\section{Dojazd do wyznaczonego celu z omijaniem przeszkód}

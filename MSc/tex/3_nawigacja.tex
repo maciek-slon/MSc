@@ -1,0 +1,133 @@
+% !TeX root = main.tex
+
+
+\begin{savequote}[70mm]
+,,''
+\qauthor{}
+\end{savequote}
+
+\chapter{Nawigacja robotów mobilnych}
+\label{chap:nawigacja}
+
+Całe zadanie nawigacji robota mobilnego może zostać podzielone na kilka głównych
+składników \cite[cz.~9]{szynkiewiczWR}:
+
+\begin{itemize}
+  \item precepcję,
+  \item samolokalizację robota,
+  \item wnioskowanie i/lub planowanie,
+  \item tworzenie mapy otoczenia,
+  \item generowanie trajektorii i omijanie przeszkód.
+\end{itemize}
+
+W zależności od potrzeb, nie wszystkie z nich muszą być uwzględnione w systemie
+sterowania (np. roboty mogą poruszać się w terenie, którego mapa jest nieznana
+i nie jest wymagane jej tworzenie, bądź też a priori zakłada się brak
+przeszkód na trasie i nie uwzględnia problemu ich wykrywania). Niniejszy
+rozdział opisuje ogólne metody realizacji poszczególnych elementów systemu.
+
+\section{Percepcja}
+
+Ta część systemu odpowiada za gromadzenie wiedzy o stanie zarówno samego robota,
+jak i otaczającego go środowiska, w którym operuje. Dokonuje się tego przez
+akwizycję danych z czujników a następnie wybieranie tych informacji, które mają
+znaczenie w nawigacji. 
+
+\subsection{Klasyfikacja czujników}
+
+Istnieje cały szereg różnych
+czujników, które ogólnie można pogrupować ze względu na rodzaj mierzonych
+wielkości (wyróżniamy proprioreceptory -- czujniki mierzące wartości parametrów
+wewnętrznych robota,oraz eksteroreceptory -- mierzące wartości parametrów
+otoczenia) oraz wpływ na otoczenie (tutaj mamy podział na czujniki bierne i
+aktywne)~\cite{siegwart}.
+
+
+\subsubsection{Proprioreceptory}
+
+Proprioreceptory mierzą parametry określające w pewien sposób wewnętrzny stan
+robota, takie jak prędkość silników czy napięcie akumulatorów. Wykorzystywane są
+przy wyznaczaniu pozycji robota (czujniki odometryczne), sterowaniu (prędkość
+obrotowa silników) czy diagnostyce jego podzespołów.
+
+\subsubsection{Eksteroreceptory}
+
+Eksteroreceptory pozyskują informację z otoczenia robota, takie jak natężenie
+światła czy amplituda dźwięku. Można za ich pomocą mierzyć odległość,
+orientację, lokalizować zewnętrzne obiekty aż wreszcie budować mapy.
+Ważne jest to, że konkretne sensory są przypisywane do proprio- lub
+eksteroreceptorów w zależności od ich zastosowania, a nie typu mierzonej
+wartości (np. czujnik temperatury zamontowany na radiatorze silnika jest
+czujnikiem wewnętrznym, a ten sam czujnik mierzący temperaturę otoczenia robota
+jest już czujnikiem zewnętrznym).
+
+\subsection{Podstawowe klasy czujników}
+
+\section{Samolokalizacja}
+
+Pod pojęciem samolokalizacji robota rozumie się określenie bieżącej pozycji
+robota w pewnym, ustalonym układzie odniesienia. Do obliczeń wykorzystywane mogą
+być dane uzyskiwane z czujników robota, 
+
+\subsection{Klasyfikacja metod lokalizacji}
+
+Metody lokalizacji robotów mobilnych można podzielić biorąc pod uwagę różne
+kryteria. Kilka możliwych podziałów przedstawione jest w dalszej części
+rozdziału, wraz z przykładami.
+
+\subsubsection{Metody lokalne i globalne}
+
+W zależności od lokalizacji układu odniesienia metody lokalizacji możemy
+podzielić na lokalne i globalne. W metodach lokalnych układ odniesienia, w
+którym następuje lokalizacja jest związany z punktem, z którego robot rozpoczyna
+pracę (a więc początkowe położenie robota jest zerowe bądź wskazane przez
+operatora), tak więc rozpoczynając pracę z faktycznie różnych punktów i
+wykonując tę samą trajektorię (zakładając, że w ogóle może ją w każdym
+przypadku wykonać), mimo takiej samej pozycji wyliczonej przez układ
+lokalizacji robot będzie się znajdował w różnych miejscach.
+
+Metody globalne operują z kolei w układach odniesienia związanych z elementami,
+które nie są bezpośrednio zależne od robota. Mogą to być układy związane z danym
+pomieszczeniem (z ustalonym odgórnie punktem zerowym) bądź takie jak układ
+współrzędnych geograficznych, jak również oparte o mapę i lokalizujące robota
+względem umieszczonych na niej obiektów. W takich metodach kluczowe jest
+określenie pozycji początkowej, które nie zawsze jest łatwe do wykonania.
+Korzystając z odbiorników GPS łatwo zlokalizować robota w przestrzeni otwartej,
+trudniej jest to wykonać w pomieszczeniach. Rozwiązują to metody czynne, których
+opis znajduje się w dalszej części rozdziału.
+
+\subsubsection{Środowisko statyczne i  dynamiczne}
+
+Poprzez określenie środowiska statycznego rozumie się takie otoczenie, w którym
+ruch innych obiektów oprócz robota nie występuje bądź jest niewykrywalny przez
+jego czujniki. Podczas pracy w środowisku dynamicznym (a więc takim, gdzie
+pomimo braku ruchu robota czujniki rejestrują ruch przeszkód) algorytmy
+lokalizacji muszą uwzględniać ten fakt i stosować różne rodzaje filtrowania
+danych tak, aby ruch przeszkód wokół robota nie powodował zmian jego wyliczonego
+położenia. Metodami odpornymi na zmiany w otoczeniu robota są wszystkie te,
+które wykorzystują informacje o przesunięciu odczytywane z czujników
+przesunięcia (np. odometryczne bądź inercyjne), wrażliwe mogą być z kolei metody
+wykorzystujące odczyty laserowe.
+
+\subsubsection{Metody bierne i czynne}
+
+Przy biernych metodach lokalizacji do określenia pozycji robota jego ruch
+(a dokładniej ruch sensorów) nie jest konieczny. Tak działa chociażby GPS, oraz
+wszystkie metody wykorzystujące zewnętrzne nadajniki (np. latarnie radiowe). W
+metodach czynnych do dokładnego określenia pozycji robota wymagany jest jego
+ruch. W takim przypadku możliwe jest dowolne początkowe położenie w układzie
+współrzędnych (bądź na mapie), a wraz z ruchem robota kolejne obserwacje
+doprowadzają do zawężenia przestrzeni możliwych rozwiązań, a po pewnym czasie
+doprowadzają do podania jesnego, ostatecznego położenia. Takimi metodami są np.
+różnego rodzaju filtry cząsteczkowe i inne metody probabilistyczne.
+
+
+\subsubsection{Metody względne i bezwzględne}
+
+
+\section{Tworzenie mapy}
+
+\subsection{Rodzaje map}
+
+\section{Generowanie trajektorii}
+

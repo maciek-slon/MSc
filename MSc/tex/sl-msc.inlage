@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--Inlage 4.5.0 Project File-->
+<InlageProject title="Wykorzystanie informacji z kamery 3D do nawigacji robota mobilnego" opened="2" active="true">
+  <Arguments text="--synctex=-1" />
+  <MasterFile opened="1" filename="main.tex">
+    <Header name="0_glossary" />
+    <Content name="0_title" opened="3" />
+    <Content name="1_wstep" />
+    <Content name="2_porownanie" />
+    <Content name="3_elektron" />
+    <Content name="4_ros" />
+    <Content name="5_mapa" />
+    <Content name="6_aplikacje" />
+    <Bibtex name="mybib" />
+  </MasterFile>
+</InlageProject>

@@ -1,0 +1,35 @@
+% !TeX root = main.tex
+
+\section{Wstęp}
+
+\subsection{Motywacja}
+
+Nawigacja autonomicznego bądź semiautonomicznego robota mobilnego wymaga możliwie
+efektywnych i dokładnych metod analizy otoczenia oraz wykrywania przeszkód.
+Najczęściej stosuje się w tym celu całe zestawy różnych czujników, z których
+podaje odczyty bądź punktowe (np. czujniki zderzeniowe bądź sensory odległości
+wykorzystujące podczerwień albo ultradźwięki) bądź czasami dwuwymiarowe (skanery
+laserowe podające odległość do otaczających przedmiotów, jednak odczyty wykonywane
+jedynie w jednej płaszczyźnie). Taka konfiguracja czujników umożliwia dość sprawne
+poruszanie się w nieznanym środowisku, jednak istnieje szereg przeszkód, których za
+ich pomocą nie da się wykryć. Należą do nich chociażby małe obiekty znajdujące
+się bardzo blisko ziemi (czujniki najczęściej są umieszczone na wysokości od kilku
+do kilkunastu centymetrów) czy obiekty zwisające z góry mogące zahaczyć o wystające
+części przejeżdżającego pod nimi robota.
+
+Wykorzystanie informacji dostarczanych przez czujniki 3D (a więc zwracające informacje
+o głębi w każdym punkcie obserwowanego obrazu w przypadku czujników opartych o kamery)
+pozwala na wykrywanie dużo szerszego spektrum obiektów, a więc sprawniejsze i bezpieczniejsze
+poruszanie się do określonego celu.
+
+\subsection{Cel pracy}
+
+Celem pracy jest implementacja algorytmów wykrywania przeszkód i unikania kolizji
+wykorzystujących informacje dostarczane przez czujniki 3D.
+
+Raport ten opisuje badania eksperymenty przeprowadzone z różnymi urządzeniami
+i algorytmami przeznaczonymi do generowania map głębi sceny (na podstawie obrazu
+z jednej bądź wielu kamer). Każde z rozwiązań jest krótko scharakteryzowane teoretycznie
+(przedstawiona jest jego zasada działania), opisane są przeprowadzone eksperymenty
+(wraz z porównawczą analizą wyników) oraz przedstawione jest rozwiązanie wybrane
+do docelowej realizacji projektu.

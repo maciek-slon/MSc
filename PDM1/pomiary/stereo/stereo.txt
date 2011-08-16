@@ -1,0 +1,9 @@
+average rate: 7.729
+	min: 0.106s max: 0.158s std dev: 0.00757s window: 920
+
+CPU : Intel(R) Core(TM)2 Duo CPU E6550 @ 2.33GHz
+	100%, jeden rdzeń
+
+stereo processor parameters:
+	prefilter_size: 9
+	

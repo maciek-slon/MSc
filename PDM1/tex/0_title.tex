@@ -1,0 +1,165 @@
+% !TeX root = main.tex
+
+\begin{titlepage}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% Strona tytułowa
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+    \begin{center}
+	\begin{tabular}{p{107mm} p{9cm}}
+	    \begin{minipage}{9cm}
+	      \begin{center}
+	      Politechnika Warszawska \\
+	      Wydział Elektroniki i~Technik Informacyjnych \\
+	      Instytut Informatyki
+	      \end{center}
+	    \end{minipage}
+	    &
+	    \begin{minipage}{8cm}
+	    \begin{flushleft}
+	     \footnotesize
+	      Rok akademicki 2010/2011
+	    \vspace*{2.75\baselineskip}
+	    \end{flushleft}
+	    \end{minipage} \\
+	    \vspace*{1.0\baselineskip}
+	\end{tabular}
+	\includegraphics[width=4cm]{../img/logo_pw}
+	\par\vspace{\smallskipamount}
+	\vspace*{2\baselineskip}{\LARGE PRACA DYPLOMOWA MAGISTERSKA\par}
+	\vspace{3\baselineskip}{\LARGE\strut Maciej Stefańczyk\par}
+	\vspace*{2\baselineskip}{\huge\bfseries Wykorzystanie informacji z kamery 3D do nawigacji robota mobilnego\par}
+
+	\vspace*{1\baselineskip}
+	\hfill\mbox{}\par\vspace*{\baselineskip}\noindent
+	\begin{tabular}[b]{@{}p{3cm}@{\ }l@{}}
+	    {\large\hfill } & {\large }
+	\end{tabular}
+	\hfill
+	\begin{tabular}[b]{@{}l@{}}
+	Opiekun pracy: \\[\smallskipamount]
+	{\large dr inż. Tomasz Winiarski}
+	\end{tabular}\par
+	\vspace*{4\baselineskip}
+\begin{tabular}{p{\textwidth}}
+    \begin{flushleft}
+	\begin{minipage}{7cm}
+	Ocena \dotfill
+	\par\vspace{1.6\baselineskip}
+	\dotfill
+	\par\noindent
+	\centerline{\footnotesize Podpis Przewodniczącego} \par
+	\centerline{\footnotesize Komisji Egzaminu Dyplomowego}\par
+	\end{minipage}
+    \end{flushleft}
+    \end{tabular}
+    \end{center}
+
+    %}
+
+	    \cleardoublepage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% Dane osobowe
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    \newpage\thispagestyle{empty}
+    \begin{tabular}{p{5cm} p{11cm}}
+
+    %%% Zdjęcie
+    \begin{minipage}{5cm}
+    \center
+    \includegraphics[height=6.5cm,width=4.5cm]{../img/foto}
+    \end{minipage}
+    &
+
+    %%% Data urodzenia, specjalność itp.
+    \begin{minipage}{10cm}
+
+    Specjalność: \hfill Inżynieria Systemów Informatycznych\\
+    \\
+    Data urodzenia: \hfill 1985.05.04\\
+    \\
+    Data rozpoczęcia studiów: \hfill 2007.02.21\\
+
+    \end{minipage}
+
+    \end{tabular}
+
+    \vspace*{1\baselineskip}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% Życiorys
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    \begin{center}
+	{\large\bfseries Życiorys}\par\bigskip
+    \end{center}
+
+    \indent
+    Urodziłem się 4 maja 1985 roku w Warszawie. W~roku 2000 ukończyłem szkołę
+    podstawową im.~Kornela Makuszyńskiego, a~w~latach 2000-2004 byłem uczniem
+    XXVIII Liceum Ogólnokształcącego im. Jana Kochanowskiego w Warszawie.
+    Po ukończeniu szkoły z~wyróżnieniem przez dwa lata studiowałem matematykę na
+    wydziale Matematyki i~Nauk Informacyjnych Politechniki Warszawskiej, a~od
+    21 lutego 2007 studiuję na wydziale Elektroniki i~Technik Informacyjnych tej
+    samej uczelni. W dniu 29 września 2010 uzyskałem tytuł inżyniera z wynikiem
+    celującym.
+    \par
+    \vspace{2\baselineskip}
+    \hfill\parbox{15em}{{\small\dotfill}\\[-.3ex]
+    \centerline{\footnotesize podpis studenta}}\par
+
+    \vspace{3\baselineskip}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% Ocena egzaminu
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    \begin{center}
+ 	{\large\bfseries Egzamin dyplomowy} \par\bigskip\bigskip
+    \end{center}
+    \par\noindent\vspace{1.5\baselineskip}
+    Złożył egzamin dyplomowy w dn. \dotfill
+    \par\noindent\vspace{1.5\baselineskip}
+    Z wynikiem \dotfill
+    \par\noindent\vspace{1.5\baselineskip}
+    Ogólny wynik studiów \dotfill
+    \par\noindent\vspace{1.5\baselineskip}
+    Dodatkowe wnioski i uwagi Komisji \dotfill
+    \par\noindent\vspace{1.5\baselineskip}
+    \dotfill
+
+
+	    \cleardoublepage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% Streszczenie
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    \newpage\thispagestyle{empty}
+    \vspace*{2\baselineskip}
+    \begin{center}
+	{\large\bfseries Streszczenie}\par\bigskip
+    \end{center}
+
+    {\itshape
+    Celem niniejszej pracy inżynierskiej było zaprojektowanie i implementacja nowej wersji struktury ramowej FraDIA, służącej do przetwarzania i analizy obrazów. W przeciwieństwie do pierwowzoru, nowa aplikacja miała umożliwiać przetwarzanie nie tylko obrazów, ale także danych sensorycznych innego typu (np. dźwięk), a także powinna działać na różnych platformach (przynajmniej Windows i Linux).
+
+    W pracy przedstawiono wszystkie fazy projektu, rozpoczynając od przeglądu istniejących rozwiązań oraz analizy potrzeb, na podstawie których powstały konkretne wymagania dotyczące tworzonego systemu. Na podstawie wymagań stworzona została aplikacja, której poprawność została zweryfikowana przy pomocy zadań testowych.
+    }
+    \vspace*{1\baselineskip}
+
+    \noindent{\bf Słowa kluczowe}: {\itshape FraDIA, przetwarzanie obrazów, dane sensoryczne, system komponentowy, struktura ramowa. }
+    \par
+    \vspace{4\baselineskip}
+    \begin{center}
+	{\large\bfseries Abstract}\par\bigskip
+    \end{center}
+    \noindent{\bf Title}: {\itshape Framework for sensory data processing.}\par
+    \vspace*{1\baselineskip}
+    {\itshape
+    The aim of this thesis was to design and implement a new version of FraDIA framework, used for image processing and analysis. Unlike its prototype, the new application should be able to process not only images, but also other types of sensory data (e.g. audio), and should work on different platforms (Windows and Linux at least).
+
+    The paper presents a series of works, starting with a review of existing systems and requirements analysis, based on which system specification was made. Based on this requirements application has been created, and was verified using the test tasks.
+    }
+    \vspace*{1\baselineskip}
+
+    \noindent{\bf Keywords}: {\itshape FraDIA, image processing, sensory data, component system, framework.}
+
+\end{titlepage}

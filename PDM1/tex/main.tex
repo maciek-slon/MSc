@@ -1,0 +1,423 @@
+%\pdfinfo
+%{
+%    /Author (Maciej Stefanczyk)
+%    /Title (Wykorzystanie informacji z kamery 3D do nawigacji robota mobilnego)
+%    /Subject (Praca dyplomowa magisterska)
+%    /Keywords ()
+%}
+
+\documentclass[a4paper,12pt,twoside]{book}
+\usepackage{latexsym}
+\usepackage[MeX]{polski}
+\usepackage[utf8]{inputenc}	% kodowanie znaków
+\usepackage{indentfirst}
+\usepackage{color}		% kolory
+\usepackage{xcolor}		% bonusowe kolory
+\usepackage{textcomp}
+
+\author{Maciej Stefańczyk}
+\title{Wykorzystanie informacji z kamery 3D do nawigacji robota mobilnego}
+
+% Kompilacja warunkowa
+\usepackage{ifthen}
+
+% Dołączenie załączników
+\newboolean{Appendices}
+\setboolean{Appendices}{false}
+
+% Kolorowanie składni
+\newboolean{ColorListing}
+\setboolean{ColorListing}{false}
+
+% Kontrola stylu numerowania
+\usepackage{enumerate}
+
+% Numerowanie opisu kodu (liczba w nawiasach kwadratowych)
+\newcounter{codedescenumcnt}
+\newenvironment{codedescenum}
+{
+  \begin{list}{[ \arabic{codedescenumcnt} ]}
+     {\usecounter{codedescenumcnt}}
+}
+{
+\end{list}
+}
+
+% Obracanie niektórych stron w celu umieszczenia np. szerokiej tabeli
+\usepackage{pdflscape}
+
+% Styl numerowania rozdziałów
+\renewcommand\thechapter{\arabic{chapter}}
+\renewcommand\thesection{\arabic{chapter}.\arabic{section}.}
+\renewcommand\thesubsection{\arabic{chapter}.\arabic{section}.\arabic{subsection}.}
+\renewcommand\thesubsubsection{\arabic{chapter}.\arabic{section}.\arabic{subsection}.\arabic{subsubsection}.}
+
+
+\usepackage{tabularx}
+
+\usepackage{url}
+%% Define a new 'leo' style for the package that will use a smaller font.
+\makeatletter
+\def\url@leostyle{%
+  \@ifundefined{selectfont}{\def\UrlFont{\sf}}{\def\UrlFont{\small\ttfamily}}}
+\makeatother
+
+\makeatletter
+\def\url@footleostyle{%
+  \@ifundefined{selectfont}{\def\UrlFont{\sf}}{\def\UrlFont{\footnotesize\ttfamily}}}
+\makeatother
+%% Now actually use the newly defined style.
+\urlstyle{leo}
+
+\newcommand{\footurl}[1]{%
+	\urlstyle{footleo}
+	\url{#1}
+	\urlstyle{leo}
+}%
+
+% Dodatkowa otoczka dla tabelek, dzięki której przypisy z tabel pojawiają
+% się bezpośrednio pod nimii
+\newenvironment{xaroundtbl}{\begin{flushleft}
+  \renewcommand{\footnoterule}{}
+  \begin{minipage}{\linewidth}
+  \begin{center}}%5
+ {\end{center}\end{minipage}\end{flushleft}}
+
+\usepackage{hyperref}	% linki w spisie treści, odnośniki, zakładki w pdf
+\hypersetup{
+    colorlinks,
+    citecolor=black,
+    filecolor=black,
+    linkcolor=black,
+    urlcolor=black,
+    pdftitle={Wykorzystanie informacji z kamery 3D do nawigacji robota mobilnego},
+    pdfauthor={Maciej Stefańczyk}
+}
+
+\usepackage{upquote}  	% zamiana cudzysłowów klasycznych (,, ") na górne (" ") w kodach źródłowych
+\usepackage{graphicx}	% wstawianie obrazków
+\usepackage{amsmath}
+
+% Ustawienie marginesów
+\oddsidemargin=0.5cm
+\evensidemargin=-0.5cm
+\topmargin=0cm
+\textwidth=16cm
+\textheight=23cm
+
+% Ładniejsze tabelki
+\usepackage{booktabs}
+
+% Zdefiniowanie autora i~tytułu:
+\author{Maciej Stefańczyk}
+\title{Struktura ramowa do przetwarzania danych sensorycznych}
+
+\frenchspacing
+
+\clubpenalty=10000		% to kara za sierotki
+\widowpenalty=10000		% nie pozostawia wdów
+\brokenpenalty=10000 	% nie dzieli wyrazów pomiędzy stronami
+
+% Nagłówki i stopki
+\usepackage{fancyhdr}
+
+%% first reset the headers
+\fancyhead{}
+%% make the odd pages have the section name on the top right
+\fancyhead[LO]{\scriptsize\sffamily\bfseries \rightmark}
+\fancyhead[RO]{\small\sffamily\bfseries \thepage}
+
+%% make the even pages have the chapter name on the top left
+\fancyhead[RE]{\scriptsize\sffamily\bfseries \leftmark}
+\fancyhead[LE]{\small\sffamily\bfseries \thepage}
+
+%% reset footers (remove page number etc)
+\fancyfoot{}
+
+%% now redefine the plain style pages (chapter pages, contents pages)
+%% to have the same page number stuff on the bottom
+\fancypagestyle{plain}{
+  \fancyhead{}
+  \fancyfoot{}
+  \renewcommand{\headrulewidth}{0.0pt}
+}
+
+\renewcommand{\headheight}{13.6pt}
+
+
+\pagestyle{fancy}
+
+%% now change the chapter style
+%% load up the quotchap package
+\usepackage[palatino]{quotchap}
+
+%% make the quotation appear next to the chapter number
+\renewcommand\chapterheadstartvskip{\vspace*{-2\baselineskip}}
+
+%% now change the section heading to have a line beneath it
+%% load up the fancy title-style package
+%\usepackage[calcwidth]{titlesec}
+
+%\titleformat{\section}[hang]{\sffamily\bfseries}
+%{\Large\thesection}{12pt}{\Large}[{\titlerule[0.5pt]}]
+
+%% this next section (till \makeatother) makes sure that blank pages
+%% are actually completely blank, cause they're not usually
+\makeatletter
+\def\cleardoublepage{\clearpage\if@twoside \ifodd\c@page\else
+	\hbox{}
+	\vspace*{\fill}
+	\thispagestyle{empty}
+	\newpage
+	\if@twocolumn\hbox{}\newpage\fi\fi\fi}
+\makeatother
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Rzeczy związane z Doxygenem
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\usepackage{doxygen}
+%\usepackage{import}
+
+%\sloppy
+
+%\usepackage{appendix}
+%\renewcommand{\appendixtocname}{Załączniki}
+%\renewcommand{\appendixpagename}{Załączniki}
+%\renewcommand{\appendixname}{Załącznik}
+
+
+\makeatletter
+% define command to be inserted where the list is to be inserted - this creates
+% an auxiliary file for the appendix list with a .app extension
+\newcommand{\listofappendices}{\@starttoc{app}}
+
+% define command to be used to insert an appendix string into the app
+% table with entry type myappendix
+\newcommand{\addtoappendixlist}[1]{\addcontentsline{app}{chapter}{#1}}
+
+% define the command actually used to start an Appendix - generate an
+% unnumbered chapter header and then insert the string name into the table.
+%\newcommand{\appchapter}[1]{\chapter*{#1}\addtoappendixlist{#1}}
+
+% define the required command needed to format a myappendix type entry in
+% the table.  It uses the standard \@dottedtocline command to actually format
+% the entry in the table.
+\newcommand{\l@myappendix}[2]{\@dottedtocline{1}{1.5em}{2.3em}{#1}{#2}}
+
+\newcommand{\appchapter}[1]{
+    \chapter*{#1}
+    \addcontentsline{app}{chapter}{#1}
+    \addcontentsline{toc}{section}{#1}
+}
+
+\newcommand{\appsection}[1]{%
+    \refstepcounter{section}%
+    \section*{\thesection \quad #1}
+    \addcontentsline{app}{section}{\thesection \quad #1}
+}%
+
+\newcommand{\appsubsection}[1]{%
+    \refstepcounter{subsection}%
+    \subsection*{\thesubsection \quad #1}
+%    \addcontentsline{app}{subsection}{\thesubsection \quad #1}
+}%
+
+\makeatother
+
+\usepackage{caption}
+\captionsetup{
+	margin=10pt,
+	font=small,
+	labelfont=bf
+}
+
+\expandafter\def\expandafter\quote\expandafter{\quote\small}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Ustawienia wyglądu listingów
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Pakiet dla kolorowacza składni
+\usepackage{listingsutf8} 		% kolorowanie składni
+
+% Pakiety z ładnymi czcionkami
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+% Ustawienia dające w miarę dobry rezultat dla listingów
+%\DeclareFontFamily{T1}{lmtt}{}
+%\DeclareFontShape{T1}{lmtt}{m}{n}{<-> ec-lmtl10}{}
+%\DeclareFontShape{T1}{lmtt}{\bfdefault}{n}{<-> ec-lmtk10}{}
+%\DeclareFontShape{T1}{lmtt}{m}{it}{<-> ec-lmtlo10}{}
+
+% Czcionka o stałej szerokości dająca dobry wygląd listingów
+\usepackage[scaled]{beramono}
+
+% Ustawienie ładnych etykiet do kodów źródłowych
+%\usepackage[hang,small,bf]{caption}
+%\DeclareCaptionFont{white}{\color{white}}
+%\DeclareCaptionFormat{listing}{\colorbox{gray}{\parbox{\textwidth}{\textbf{#1#2}#3}}}
+%\captionsetup[lstlisting]{format=listing,labelfont=white,textfont=white}
+
+% Nagłówek kodu źródłowego
+\renewcommand*\lstlistingname{Wydruk}
+
+% Nagłówek spisu źródeł
+\renewcommand*\lstlistlistingname{Spis wydruków}
+
+% Ustawienia wyglądu listingów (kolory, wcięcia, ...)
+\lstset{
+	language=,                               % choose the default language of the code
+	basicstyle=\footnotesize\ttfamily,       	% the size of the fonts that are used for the code
+	numbers=left,                   		% where to put the line-numbers
+	numberstyle=\tiny,      			% the size of the fonts that are used for the line-numbers
+	stepnumber=1,                   		% the step between two line-numbers. If it's 1 each line will be numbered
+	numbersep=5pt,                  		% how far the line-numbers are from the code
+	showspaces=false,               		% show spaces adding particular underscores
+	showstringspaces=false,         	% underline spaces within strings
+	showtabs=false,                 		% show tabs within strings adding particular underscores
+	tabsize=4,	                		% sets default tabsize
+	captionpos=b,                   		% sets the caption-position
+	breaklines=true,                		% sets automatic line breaking
+	breakatwhitespace=true,        	% sets if automatic breaks should only happen at whitespace
+	extendedchars=true,
+	literate={ą}{{\k{a}}}1 {ł}{{\l{}}}1 {ń}{{\'n}}1 {ę}{{\k{e}}}1 {ś}{{\'s}}1 {ż}{{\.z}}1 {ó}{{\'o}}1 {ź}{{\'z}}1
+                 {Ą}{{\k{A}}}1 {Ł}{{\L{}}}1 {Ń}{{\'N}}1 {Ę}{{\k{E}}}1 {Ś}{{\'S}}1 {Ż}{{\.Z}}1 {Ó}{{\'O}}1 {Ź}{{\'Z}}1 ,
+%	keywordstyle=\color{black}\bfseries,
+	identifierstyle=,
+%	commentstyle=\color{gray}\slshape,
+%	stringstyle=\color[RGB]{70,70,70}\slshape,
+	xleftmargin=30pt,
+	frame=tb,
+	framexleftmargin=30pt,
+}
+
+\ifthenelse {\boolean{ColorListing}}
+{
+
+\lstset{
+	keywordstyle=\color[RGB]{170,70,20}\bfseries,
+	commentstyle=\color[RGB]{150,180,120}\itshape,
+	stringstyle=\color[RGB]{20,140,200}\slshape,
+}
+
+} % \ifthenelse {\boolean{ColorListing}}
+{
+
+\lstset{
+	keywordstyle=\color{black}\bfseries,
+	commentstyle=\color{gray}\itshape,
+	stringstyle=\color[RGB]{70,70,70}\slshape,
+}
+
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Ustawienia wyglądu różnych elementów
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Znaki wypunktowania w listach nieuporządkowanych
+\renewcommand{\labelitemi}{--}
+\renewcommand{\labelitemii}{--}
+\renewcommand{\labelitemiii}{--}
+\renewcommand{\labelitemiv}{--}
+
+% dodatkowe symbole
+\usepackage{amssymb}
+\usepackage{wasysym}
+
+% definicja symboli do tabeli cech
+\def\YES{\CIRCLE}        % posiada
+\def\HALF{\LEFTcircle}   % częściowo posiada
+\def\NO{\Circle}         % nie posiada
+\def\NA{$\times$}          % nie dotyczy
+\newcommand{\lbo}[1]{
+    \linebreak
+    {\scriptsize #1}
+}
+
+% styl tekstu dla nazw klas i funkcji w tekście
+\newcommand\code[1]{\textit{#1}}
+
+% styl tekstu dla słów w językach obcych
+\newcommand\lang[1]{\textit{#1}}
+
+% powtarzające się przypisy
+\usepackage{fixfoot}
+
+
+% słowniczek
+\usepackage[toc,nonumberlist]{glossaries}
+\makeglossary
+
+\newglossarystyle{mylist}{%
+\glossarystyle{list}% base this style on the list style
+\renewenvironment{theglossary}{\begin{multicols}{2}\begin{description}}{\end{description}\end{multicols}}%
+ \renewcommand*{\glossaryentryfield}[5]{%
+ \item[\glstarget{##1} {##2}:] ##3
+ }
+}
+
+\glossarystyle{mylist}
+
+\usepackage{multicol}
+
+\input{0_glossary}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Treść
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\setcounter{tocdepth}{2}
+
+
+%\usepackage[sort]{natbib}
+
+\begin{document}
+%\bibliographystyle{ieeetr}
+\bibliographystyle{plplain}
+
+% Wstawienie strony tytułowej
+\input{0_title}
+
+% Wstawienie spisu treści:
+\tableofcontents
+
+% Kolejne rozdziały
+\cleardoublepage
+\input{1_wstep}
+\cleardoublepage
+\input{2_porownanie}
+\cleardoublepage
+\input{3_elektron}
+\cleardoublepage
+\input{4_ros}
+\cleardoublepage
+\input{5_mapa}
+
+\glsaddall
+\cleardoublepage
+\printglossary[title=Słownik pojęć,toctitle=Słownik pojęć]
+
+\cleardoublepage
+\phantomsection
+\addcontentsline{toc}{chapter}{Spis rysunków}
+\listoffigures
+
+\cleardoublepage
+\phantomsection
+\addcontentsline{toc}{chapter}{Spis tabel}
+\listoftables
+
+%\cleardoublepage
+%\phantomsection
+%\addcontentsline{toc}{chapter}{Spis wydruków}
+%\lstlistoflistings
+
+
+% Bibliografia
+\cleardoublepage
+\phantomsection
+\addcontentsline{toc}{chapter}{Bibliografia}
+\bibliography{mybib}
+
+\end{document}

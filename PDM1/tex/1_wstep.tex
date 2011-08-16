@@ -1,0 +1,43 @@
+% !TeX root = main.tex
+
+
+\begin{savequote}[80mm]
+\begin{enumerate}
+\item Robot nie może skrzywdzić człowieka, ani przez zaniechanie działania dopuścić, aby człowiek doznał krzywdy.\\
+\item Robot musi być posłuszny rozkazom człowieka, chyba że stoją one w~sprzeczności z~Pierwszym Prawem.\\
+\item Robot musi chronić sam siebie, jeśli tylko nie stoi to w~sprzeczności z~Pierwszym lub Drugim Prawem.\end{enumerate}
+\qauthor{Isaac Asimov}
+\end{savequote}
+
+
+\chapter{Wstęp}
+\label{chap:wstep}
+
+\section{Motywacja}
+
+Nawigacja autonomicznego bądź semiautonomicznego robota mobilnego wymaga możliwie
+efektywnych i dokładnych metod analizy otoczenia oraz wykrywania przeszkód.
+Najczęściej stosuje się w tym celu całe zestawy różnych czujników, z których
+podaje odczyty bądź punktowe (np. czujniki zderzeniowe bądź sensory odległości
+wykorzystujące podczerwień albo ultradźwięki) bądź czasami dwuwymiarowe (skanery
+laserowe podające odległość do otaczających przedmiotów, jednak odczyty wykonywane
+jedynie w jednej płaszczyźnie). Taka konfiguracja czujników umożliwia dość sprawne
+poruszanie się w nieznym środowisku, jednak istnieje szereg przesgód, których za
+ich pomocą nie da się wykryć. Należą do nich chociażby małe obiekty znajdujące
+się bardzo blisko ziemi (czujniki najczęściej są umieszczone na wysokości od kilku
+do kilkunastu centymetrów) czy obiekty zwisające z góry mogące zahaczyć o wystające
+części przejeżdżającego pod nimi robota.
+
+Wykorzystanie informacji dostarczanych przez czujniki 3D (a więc zwracające informacje
+o głębi w każdym punkcie obserwowanego obrazu w przypadku czujników opartych o kamery)
+pozwala na wykrywanie dużo szerszego spektrum obiektów, a więc sprawniejsze i bezpeczniejsze
+poruszanie się do okreslonego celu.
+
+\section{Cel pracy}
+
+Celem pracy jest stworzenie pełnego systemu sterowania robota mobilnego,
+wykorzystującego informacje o otoczeniu z wielu źródeł, w tym z kamery 3D.
+
+\section{Struktura pracy}
+
+
