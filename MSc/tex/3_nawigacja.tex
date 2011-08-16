@@ -39,29 +39,56 @@ Istnieje cały szereg różnych
 czujników, które ogólnie można pogrupować ze względu na rodzaj mierzonych
 wielkości (wyróżniamy proprioreceptory -- czujniki mierzące wartości parametrów
 wewnętrznych robota,oraz eksteroreceptory -- mierzące wartości parametrów
-otoczenia) oraz wpływ na otoczenie (tutaj mamy podział na czujniki bierne i
+otoczenia) oraz wpływ na otoczenie (tutaj mamy podział na czujniki pasywne i
 aktywne)~\cite{siegwart}.
 
 
-\subsubsection{Proprioreceptory}
+\subsubsection{Proprioreceptory i eksteroreceptory}
 
 Proprioreceptory mierzą parametry określające w pewien sposób wewnętrzny stan
 robota, takie jak prędkość silników czy napięcie akumulatorów. Wykorzystywane są
 przy wyznaczaniu pozycji robota (czujniki odometryczne), sterowaniu (prędkość
-obrotowa silników) czy diagnostyce jego podzespołów.
-
-\subsubsection{Eksteroreceptory}
-
-Eksteroreceptory pozyskują informację z otoczenia robota, takie jak natężenie
+obrotowa silników) czy diagnostyce jego podzespołów. Eksteroreceptory 
+pozyskują informację z otoczenia robota, takie jak natężenie
 światła czy amplituda dźwięku. Można za ich pomocą mierzyć odległość,
 orientację, lokalizować zewnętrzne obiekty aż wreszcie budować mapy.
+
 Ważne jest to, że konkretne sensory są przypisywane do proprio- lub
 eksteroreceptorów w zależności od ich zastosowania, a nie typu mierzonej
 wartości (np. czujnik temperatury zamontowany na radiatorze silnika jest
 czujnikiem wewnętrznym, a ten sam czujnik mierzący temperaturę otoczenia robota
 jest już czujnikiem zewnętrznym).
 
+\subsubsection{Pasywne i aktywne}
+
+Czujniki pasywne rejestrują jeydnie energię przychodzącą z otoczenia i na
+jej podstawie określają wielkość mierzonego parametru. Do takich czujników 
+należą termometry, mikrofony, kamery wizyjne, czy czujniki uderzeniowe.
+Czujniki aktywne do wykonania pomiaru wymagają wyemitowania dodatkowej energii
+do otoczenia, a następnie pomiar wykonywany jest na podstawie pomiaru ilości
+energii, która powróciła do sensora. Zaletą czujników pasywnych jest brak
+dodatkowych zakłóceń wprowadzanych do otoczenia, które mogą się pojawić 
+przy korzystaniu z czujników aktywnych (które mogą się pojawić przy korzystaniu
+z wielu takich samych czujników na jednym bądź wielu robotach), problemem 
+przy czujnikach aktywnych jest także możliwość zafałszowania samej mierzonej
+wartości przez emitowaną energię (np. powstawanie odblasków). Największą zaletą
+czujników aktywnych jest możliwość pracy w trudniejszych warunkach (np. nie
+jest wymagane oświetlenie zewnętrzne przy pomiarach odległości).
+
 \subsection{Podstawowe klasy czujników}
+
+Czujniki dostępne w robotyce można wreszcie podzielić na klasy ze względu 
+na metodę ich działania. poniżej przedstawione są główne klasy, w porządku
+rosnącym pod względem skomplikowania konstrukcji, a malejącym ze względu na
+dojrzałość konstrukcji~\cite{siegwart}.
+
+\subsubsection{Czujniki dotykowe}
+\subsubsection{Czujniki odometryczne}
+\subsubsection{Czujniki orientacji}
+\subsubsection{Naziemne latarnie kierunkowe}
+\subsubsection{Aktywne czujniki odległości}
+\subsubsection{Czujniki prędkości i ruchu}
+\subsubsection{Czujniki wizyjne}
 
 \section{Samolokalizacja}
 
