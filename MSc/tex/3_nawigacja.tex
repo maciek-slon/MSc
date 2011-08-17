@@ -82,13 +82,91 @@ na metodę ich działania. poniżej przedstawione są główne klasy, w porządk
 rosnącym pod względem skomplikowania konstrukcji, a malejącym ze względu na
 dojrzałość konstrukcji~\cite{siegwart}.
 
-\subsubsection{Czujniki dotykowe}
+\subsubsection{Czujniki dotykowe i zbliżeniowe}
+
+Czujniki te mają za zadanie wykryć kontakt bądź niebezpiecznie małą odległość
+od przedmiotów w otoczeniu robota, stosowane zarówno jako zderzaki do wykrywania
+przeszkód jak i wyłączniki bezpieczeństwa (np. wykrywające nieprzewidziane 
+pojawienie się człowieka w zasięgu pracy robota). Mogą być zarówno w wersji 
+kontaktowej (przełączniki mechaniczne o różnej konstrukcji, od przycisków
+do wąsów o pewnym stopniu podatności) jak i wykrywające przeszkody bez 
+kontaktu z nimi (np. bariery optyczne reagujące na przerwanie wiązki świetlnej
+pomiędzy nadajnikiem i odbiornikiem, czy też indukcyjne czujniki zbliżeniowe
+reagujące na pojawienie się w pobliżu metalowego przedmiotu).
+
 \subsubsection{Czujniki odometryczne}
+
+Czujniki odometryczne mierzą prędkość bądź położenie obrotowych elementów
+robota (wału silnika, kół czy stawów). Odczyty z nich wykorzystywane są 
+później m.in. przy wyliczaniu pozycji robota. Do czujników tej klasy zalicza się
+różnego typu enkodery (optyczne, magnetyczne itp.), resolwery, a także potencjometry.
+Czujniki dotykowe i odometryczne są wykorzystywane jako podstawowe źródło 
+informacji w robotyce praktycznie w każdej kostrukcji, czy to robota mobilnego,
+czy manipulatora.
+
 \subsubsection{Czujniki orientacji}
-\subsubsection{Naziemne latarnie kierunkowe}
+
+Czujniki z tej grupy służą do mierzenia orientacji robotów (głównie mobilnych, 
+a przede wszystkim robotów latających) w pewnym globalnym układzie odniesienia.
+Tutaj można wyróżnić trzy zasadnicze typy -- kompasy podające orientację
+względem magnetycznego bieguna północnego Ziemi, żyroskopy służące do pomiaru
+bądź utrzymywania położenia kątowego, oraz inklinometry służące do określania 
+kąta wychylenia od pionu wyznaczonego przez siłę grawitacji ziemskiej.
+
+\subsubsection{Latarnie kierunkowe}
+
+Do pomiaru położenia w globalnych układach współrzędnych służą czujniki
+wykorzystujące triangulację. Zaliczamy do nich odbiorniki GPS, odbiorniki GSM
+potrafiące lokalizować się na podstawie nadajników sieci komórkowych, a także
+aktywne latarnie optyczne, radiowe bądź ultradźwiękowe.
+
 \subsubsection{Aktywne czujniki odległości}
+
+Do pomiaru odległości od przedmiotów otaczających robota, a nie będących
+w bezpośrednim zasięgu czujników dotykowych, wykorzystuje się czujniki odległości
+takie jak dalmierze i skanery laserowe, czujniki odbiciowe (zarówno na podczerwień, 
+jak i ultradźwiękowe), a także metody oparte o światło strukturalne (opisane szerzej
+w poprzednim rozdziale).
+
 \subsubsection{Czujniki prędkości i ruchu}
+
+Do pomiaru prędkości robota względem zewnętrznego układu współrzędnych (bądź
+względem innych obiektów w otoczeniu) wykorzystać można efekt Dopplera (zmiana
+częstotliwości fali przy odbiciu od ruchomych obiektów, w szczgólności ruchomy 
+może być sam nadajnik, a mierzona zmiana częstotliwości fali odbitej od podłoża).
+Najczęściej wykorzystywane są w robotach wodnych~\cite{doppler_underwater} i latających, gdzie nie 
+można zmierzyć prędkości w prosty sposób przy użyciu czujników odometrycznych
+(nie jest znana prędkość powietrza/wody w otoczeniu robota)~\cite{whereami}.
+Podejmowane były też testy z wykorzystaniem tego typu czujników przy lokalizacji
+robotów mobilnych (rozwiązanie oparte o fale radiowe~\cite{doppler_mobilesensor}).
+Czujnikami tego typu są sonary oraz radary dopplerowskie (ultradźwiękowe
+oraz mikrofalowe).
+
 \subsubsection{Czujniki wizyjne}
+
+Najbardziej skomplikowane z punktu widzenia algorytmiki są czujniki wizyjne
+(kamery oparte na sensorach CCD lub CMOS), działające w różnych pasmach
+(zarówno w świetle widzialnym, jak i podczerwieni). Mogą być wykorzystywane
+do biernego pomiaru odległości (np. stereowizja, bez wykorzystywania dodatkowych
+emiterów, jak w przypadku światła strukturalnego), pomiarów prędkości, 
+a co za tym idzie położenia robota (algorytmy korzystające zarówno ze stereopary
+kamer~\cite{vodom_stereo} jak i kamery pojedynczej~\cite{vodom_mono}) czy budowania
+map (zamierających punkty charakterystyczne otoczenia~\cite{vslam}). Oprócz
+czynności czysto nawigacyjnych sensory tego typu wykorzystywane są przy całej
+gamie innych czynności, jak wykrywanie i śledzenie obiektów w obszarze pracy robota,
+rozpoznawanie twarzy w aplikacjach wymagających bliskej współpracy z operatorem
+czy wreszcie całościowej analizy i rozumienia sceny.
+
+\subsubsection{Czujniki innych wielkości fizycznych i chemicznych}
+
+Czujniki wielkości fizycznych i chemicznych trudno dopasować do przedstawionego
+wyżej schematu (uporządkowania rosnącego ze względu na stopień skomplikowania).
+W tej kategorii mieszczą się zarówno proste sensory takich wartości jak
+napięcie (i innych, które można łatwo przekształcić na napięcie, takich jak 
+wiele wielkości elektrycznych czy temperatura), przez bardziej skomplikowane
+czujniki chemiczne mierzące stężenia różnych substacji w otoczeniu (zarówno
+wodzie jak i powietrzu), aż po skomplikowane sensory mierzące zapachy
+w specjalistycznych aplikacjach robotycznych.
 
 \section{Samolokalizacja}
 
@@ -148,13 +226,35 @@ doprowadzają do zawężenia przestrzeni możliwych rozwiązań, a po pewnym cza
 doprowadzają do podania jesnego, ostatecznego położenia. Takimi metodami są np.
 różnego rodzaju filtry cząsteczkowe i inne metody probabilistyczne.
 
+\section{Mapy otoczenia}
 
-\subsubsection{Metody względne i bezwzględne}
-
-
-\section{Tworzenie mapy}
+W przypadku, kiedy konieczna jest znajomość otoczenia robota wymagany jest pewien
+sposób jej reprezentacji, taki, który będzie można stosunkowo łatwo analizować 
+i podejmować na jego podstawie decyzje (np. o aktualnej pozycji). Wyróżnić
+można dwa podstawowe zagadnienia w tym zakresie -- sam sposób reprezentacji,
+oraz metody tworzenia map.
 
 \subsection{Rodzaje map}
+
+Problem odwzorowania otoczenia robota na postać użyteczną w jego sterowaniu 
+związany z ogólnymi założeniami przyjętymi co do dokładności lokalizacji robota
+na owej mapie oraz precyzji osiągania celów. Im większa wymagana precyzja
+tym dokładniejsze muszą być wykorzystywane mapy. Kolejnym czynnikiem wpływającym
+na wybór typu mapy są czujniki dostępne na robocie -- bezcelowe jest wykorzystywanie
+map przechowujących charakterystyczne punkty otoczenia uzyskane np. w algorytmie
+vSLAM na robocie, który nie jest wyposażony w kamery. Ostatnim czynnikiem
+jest możliwy do poświęcenia czas procesora wymagany do obsługi samych map 
+i lokalizacji robota.
+
+
+
+\subsection{Tworzenie map}
+
+\subsubsection{Wykorzystanie gotowych map}
+
+\subsubsection{Ręczne tworzenie prostych map otoczenia}
+
+\subsubsection{Automatyczne tworzenie map przez robota}
 
 \section{Generowanie trajektorii}
 
