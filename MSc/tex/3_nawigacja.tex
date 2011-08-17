@@ -31,7 +31,7 @@ rozdział opisuje ogólne metody realizacji poszczególnych elementów systemu.
 Ta część systemu odpowiada za gromadzenie wiedzy o stanie zarówno samego robota,
 jak i otaczającego go środowiska, w którym operuje. Dokonuje się tego przez
 akwizycję danych z czujników a następnie wybieranie tych informacji, które mają
-znaczenie w nawigacji. 
+znaczenie w nawigacji.
 
 \subsection{Klasyfikacja czujników}
 
@@ -48,7 +48,7 @@ aktywne)~\cite{siegwart}.
 Proprioreceptory mierzą parametry określające w pewien sposób wewnętrzny stan
 robota, takie jak prędkość silników czy napięcie akumulatorów. Wykorzystywane są
 przy wyznaczaniu pozycji robota (czujniki odometryczne), sterowaniu (prędkość
-obrotowa silników) czy diagnostyce jego podzespołów. Eksteroreceptory 
+obrotowa silników) czy diagnostyce jego podzespołów. Eksteroreceptory
 pozyskują informację z otoczenia robota, takie jak natężenie
 światła czy amplituda dźwięku. Można za ich pomocą mierzyć odległość,
 orientację, lokalizować zewnętrzne obiekty aż wreszcie budować mapy.
@@ -62,14 +62,14 @@ jest już czujnikiem zewnętrznym).
 \subsubsection{Pasywne i aktywne}
 
 Czujniki pasywne rejestrują jeydnie energię przychodzącą z otoczenia i na
-jej podstawie określają wielkość mierzonego parametru. Do takich czujników 
+jej podstawie określają wielkość mierzonego parametru. Do takich czujników
 należą termometry, mikrofony, kamery wizyjne, czy czujniki uderzeniowe.
 Czujniki aktywne do wykonania pomiaru wymagają wyemitowania dodatkowej energii
 do otoczenia, a następnie pomiar wykonywany jest na podstawie pomiaru ilości
 energii, która powróciła do sensora. Zaletą czujników pasywnych jest brak
-dodatkowych zakłóceń wprowadzanych do otoczenia, które mogą się pojawić 
+dodatkowych zakłóceń wprowadzanych do otoczenia, które mogą się pojawić
 przy korzystaniu z czujników aktywnych (które mogą się pojawić przy korzystaniu
-z wielu takich samych czujników na jednym bądź wielu robotach), problemem 
+z wielu takich samych czujników na jednym bądź wielu robotach), problemem
 przy czujnikach aktywnych jest także możliwość zafałszowania samej mierzonej
 wartości przez emitowaną energię (np. powstawanie odblasków). Największą zaletą
 czujników aktywnych jest możliwość pracy w trudniejszych warunkach (np. nie
@@ -77,7 +77,7 @@ jest wymagane oświetlenie zewnętrzne przy pomiarach odległości).
 
 \subsection{Podstawowe klasy czujników}
 
-Czujniki dostępne w robotyce można wreszcie podzielić na klasy ze względu 
+Czujniki dostępne w robotyce można wreszcie podzielić na klasy ze względu
 na metodę ich działania. poniżej przedstawione są główne klasy, w porządku
 rosnącym pod względem skomplikowania konstrukcji, a malejącym ze względu na
 dojrzałość konstrukcji~\cite{siegwart}.
@@ -86,10 +86,10 @@ dojrzałość konstrukcji~\cite{siegwart}.
 
 Czujniki te mają za zadanie wykryć kontakt bądź niebezpiecznie małą odległość
 od przedmiotów w otoczeniu robota, stosowane zarówno jako zderzaki do wykrywania
-przeszkód jak i wyłączniki bezpieczeństwa (np. wykrywające nieprzewidziane 
-pojawienie się człowieka w zasięgu pracy robota). Mogą być zarówno w wersji 
+przeszkód jak i wyłączniki bezpieczeństwa (np. wykrywające nieprzewidziane
+pojawienie się człowieka w zasięgu pracy robota). Mogą być zarówno w wersji
 kontaktowej (przełączniki mechaniczne o różnej konstrukcji, od przycisków
-do wąsów o pewnym stopniu podatności) jak i wykrywające przeszkody bez 
+do wąsów o pewnym stopniu podatności) jak i wykrywające przeszkody bez
 kontaktu z nimi (np. bariery optyczne reagujące na przerwanie wiązki świetlnej
 pomiędzy nadajnikiem i odbiornikiem, czy też indukcyjne czujniki zbliżeniowe
 reagujące na pojawienie się w pobliżu metalowego przedmiotu).
@@ -97,20 +97,20 @@ reagujące na pojawienie się w pobliżu metalowego przedmiotu).
 \subsubsection{Czujniki odometryczne}
 
 Czujniki odometryczne mierzą prędkość bądź położenie obrotowych elementów
-robota (wału silnika, kół czy stawów). Odczyty z nich wykorzystywane są 
+robota (wału silnika, kół czy stawów). Odczyty z nich wykorzystywane są
 później m.in. przy wyliczaniu pozycji robota. Do czujników tej klasy zalicza się
 różnego typu enkodery (optyczne, magnetyczne itp.), resolwery, a także potencjometry.
-Czujniki dotykowe i odometryczne są wykorzystywane jako podstawowe źródło 
+Czujniki dotykowe i odometryczne są wykorzystywane jako podstawowe źródło
 informacji w robotyce praktycznie w każdej kostrukcji, czy to robota mobilnego,
 czy manipulatora.
 
 \subsubsection{Czujniki orientacji}
 
-Czujniki z tej grupy służą do mierzenia orientacji robotów (głównie mobilnych, 
+Czujniki z tej grupy służą do mierzenia orientacji robotów (głównie mobilnych,
 a przede wszystkim robotów latających) w pewnym globalnym układzie odniesienia.
 Tutaj można wyróżnić trzy zasadnicze typy -- kompasy podające orientację
 względem magnetycznego bieguna północnego Ziemi, żyroskopy służące do pomiaru
-bądź utrzymywania położenia kątowego, oraz inklinometry służące do określania 
+bądź utrzymywania położenia kątowego, oraz inklinometry służące do określania
 kąta wychylenia od pionu wyznaczonego przez siłę grawitacji ziemskiej.
 
 \subsubsection{Latarnie kierunkowe}
@@ -124,7 +124,7 @@ aktywne latarnie optyczne, radiowe bądź ultradźwiękowe.
 
 Do pomiaru odległości od przedmiotów otaczających robota, a nie będących
 w bezpośrednim zasięgu czujników dotykowych, wykorzystuje się czujniki odległości
-takie jak dalmierze i skanery laserowe, czujniki odbiciowe (zarówno na podczerwień, 
+takie jak dalmierze i skanery laserowe, czujniki odbiciowe (zarówno na podczerwień,
 jak i ultradźwiękowe), a także metody oparte o światło strukturalne (opisane szerzej
 w poprzednim rozdziale).
 
@@ -132,9 +132,9 @@ w poprzednim rozdziale).
 
 Do pomiaru prędkości robota względem zewnętrznego układu współrzędnych (bądź
 względem innych obiektów w otoczeniu) wykorzystać można efekt Dopplera (zmiana
-częstotliwości fali przy odbiciu od ruchomych obiektów, w szczgólności ruchomy 
+częstotliwości fali przy odbiciu od ruchomych obiektów, w szczgólności ruchomy
 może być sam nadajnik, a mierzona zmiana częstotliwości fali odbitej od podłoża).
-Najczęściej wykorzystywane są w robotach wodnych~\cite{doppler_underwater} i latających, gdzie nie 
+Najczęściej wykorzystywane są w robotach wodnych~\cite{doppler_underwater} i latających, gdzie nie
 można zmierzyć prędkości w prosty sposób przy użyciu czujników odometrycznych
 (nie jest znana prędkość powietrza/wody w otoczeniu robota)~\cite{whereami}.
 Podejmowane były też testy z wykorzystaniem tego typu czujników przy lokalizacji
@@ -148,7 +148,7 @@ Najbardziej skomplikowane z punktu widzenia algorytmiki są czujniki wizyjne
 (kamery oparte na sensorach CCD lub CMOS), działające w różnych pasmach
 (zarówno w świetle widzialnym, jak i podczerwieni). Mogą być wykorzystywane
 do biernego pomiaru odległości (np. stereowizja, bez wykorzystywania dodatkowych
-emiterów, jak w przypadku światła strukturalnego), pomiarów prędkości, 
+emiterów, jak w przypadku światła strukturalnego), pomiarów prędkości,
 a co za tym idzie położenia robota (algorytmy korzystające zarówno ze stereopary
 kamer~\cite{vodom_stereo} jak i kamery pojedynczej~\cite{vodom_mono}) czy budowania
 map (zamierających punkty charakterystyczne otoczenia~\cite{vslam}). Oprócz
@@ -162,7 +162,7 @@ czy wreszcie całościowej analizy i rozumienia sceny.
 Czujniki wielkości fizycznych i chemicznych trudno dopasować do przedstawionego
 wyżej schematu (uporządkowania rosnącego ze względu na stopień skomplikowania).
 W tej kategorii mieszczą się zarówno proste sensory takich wartości jak
-napięcie (i innych, które można łatwo przekształcić na napięcie, takich jak 
+napięcie (i innych, które można łatwo przekształcić na napięcie, takich jak
 wiele wielkości elektrycznych czy temperatura), przez bardziej skomplikowane
 czujniki chemiczne mierzące stężenia różnych substacji w otoczeniu (zarówno
 wodzie jak i powietrzu), aż po skomplikowane sensory mierzące zapachy
@@ -172,7 +172,7 @@ w specjalistycznych aplikacjach robotycznych.
 
 Pod pojęciem samolokalizacji robota rozumie się określenie bieżącej pozycji
 robota w pewnym, ustalonym układzie odniesienia. Do obliczeń wykorzystywane mogą
-być dane uzyskiwane z czujników robota, 
+być dane uzyskiwane z czujników robota,
 
 \subsection{Klasyfikacja metod lokalizacji}
 
@@ -229,24 +229,95 @@ różnego rodzaju filtry cząsteczkowe i inne metody probabilistyczne.
 \section{Mapy otoczenia}
 
 W przypadku, kiedy konieczna jest znajomość otoczenia robota wymagany jest pewien
-sposób jej reprezentacji, taki, który będzie można stosunkowo łatwo analizować 
+sposób jej reprezentacji, taki, który będzie można stosunkowo łatwo analizować
 i podejmować na jego podstawie decyzje (np. o aktualnej pozycji). Wyróżnić
 można dwa podstawowe zagadnienia w tym zakresie -- sam sposób reprezentacji,
 oraz metody tworzenia map.
 
 \subsection{Rodzaje map}
 
-Problem odwzorowania otoczenia robota na postać użyteczną w jego sterowaniu 
+Problem odwzorowania otoczenia robota na postać użyteczną w jego sterowaniu
 związany z ogólnymi założeniami przyjętymi co do dokładności lokalizacji robota
 na owej mapie oraz precyzji osiągania celów. Im większa wymagana precyzja
 tym dokładniejsze muszą być wykorzystywane mapy. Kolejnym czynnikiem wpływającym
 na wybór typu mapy są czujniki dostępne na robocie -- bezcelowe jest wykorzystywanie
 map przechowujących charakterystyczne punkty otoczenia uzyskane np. w algorytmie
 vSLAM na robocie, który nie jest wyposażony w kamery. Ostatnim czynnikiem
-jest możliwy do poświęcenia czas procesora wymagany do obsługi samych map 
+jest możliwy do poświęcenia czas procesora wymagany do obsługi samych map
 i lokalizacji robota.
 
+\subsubsection{Mapy metryczne}
 
+Mapy metryczne mają ustalony układ współrzędnych, w którym są tworzone, odpowiadają
+klasycznym mapom spotykanym w życiu codziennym (np. plany miast, mapy turystyczne).
+Mapy metryczne w postaci ciągłej (a więc dokładnie opisujące rozmiar i położenie
+przeszkód w otoczeniu) mogą być tworzone jedynie w przypadku niewielkiej ilości
+i złożoności opisywanych obiektów. Praktycznie stosowanie takich map jest niewygodne,
+aby zmniejszyć ilość wymaganych danych stosowane są różne metody ich przybliżania.
+Jedną z metod jest zastępowanie obiektów na mapie ich uproszczonymi odpowiednikami
+(np. podstawowymi fogurami geometrycznymi i ich złożeniami czy opisywanie ich za pomocą
+krzywych parametrycznych, np. NURBS). W dalszym etapie można dokonać podziału mapy
+na segmenty odpowiadające obszarom wolnym (opisane przy pomocy wielokątów wypukłych,
+np. trapezów i trójkątów) wraz z załączoną informacją o ich sąsiedztwie.
+
+Inną metodą jest dyskretyzacja całej przestrzeni mapy. Można to wykonać przy pomocy
+równomiernej siatki (np. kwadratów), otrzymując mapę złożoną z jednakowych komórek,
+z których każda może przechowywać informację o jej zajętości (bądź binarnie wolna/zajęta,
+bądź z pewnymi dodatkowymi wartościami mogącymi reprezentować np. prawdopodobieństwo
+obecności przeszkody w danym miejscu). Zaletą takiej mapy jej prostota implementacji
+(podstawowa struktura danych oparta o tablicę wielowymiarową), ogólność (można opisywać
+przestrzeń bez żadnych dodatkowych założeń co do przeszkód) oraz możliwość łatwej modyfikacji
+w trakcie działania (dodanie czy usunięcie przeszkody na mapie nie wymaga przebudowy
+całej struktury, a jedynie zmiany wartości w komórce). Wielkość komórek decyduje wprost
+o wymaganiach pamięciowych do przechowywania mapy, wpływa też wprost na możliwość
+wykrywania wąskich przejść pomiędzy przeszkodami -- jeśli komórki będą zbyt duże, to
+drobne przeszkody mogą się ze sobą zlewać. Tego rodzaju mapy są często wykorzystywane
+przy przechowywaniu map zajętości tworzonych dynamicznie w trakcie ruchu robota.
+Inną metodą dyskretyzacji jest wykorzystanie metod adaptacyjnych, np. drzew czwórkowych
+w przypadku map dwuwymiarowych. Podział komórki następuje wtedy, gdy nie jest ona
+ani całkowicie wolna, ani całkowicie zajęta przez przeszkodę. W ten sposób, ustalając
+dodatkowo pewną maksymalną głębokość podziału, otrzymujemy mapę dobrze dopasowaną
+zarówno do dużych jak i drobnych przeszkód, dodatkowo zachowującą wszystkie wąskie
+przejścia,, a także bardzo efektywną z punktu widzenia wymagań pamieciowych (sąsiadujące
+komórki jednakowego typu są przechowywane jako pojedynczy węzeł). Problemem jest
+nieco bardziej skomplikowana struktura danych (najczęściej drzewiasta), w której
+operacje dodawania i usuwania przeszkód wymagają przeprowadzenia procesu podziału
+od początku, jeśli nie w calej to często w dużej części mapy. Trudniejsza jest też
+reprezentacja prawdopodobieństwa pojawienia się przeszkód na mapie -- z założenia kryterium
+podziału jest binarne, tak samo jak przechowywane w wezłach wartości.
+
+\subsubsection{Mapy topologiczne}
+
+Mapy topologiczne zamiast informacji o całym otoczeniu zawierają jedynie wiedzę
+o charakterystycznych obiektach, które mogą być reprezentatywne dla danego podobszaru.
+Reprezentowane są najczęściej w postaci grafu, gdzie węzły reprezentują podobszary
+(przechowując też informację o ich cechach charakterystycznych), natomiast łuki
+pomiędzy węzłami określają możliwe przejścia pomiędzy nimi. Ważne jest to, że nie
+ma nigdzie zapisanej wprost informacji o wolnej bądź zajętej przestrzeni na mapie,
+a także o fizycznych właściwościach (np. wielkości pokoju reprezentowanego przez węzeł,
+chyba, że owa wielkość będzie cechą rozpoznawczą podobszaru). Przykładem takiej mapy
+w świecie rzeczywistym jest np. schemat połączeń komunikacyjnych w mieście -- węzły (przystanki)
+określone są nazwami, łuki określają możliwe do przebycia komunikacją odcinki pomiędzy
+nimi.
+
+Przy używaniu map togologicznych kluczowe jest to, aby robot był w stanie zlokalizować
+się jednoznacznie w danym węźle i wykryć charakterystyczne elementy w otoczeniu.
+Największą ich zaletą jest duża efektywność obliczeniowa i skalowalność, gdyż rozmiar
+reprezentacji nie zależy od rozmiaru obszaru do opisania, a jedynie od ilości wymaganych,
+rozróżnialnych obszarów (a nawet przy dużej ich liczbie każdy z nich opisany jest
+stosunkowo niewielką liczbą danych). Wiąże się z tym też wada takich map -- lokalizacja
+przy ich użyciu jest jedynie zgrubna, dokładna pozycja w danym podobszarze jest nieznana.
+
+\subsubsection{Mapy hybrydowe}
+
+Mapy topologiczne łączą cechy map metrycznych z topologicznymi, czerpiąc zalety każdej z nich.
+Duże obszary reprezentowane są przy pomocy grafów (np. cały teren fabryki), a mniejsze
+podobszary (np. konkretne budynki i pomieszczenia w nich) opisywane są przy pomocy
+map geometrycznych. Dzięki temu nie ma konieczności przechowywania jednej, dużej
+mapy metrycznej, a każda z mniejszych map może być dokładniejsza, umożliwia to też
+sprawniejszą nawigację w trudnych obszarach o skomplikowanej strukturze (labirynt
+łatwiej przedstawić na mapie geometrycznej niż opisywać go grafem tak, aby robot potrafił
+wyszukać w nim punkty charakterystyczne).
 
 \subsection{Tworzenie map}
 
