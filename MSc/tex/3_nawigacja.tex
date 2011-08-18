@@ -321,11 +321,52 @@ wyszukać w nim punkty charakterystyczne).
 
 \subsection{Tworzenie map}
 
+Żeby w ogóle móc wykorzystać mapę przy nawigacji robota trzeba ją posiadać.
+Istnieje kilka dróg, które pozwalają na uzyskanie mapy interesującego obszaru,
+od wykorzystania gotowych map, przez ręczne ich tworzenie na podstawie pewnych 
+pomiarów, aż do automatycznego ich generowania przy pomocy specjalizowanych 
+aplikacji uruchomionych na robocie.
+
 \subsubsection{Wykorzystanie gotowych map}
+
+Jeśli środowisko, w którym będzie poruszał się robot jest w pewien sposób
+ustrukturyzowane oraz opisane, można wykorzystać istniejące już mapy w celu
+nawigacji i lokalizacji. Mogą one wymagać mniejszych bądź większych ingerencji 
+w celu dopasowania sposobu reprezentacji czy zmniejszenia szczegółowości, 
+jest to jednak metoda wymagająca stosunkowo mało nakładów pracy przy tworzeniu.
+Przykładem gotowej mapy możliwej do wykorzystania może być plan budynku,
+z zaznacoznymi ścianami i drzwiami. Konieczne może okazać się wyczyszczenie
+z niej symboli samych drzwi, gdyż mogą być interpretowane przez algorytm 
+jako przeszkody, jednak są dość dokładne i łatwe do zdobycia. 
 
 \subsubsection{Ręczne tworzenie prostych map otoczenia}
 
+Sposób opisany w poprzednim punkcie pozwala na pozyskanie map w postaci metrycznej,
+dopasowanie istniejących map topologicznych wymaga większych nakładów pracy 
+i nie wystarcza zwykły skan. W tym wypadku cała mapa praktycznie musi być 
+stworzona od nowa, bazując jedynie na informacjach z mapy oryginalnej, wymagana
+jest całkowita zmiana sposobu reprezentacji. Mapy metryczne również mogą być
+tworzone ręcznie, zarówno w programach do grafiki rastrowej (modelowanie map
+w postaci dyskretnej siatki) jak i wektorowej (mapy reprezentowane przy pomocy 
+różnych form geometrycznych). Przy ich tworzeniu można korzystać z map istniejących
+jako punktu odniesienia, a uzyskane wyniki są z reguły w większym stopniu
+dopasowane do wymagań algorytmów nawigacji.
+
 \subsubsection{Automatyczne tworzenie map przez robota}
+
+Ostatnią metodą jest wreszcie automatyczne tworzenie map otoczenia. Ogólnie
+algorytmy tego typu składają się z fazy akwizycji danych oraz następującej
+po niej fazy tworzenia mapy (dopasowania kolejnych pomiarów, oceny jakości
+dopasowania itp). Rozwiązanie takie pozwalają na zastosowanie bardziej skomplikowanych
+algorytmów dokładniej odwzorowujących otoczenie robota. Czasami jednak konieczne
+jest tworzenie mapy on-line, inkrementalnie w trakcie działania robota, 
+wraz z jednoczesną lokalizacją. Cała grupa takich algorytmów zwana jest SLAM 
+(skrót od angielskiego Simultaneous Localization and Mapping, jednoczesna
+lokalizacja i tworzenie mapy).
+\cite{openslam}
+
+
+\textbf{dopisać zasadę działania w uproszczeniu... nie chce mi się już...}
 
 \section{Generowanie trajektorii}
 
