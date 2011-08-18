@@ -323,31 +323,31 @@ wyszukać w nim punkty charakterystyczne).
 
 Żeby w ogóle móc wykorzystać mapę przy nawigacji robota trzeba ją posiadać.
 Istnieje kilka dróg, które pozwalają na uzyskanie mapy interesującego obszaru,
-od wykorzystania gotowych map, przez ręczne ich tworzenie na podstawie pewnych 
-pomiarów, aż do automatycznego ich generowania przy pomocy specjalizowanych 
+od wykorzystania gotowych map, przez ręczne ich tworzenie na podstawie pewnych
+pomiarów, aż do automatycznego ich generowania przy pomocy specjalizowanych
 aplikacji uruchomionych na robocie.
 
 \subsubsection{Wykorzystanie gotowych map}
 
 Jeśli środowisko, w którym będzie poruszał się robot jest w pewien sposób
 ustrukturyzowane oraz opisane, można wykorzystać istniejące już mapy w celu
-nawigacji i lokalizacji. Mogą one wymagać mniejszych bądź większych ingerencji 
-w celu dopasowania sposobu reprezentacji czy zmniejszenia szczegółowości, 
+nawigacji i lokalizacji. Mogą one wymagać mniejszych bądź większych ingerencji
+w celu dopasowania sposobu reprezentacji czy zmniejszenia szczegółowości,
 jest to jednak metoda wymagająca stosunkowo mało nakładów pracy przy tworzeniu.
 Przykładem gotowej mapy możliwej do wykorzystania może być plan budynku,
 z zaznacoznymi ścianami i drzwiami. Konieczne może okazać się wyczyszczenie
-z niej symboli samych drzwi, gdyż mogą być interpretowane przez algorytm 
-jako przeszkody, jednak są dość dokładne i łatwe do zdobycia. 
+z niej symboli samych drzwi, gdyż mogą być interpretowane przez algorytm
+jako przeszkody, jednak są dość dokładne i łatwe do zdobycia.
 
 \subsubsection{Ręczne tworzenie prostych map otoczenia}
 
 Sposób opisany w poprzednim punkcie pozwala na pozyskanie map w postaci metrycznej,
-dopasowanie istniejących map topologicznych wymaga większych nakładów pracy 
-i nie wystarcza zwykły skan. W tym wypadku cała mapa praktycznie musi być 
+dopasowanie istniejących map topologicznych wymaga większych nakładów pracy
+i nie wystarcza zwykły skan. W tym wypadku cała mapa praktycznie musi być
 stworzona od nowa, bazując jedynie na informacjach z mapy oryginalnej, wymagana
 jest całkowita zmiana sposobu reprezentacji. Mapy metryczne również mogą być
 tworzone ręcznie, zarówno w programach do grafiki rastrowej (modelowanie map
-w postaci dyskretnej siatki) jak i wektorowej (mapy reprezentowane przy pomocy 
+w postaci dyskretnej siatki) jak i wektorowej (mapy reprezentowane przy pomocy
 różnych form geometrycznych). Przy ich tworzeniu można korzystać z map istniejących
 jako punktu odniesienia, a uzyskane wyniki są z reguły w większym stopniu
 dopasowane do wymagań algorytmów nawigacji.
@@ -359,14 +359,33 @@ algorytmy tego typu składają się z fazy akwizycji danych oraz następującej
 po niej fazy tworzenia mapy (dopasowania kolejnych pomiarów, oceny jakości
 dopasowania itp). Rozwiązanie takie pozwalają na zastosowanie bardziej skomplikowanych
 algorytmów dokładniej odwzorowujących otoczenie robota. Czasami jednak konieczne
-jest tworzenie mapy on-line, inkrementalnie w trakcie działania robota, 
-wraz z jednoczesną lokalizacją. Cała grupa takich algorytmów zwana jest SLAM 
+jest tworzenie mapy on-line, inkrementalnie w trakcie działania robota,
+wraz z jednoczesną lokalizacją. Cała grupa takich algorytmów zwana jest SLAM
 (skrót od angielskiego Simultaneous Localization and Mapping, jednoczesna
-lokalizacja i tworzenie mapy).
-\cite{openslam}
-
-
-\textbf{dopisać zasadę działania w uproszczeniu... nie chce mi się już...}
+lokalizacja i tworzenie mapy). Początkowo robot startuje z pozycji zerowej,
+nie posiadając żadnej informacji o otoczeniu. Następnie porusza się (kierowany przez
+operatora bądź korzystając ze swoich czujników w celu omijania przeszkód) zbierając
+kolejne odczyty z sensora odpowiedzialnego za budowanie mapy (może być to skaner laserowy~\cite{laser_slam},
+różnego rodzaju inne czujniki odległości czy kamera bądź ich zestaw~\cite{vslam}). Dodatkową
+informacją, którą można podać do algorytmu jest przybliżone przemieszczenie robota
+pomiędzy pomiarami (uzyskiwane np. z odometrii), jego podanie nie jest jednak w ogólności
+konieczne, parametr ten może zostać wyliczony przez porównywanie kolejnych odczytów
+(wtedy jednak algorytm jest dużo bardziej obciążający dla systemu i trudniejszy do zrealizowania
+w czasie rzeczywistym). Agregacja kolejnych odczytów wraz z przybliżoną estymacją
+pozycji robota pozwalają na inkrementalne tworzenie mapy otoczenia oraz wprowadzanie
+poprawek na pozycję robota w układzie współrzędnych z nią związanym \cite{Dissanayake01asolution}.
+Dodatkowo do poprawy jakości tworzonej mapy (np. niwelację kumulujących się błędów orientacji
+wynikających z optymalizacyjnego charakteru algorytmów) wykorzystuje się wykrywanie pętli
+w ścieżce robota~\cite{slam-loop}. Jeśli podczas tworzenia mapy zostanie wykryte
+miejsce, które wczesniej zostało odwiedzone (na podstawie różnych kryteriów, np. charakterystycznych
+elementów w obrazie), to wprowadzana jest taka poprawka, aby obecna pozycja zgadzała się
+z tą, w której to miejsce było oglądane poprzednio (z uwzględnieniem ewentualnego
+innego punktu obserwacji sceny). Tworzone przy użyciu metod SLAM mapy mogą być zarówno
+dwuwymiarowe, jak i w pełni trójwymiarowe~\cite{6dslam}, przy czym w tym drugim przypadku
+korzystając z odpowiednich sensorów możliwe jest tworzenie w pełni trójwymiarowych
+modeli otoczenia, łącznie z informacją o kolorach~\cite{kinect_slam}.
+Istnieje wiele gotowych implementacji algorytmów SLAM, z których wiele udostępnione
+jest do dowolnego wykorzystania w internecie~\cite{openslam}.
 
 \section{Generowanie trajektorii}
 
