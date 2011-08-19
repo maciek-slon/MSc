@@ -13,6 +13,33 @@ jest puste biurko?''
 
 \section{Dekompozycja zadania}
 
+Całe zadanie sterowania robota zostało rozdzielone na moduły odpowiedzialne
+za poszczególne fragmenty systemu -- lokalizację robota (lokalną i globalną), 
+wykrywanie przeszkód (przez oba dostępne sensory -- skaner laserowy i Kinect),
+sterowanie samym robotem (poruszanie bazy jezdnej) oraz diagnostykę.
+
+\begin{figure}[ht!]
+\centering
+\includegraphics{../img/decomposition}
+\caption{Dekompozycja systemu sterowania robota}
+\label{fig:decomposition}
+\end{figure}
+
+Rysunek~\ref{fig:decomposition} przedstawia najważniejsze moduły systemu,
+wraz z ogólnymi zależnościami pomiędzy nimi. Najważniejsze podsystemy
+są opisane w dalszej części pracy. 
+
+Taki podział systemu pozwala na zmniejszenie zależności pomiędzy jego elementami
+do niezbędnego minimum. Poszczególne moduły komunikują się ze sobą przy pomocy 
+ogólnie określonych interfejsów, a format konkretnych komunikatów nie jest 
+zależny od modelu sprzętu, który jest używany do ich wygenerowania. Dzięki temu
+zmiana dowolnego elementu nie wymaga wprowadzania zmian w pozostałych,
+podobnie dodawanie nowych modułów (np. sensorycznych). Jest to podstawowe
+wymaganie przy tworzeniu platform badawczych, na których można testować różne
+algorytmy, m.in. sterowania ruchem robota, lokalizacji czy przetwarzania danych
+w celu wykrywania przeszkód. 
+
+
 \section{Obliczanie położenia robota}
 
 Kluczowym zadaniem podczas pracy robota mobilnego jest określenie jego
@@ -234,9 +261,8 @@ Z przedstawionego wykresu wynika, że pomiar składowej stałej jest prawidłowy
 krótkich okresów tuż po jego wykonaniu, a wraz z upływem czasu oorientacja
 robota coraz bardziej oddala się od wartości prawidłowej. Prostym sposobem na
 zwalczenie tego efektu może być wykorzystanie dodatkowej informacji o braku
-ruchu robota (np. z odometrii), i przeliczanie współczynnika składowej stałej
-właśnie w tych momentach.  \textbf{\Large Być może zostanie to
-zaimplementowane\ldots}
+ruchu robota (np. z odometrii) i przeliczanie współczynnika składowej stałej
+właśnie w tych momentach.
 
 \begin{figure}[ht!]
 \centering
@@ -350,6 +376,7 @@ nie powoduje zmiany wyliczonej orientacji robota, za to podczas faktycznego ruch
 czujniki te służą jako główne źródło informacji o jego obrocie.
 
 Tutaj jeszcze wykresik z kalmanem i bez oraz jego krótka interpretacja.
+
 odometria+żyro+laser.
 
 \section{Monitorowanie stanu robota}
@@ -444,12 +471,22 @@ połaczenie nie zostało zerwane podczas transmisji.
 \subsection{Interfejs diagnostyczny}
 
 Wszystkie wymienione informacje mogą być odebrane na zdalnej maszynie i
-wyświetlone na przygotowanym panelu diagnostycznym. Oprócz wizualizacji
-umożliwia on także dokładny podgląd systemu diagnostycznego, a także
-wyświetlanie konsoli komunikatów systemu ROS. 
+wyświetlone na przygotowanym panelu diagnostycznym. Informacje o obciążeniu
+procesora i zużyciu pamięci operacyjnej wyświetlane są w postaci wykresów
+wraz z historią ostatnich 60 sekund, dodatkowo wprowadzone są kolory mające
+na celu wyróżnienie informacji w danej chwili ważnych -- niskiego poziomu
+naładowania baterii czy wysokiego zużycia pamięci. Oprócz wizualizacji
+możliwy jest także dokładny podgląd systemu diagnostycznego (wyświetlenie
+pełnej treści pakietów przychodzących z robota) oraz wyświetlanie konsoli
+komunikatów systemu ROS. Oba te przyciski również zmieniają swoje kolory 
+w zależności od ich stanu -- jeśli w ciągu ostatnich 10-ciu sekund pojawiły
+się jakieś komunikaty ostrzegawcze bądź błędy, to konsola zmienia kolor na
+pomarańczowy bądź czerwony, podobnie jeśli któryś z komponentów monitorujących
+robota przestaje odpowiadać, to odpowiedni przycisk zmienia kolor na czerwony.
 
 Panel diagnostyczny jak i wszystkie komponenty monitorujące zostały napisane w
-języku Python.
+języku Python. Jego wygląd wraz z opisem kontrolek przedstawiony jest na
+rysunku~\ref{fig:elektron_dashboard}.
 
 \begin{figure}[htb!]
 \centering
