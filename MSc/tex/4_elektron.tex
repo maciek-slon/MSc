@@ -25,7 +25,7 @@ mającym na ceu zarówno dołączenie nowych zestawów czujników, jak i umożli
 sterowania robota przy wykorzystaniu nowych struktur programowych. Pierwotnie Elektron
 sterowany był przy wykorzystaniu środowiska Player/Stage, w ramach niniejszej pracy
 robot został uruchomiony wykorzystując system ROS (więcej na ten temat w
-rozdziale~\ref{chap:software}).
+rozdziale~\ref{chap:programowanie}).
 
 
 \begin{figure}[h!]
@@ -91,7 +91,7 @@ obliczeń położenia i orientacji robota. Zawiera żyroskop Analog Devices ADXR
 połaczony z mikrokomputerem jednoukładowym PIC16FXXX, przy pomocy którego pomiary
 przekazywane są do komputera sterującego za pomocą interfejsu USB.
 
-% TODO: Sprawdzić model mikrokontrolera na płytce z żyroskopem 
+% TODO: Sprawdzić model mikrokontrolera na płytce z żyroskopem
 
 \begin{table}[h!]
 \caption{Parametry żyroskopu ADXRS401}
@@ -204,7 +204,7 @@ rejestrowany przez kamerę działającą w paśmie bliskiej podczerwieni.
 ciemne punkty oznaczają miejsca oświetlane przez rzutnik podczerwieni). Źródło:
 http://goo.gl/L7sJm}
 \label{fig:kinect_pattern}
-\end{figure} 
+\end{figure}
 
 Wzór ma specjalną strukturę, umożliwiającą poprawne zlokalizowanie analizowanych
 pikseli w obrazie wzorcowym bez konieczności wielokrotnego rzutowania różnych
@@ -296,7 +296,7 @@ tabeli~\ref{tab:sick_params}).
 \midrule
 Zasięg & 20m & 20m \\
 Rozdzielczość kątowa & 0.25\textdegree / 0.5\textdegree & 0.25\textdegree /
-0.5\textdegree / 1\textdegree \\ 
+0.5\textdegree / 1\textdegree \\
 Kąt skanowania & 270\textdegree / 270\textdegree & 100\textdegree /
 180\textdegree / 180\textdegree \\
 Częstotliwość skanowania & 25Hz / 50Hz & 18Hz / 37Hz / 75Hz \\
