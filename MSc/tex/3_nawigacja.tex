@@ -389,3 +389,209 @@ jest do dowolnego wykorzystania w internecie~\cite{openslam}.
 
 \section{Generowanie trajektorii}
 
+Ostatnim elementem składowym nawigacji robotów mobilnych jest generowanie trajektorii
+do wykonania, a więc ścieżki z zadanego punktu początkowego (najczęściej aktualnej
+pozycji robota) do ustalonego celu z ominięciem występujących po drodze przeszkód.
+W szczeglnych przypadkach ścieżka ta może nie istnieć (np. z powodu otoczenia robota
+przeszkodami), co również musi być sygnalizowane przez algorytmy planowania.
+Przy generowaniu ścieżki wykorzystywane mogą być wszystkie informacje opisane wcześniej,
+a więc mapa otoczenia, bieżące odczyty z czujników oraz wiedza o aktualnym położeniu
+(nie jest jednak konieczne korzystanie ze wszystkich z nich, opisane dalej metody
+używają wybranych podzbiorów).
+
+\subsection{Podział metod generowania trajektorii}
+
+Metody generowania trajektorii można podzielić ze względu na dostępność informacji
+o środowisku, w którym robot będzie się poruszał (tutaj wyróżniamy metody lokalne
+i globalne), ze względu na zupełność algorytmu (metody dokładne, przybliżone, losowe
+oraz heurystyczne), a także ze względu na sposób reprezentacji informacji o środowisku
+(tutaj, podobnie jak w mapach, wyróżniamy metody topologiczne i metryczne).
+
+\subsubsection{Metody globalne i lokalne}
+
+Ścieżki wyliczane przez algorytmy globalne opisują pełną drogę robota od punktu początkowego
+do docelowego. Działanie tych algorytmów opiera się najczęściej na minimalizacji
+funkcji kosztu (określanej w różny sposób), wykorzystując dostarczoną mapę środowiska
+oraz określony model robota (opisujący zarówno jego właściwości fizyczne jak i dynamiczne).
+Algorytmy te ze względu na swoją naturę i iteracyjny charakter działają najczęściej
+w trybie off-line, czyli ścieżka jest przesyłana do robota dopiero po jej całkowitym
+zaplanowaniu i dopiero wtedy robot rozpoczyna jej wykonywanie. Zaletą tych metod
+jest teoretyczna optymalność znalezionych ścieżek, wadą jest konieczność powtórnego generowania
+praktycznie całej ściezki, jeśli zmienią sie warunki otoczenia (podczas ruchu robota
+dojdzie do sytuacji, w której nie będzie możliwe kontynuowanie wyznaczonej trajektorii).
+
+Metody lokalne działają najczęściej w trybie on-line, a więc na bieżąco wprowadzają korekty
+do ścieżki robota w miarę jak czujniki wykrywaja kolejne przeszkody. Metody te biorą
+pod uwagę wszystkie przeszkody w otoczeniu robota (o ile są one wykrywane przez czujniki).
+Mogą być stosowane jako jedyna metoda planowania (bez generowania globalnych trajektorii),
+wtedy robot porusza się zawsze w kierunku punktu docelowego, a trajektoria jest wyznaczana
+tak, aby nie wpaść na żadną przeszkodę. Wadą takiego podejścia jest często generowanie
+ścieżek wielokrotnie dłuższych od optymalnej (np. próba dojazdu do innego pomieszczenia
+może skończyć się najpierw przejazdem przez całe obecne pomieszczenie aż do ściany, a następnie
+jazdy wzdłuż ścian i innych przeszkód aż do osiągnięcia celu). Z tego powodu często
+stosuje się podejście mieszane -- zgrubna trajektoria planowana jest offline, a następnie
+algorytmy lokalne mają podawane kolejne punkty na ścieżce globalnej i starają się do nich
+dążyć (a więc śledzić ścieżkę globalną z uwzględnieniem nowych przeszkód).
+
+\subsubsection{Zupełność algorytmu sterowania}
+
+Algorytmy deterministyczne (dokładne) przeszukują wszystkie możliwe trajektorie,
+a jeśli tylko ściezka do celu istnieje, to zostanie ona znaleziona. Bardzo często algorytmy
+te są czasochłonne i mogą być stosowane jedynie przy przeszukiwaniu map topologicznych
+(przeszukiwanie grafów). Podejścia przybliżone zakładają pewną dyskretyzację przestrzeni
+poszukiwać (np. dyskretyzacja mapy czy ograniczenie możliwych sterowań robota do określonego
+zbioru), a w tak ograniczonej przestrzeni są zupełne (a więc znalezienie rozwiązania
+zależy od dobrego doboru parametrów dyskretyzacji).
+
+Wyróżnić można także algorytmy losowe, a więc takie, które przeszukują przestrzeń
+mozliwych rozwiązań w sposób niedeterministyczny, jednak przy odpowiednio długim czasie
+(dążącym do nieszkończoności) prawdopodobieństwo znalezienia rozwiązania dąży do jedności.
+Ostatnią grupą są algorytmu heurystyczne, a więc niezupełne, które wyszukują ścieżkę
+w sposób przybliżony, a w czasie działania ... \textbf{BLABLABLA}
+
+\subsubsection{Reprezentacja środowiska}
+
+Podobnie jak w mapach, także przy algorytmach generowania ścieżki możemy wyróżnić
+te działające na reprezentacji metrycznej oraz topologicznej. Nie jest to jednak
+bezpośrednio związane z mapą, jaka jest dostarczana do algorytmu, gdyż może być tak,
+że z dostarczonej mapy geometrycznej tworzony jest graf, a sam algorytm działa faktycznie
+już na nim, będąc w istocie algorytmem topologicznym.
+
+\subsection{Metody globalne}
+
+W tej części przedstawione zostaną po krótce istniejące metody generowania globalnej
+śieżki z podziałem ze względu na ogólną ideę ich działania. Podział dokonywany
+jest uwzględniając metody dekompozycji i dyskretyzacji przestrzeni poszukiwań (jak zostało
+to już wspomniane wcześniej, w ogólności algorytm nie musi działac na takiej samej reprezentacji
+jak dostarczona mapa). Wyróżnić tutaj możemy trzy główne metody -- generowanie
+,,map drogowych'' na dostępnej, wolnej przestrzeni, podział na komórki wolne i zajęte
+a następnie tworzenie grafu sąsiedztwa, oraz metody wykorzystujące sztuczne pole potencjału.
+
+\subsubsection{Mapy drogowe}
+
+W metodach tych w pierwszej fazie tworzona jest sieć ścieżek łączących poszczególne
+węzły (są one wybierane w różny sposób), a następnie do owej sieci dołączane są
+także punkty początkowy i docelowy. Globalna trajektoria jest wybierana jako ścieżka
+w grafie łącząca określone punkty. Jednym z takich algorytmów jest tworzenie grafów
+widoczności, gdzie punktami charakterystycznymi są wierzchołki figur opisujących
+przeszkody na mapie, a łączenie nastepuje wtedy, kiedy pomiędzy dwoma punktami można
+poprowadzić prostą bez przecinania innych przeszkód. Ścieżki wygenerowane w ten sposób
+mają jednak pewną wadę -- są niejako ,,przyklejone'' do przeszkód, przez co często
+konieczne może okazać się korygowanie trajektorii w czasie jej wykonania.
+
+Inaczej jest przy wykorzystaniu generowania mapy dróg z użyciem diagramów Voronoi -- w tym
+przypadku segmenty drogi są umieszczone tak, aby być możliwie daleko od otaczających
+przeszkód. Najpierw w każdym punkcie wolnej przestrzeni wyliczane są odległości
+do najbliższej przeszkody, tworząc w punktach równo odległych od sąsiednich obiektów
+grzbiet. Grzbiety te są następnie zamieniane w segmenty dróg, a ich przecięcia tworzą
+węzły. Punkty startowy i końcowy są łączone krawędzią z najbliższymi węzłami i wyszukiwana
+jest ścieżka pomiędzy nimi w tak utworzonym grafie. Metoda ta generuje ścieżki
+dużo bezpieczniejsze, niż przy grafach widoczności.
+
+\subsubsection{Podział przestrzeni}
+
+Mając daną mapę w postaci geometrycznej możemy dokonać jej podziału w pewien ustalony
+sposób (opisane w części dot. typów map). Przy dokładnym podziale na segmenty
+odpowiadające obszarom wolnym i zajętym tworzony jest graf sąsiedztwa obszarów dostępnych
+dla robota, a trajektoria jest wyznaczana jako ścieżka w tym grafie łącząca obszar
+zawierający punkt startowy z obszarem zawierającym punkt docelowy. Konkretna trajektoria
+pomiędzy sąsiednimi komórkami może być wyznaczona np. jako droga łącząca ich środki ciężkości.
+
+Jeśli dyskretyzacja mapy nie jest oparta o cechy i kształt przeszkód, ale polega na
+prostym podziale na regularną siatkę, to graf sąsiedztwa jest duż bardziej skomplikowany
+i większy niż przy podziale dokładnym. W takim wypadu oczywiście można wyszukiwać
+ścieżki bezpośrednio w tym grafie, są jednak metody robiące to w nieco inny sposób.
+Polegają one na propagacji fali. Polegają one na systematycznym poruszaniu się
+od komórki startowej, wpisując w sąsiednich komórkach koszt o jeden większy niż w obecnej.
+Po wypełnieniu całej mapy (bądź szybciej, po wypełnieniu komórki docelowej) ścieżka
+może być wyznaczona wstecz, jako łącząca komórki o coraz niższym koszcie.
+
+\subsubsection{Metody sztucznego pola potencjału}
+
+Metody te traktują robota jako sztuczny ładunek elektryczny umieszczony w polu potencjału
+generowanego przez punkt docelowy o ładunku przeciwnym do ładunku robota
+(przyciągający, a więc będący minimum funkcji) oraz przeszkody o ładunku zgodnym
+z ładunkiem robota (a więc odpychające go, tworzące lokalne zbocza na funkcji).
+Trajektoria generowana jest jako ściezka śledząca gradient funkcji w danym punkcie
+i poruszająca się w kierunku największego spadku (a więc w kierunku celu). Istnieją
+też odmiany algorytmu wykorzystujące informację o orientacji robota i generujące
+siłę odpychającą od przeszkód w zależności od niej -- jeśli robot porusza się równolegle
+do nich, to ich wpływ jest dużo mniejszy niż wtedy, kiedy porusza się w ich kierunku
+(dzięki temu generowane trajektorie są dużo krótsze).
+
+Problemem obu metod jest możliwość
+wjechania w lokalne minimum funkcji potencjału, bądź wręcz w punkt o potencjale zerowym,
+który nie jest punktem docelowym (np. w przypadku przeszkód nie będących wielokątami
+wypukłymi). Metodą wyjechania z takiej sytuacji może być losowe zaszumianie trajektorii
+bądź (już w czasie wykonania trajektorii) czasowe przełączenie się na algorytm śledzenia
+ścian. Metody sztucznego pola potencjału są efektywne obliczeniowo i łatwo można wprowadzać
+do nich nowe przeszkody, także on-line w trakcie jazdy robota. Dzięki temu mogą służyć
+zarówno do globalnego planowania trasy jak i później do lokalnego omijania przeszkód.
+
+\subsection{Metody lokalne}
+
+\subsubsection{Algorytmy typu Bug}
+
+Algorytmy typu Bug są najprostszymi algorytmami lokalnej modyfikacji
+trajektorii i omijania przeszkód, polegają na podążaniu wzdłuż ich konturu.
+Istnieją kilka głównych wariantów tej metody -- Bug0, Bug1, Bug2 i TangentBug.
+Pierwsze trzy wymagają jedynie czujników zderzeniowych, ostatnia sensorów odległości,
+wszystkie wymagają także informacji o przybliżonym kierunku do celu i jego położeniu.
+Zależnie od wersji, przeszkody sa otaczane całkowicie, nawet więcej niż raz (Bug1),
+bądź tylko do momentu wykrycia wolnej drogi do celu (Bug0, Bug2). W przypadku TangentBug
+dodatkowo robot modyfikuje ścieżkę już zbliżając się do ceu bez konieczności kontaktu
+z nim. Algorytm Bug1 jest dodatkowo zupełny, pozostałe nie.
+
+%Najprostsza wersja algorytmu (Bug0) porusza się w kierunku celu aż do wykrycia przeszkody.
+%Następnie porusza się wzdłuż jej konturu aż do momentu, kiedy będzie można znów poruszać
+%się w kierunku celu, wtedy przestaje śledzić kontur.
+%Kolejna wersja algorytmu po wykryciu przeszkody okrąża ją całkowicie, a następnie
+%kontynuuje ruch w kierunku celu od miejsca, które na obwodzie przeszkody leży od niego
+%najbliżej. Powoduje to bardzo mocne wydłużanie ścieżek, jednak jeśli tylko cel jest osiągalny,
+%to algorytm ten zawsze znajdzie do neigo drogę. Wersja Bug2 nie okrąża całej przeszkody,
+%objazd kończy się w momencie dojechania do linii łączącej położenie startowe z docelowym
+%i od tego miejsca kontynuowana jest jazda na azymut. Ścieżki są krótsze niż w pierwszej wersji,
+%nadal jednak nie są optymalne, dodatkowo istnieją takie konfiguracje przeszkód, przy
+%których algorytm Bug2 się zapętla i nie znajduje drogi wyjścia (pomimo jej istnienia).
+%Algorytm TangentBug wymaga zastosowania czujników odległości w celu wykrycia zbliżania
+%się do przeszkód. Robot porusza się w kierunku celu, a jeśli w zasiędu jego czujników
+%znajdą sie przeszkody, to rozpoczyna się modyfikacja trajektorii -- robot porusza się
+%wtedy w kierunku punktu, który minimalizuje koszt ścieżki. Koszt jest liczony jako odległość
+%robota od wykrytego punktu zsumowana z odległością tego punktu od celu. Jeśli w czasie
+%ruchu funkcja kosztu rośnie, to robot rozpoczyna śledzenie przeszkody. Śledzenie kończy
+%się, kiedy koszt zaczyna maleć, wtedy robot ponownie porusza się wprost na cel.
+
+\subsubsection{Wyznaczanie kierunku ruchu}
+
+Algorytmy z grupy VFH tworzą dookoła robota małą mapę zajętości, akumulując kolejne
+pomiary z sensorów, dzięki czemu działają lepiej niż te z grupy Bug z czujnikami
+o niewielkim zasięgu i polu widzenia. Na podstawie niej tworzony jest histogram
+zawierający prawdopodobieństwo pojawienia się przeszkody pod danym kątem przed robotem.
+Po progowaniu identyfikowane są w nim wolne miejsca na tyle duże, aby robot mógł
+nimi przejechać, a z nich wybierane jest to o najmniejszym koszcie (np. będące najbardziej
+w kierunku celu). Poprawione metody algorytmu (VFH+) biorą dodatkowo pod uwagę
+ograniczenia kinematyczne robota, np. możliwy promień skrętu, przy wyborze kierunku ruchu.
+
+Inną metodą z tej grupy jest diagram bliskości, będący w pewnym sensie rozwinięciem VFH.
+Spisuje się on dużo lepiej w przypadku środowisk z wieloma przeszkodami, bierze też
+pod uwagę kształt robota.
+
+\subsubsection{Wyznaczanie prędkości kątowej i liniowej}
+
+Metody opisane dotychczas bezpośrednio wyznaczały kierunek, w którym powinien poruszać
+się robot aby uniknąć zderzenia bądź ominąć wykrytą przeszkodę. Innym podejściem
+jest generowanie zbioru możliwych sterowań (a więc zadanej prędkości liniowej i kątowej)
+i sprawdzanie, które z nich są możliwe do wykonania w danym momencie, a które prowadzą
+do zderzenia z przeszkodami. W przestrzeni konfiguracyjnej robota wprowadza się ograniczenia
+zarówno na prędkości robota, jak i na przyspieszenia. Metoda krzywizn i prędkości
+(Curvature velocity, CVM) przybliża kształt przeszkód okręgami (ze względu na wydajność
+obliczeń), a następnie wyznacza takie sterowania, aby w kroku o zadanej długości
+nie doprowadzić do zderzenia, jednocześnie maksymalizując prędkość liniową i poruszając
+się w kierunku celu.
+
+Metoda okna dynamicznego (Dynamic Window Approach, DWA) tworzy wokół robota w przestrzeni
+konfiguracyjnej okno zawierające możliwe w danym momencie sterowania, a następnie nakłada
+je na bieżącą mapę zajętości. Pozostają jedynie te sterowania, które zapewniają,
+że robot zdąży zatrzymać się przed przeszkodą. Z pozostałych sterowań wybierane jest
+to o najniższym koszcie (podobnie jak w CVM -- możliwie duża prędkość liniowa,
+zachowanie odległości od przeszód i poruszanie się w kierunku celu).

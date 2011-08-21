@@ -32,7 +32,7 @@ wykorzystanie tradycyjnych czujników odległości (np. dalmierzy bądź skaner�
 laserowych). Montując taki czujnik na ruchomej głowicy można zebrać serię
 skanów, które ostatecznie dadzą pełną mapę głębi. Koszt zastosowania takich
 rozwiązań na robotach mobilnych często jest niewielki, gdyż można wykorzystać
-czujniki już obecne, dodając do nich tylko serwomechanizmy. 
+czujniki już obecne, dodając do nich tylko serwomechanizmy.
 
 \subsection{Uzyskiwane parametry}
 
@@ -55,15 +55,15 @@ wymusza stosowanie droższych i dokładniejszych serw. Przykładowa konstrukcja
 takiego skanera przedstawiona jest na rysunku~\ref{fig:sick_obrotnica}
 (konstrukcja wykonana przez Rafała Chojeckiego, Michała Walęckiego i Piotra
 Trojanka jako moduł do robota Elektron).
- 
+
 \begin{figure}[h!]
 \centering
-\includegraphics[height=6cm]{../../Common/img/sick_obrotnica} 
+\includegraphics[height=6cm]{../../Common/img/sick_obrotnica}
 \caption{Skaner laserowy Sick LMS200 zamocowany na obrotnicy}
 \label{fig:sick_obrotnica}
 \end{figure}
 
-\subsection{Sposoby interpolacji map głębi} 
+\subsection{Sposoby interpolacji map głębi}
 
 Najprostszym sposobem wykorzystania uzyskiwanej informacji jest zapisanie
 uzyskiwanych wyników wprost w mapie głębi. Można jednak wykorzystać fakt, że
@@ -80,7 +80,7 @@ pokazane są na rysunku~\ref{fig:laser_aggregate}~\cite{Surmann01a3d}.
 
 \begin{figure}[h!]
 \centering
-\includegraphics[width=12cm]{../../Common/img/laser_aggregate} 
+\includegraphics[width=12cm]{../../Common/img/laser_aggregate}
 \caption{Kolejne poziomy agregacji danych zebranych przy pomocy skanera
 laserowego}
 \label{fig:laser_aggregate}
@@ -120,7 +120,7 @@ epipolarne (są poziome w obrazie) oraz odpowiednie punkty charakterystyczne.
 
 \begin{figure}[h!]
 \centering
-\includegraphics[width=8cm]{../../Common/img/Epipolar_geometry} 
+\includegraphics[width=8cm]{../../Common/img/Epipolar_geometry}
 \caption{Geometria dwubiegunowa}
 \label{fig:epipolar}
 \end{figure}
@@ -137,7 +137,7 @@ przedstawia koleejne kroki podczas odtwarzania informacji o głębi z dwóch kam
 
 \begin{figure}[h!]
 \centering
-\includegraphics{../../Common/img/stereo_steps} 
+\includegraphics{../../Common/img/stereo_steps}
 \caption[Kolejne kroki podczas przetwarzania w stereowizji]
 {Kolejne kroki podczas przetwarzania w stereowizji. 1: obraz pobrany
 bezpośrednio z kamer; 2: obraz po interpolacji kolorów i rektyfikacji,
@@ -170,7 +170,7 @@ pojedynczej klatki obrazu.
 
 \begin{figure}[h!]
 \centering
-\includegraphics[width=8cm]{../../Common/img/bumblebee} 
+\includegraphics[width=8cm]{../../Common/img/bumblebee}
 \caption{Kamera do stereowizji Bumblebee X2}
 \label{fig:bumblebee}
 \end{figure}
@@ -187,13 +187,12 @@ od siebie (patrz rysunek~\ref{fig:bumblebee}).
 %-------------------------------------------------------------------------------
 
 % TODO: wstawić odwołania w odpowiednie miejsca
-\cite{4670774} \cite{Hirschmuller:2008:SPS:1340087.1340245}
 
 Przy wykorzystaniu programowej wersji algorytmów stereowizyjnych działających
 na przeciętnym komputerze domowym, można osiągnąć wydajność od kilku do
-kilkunastu klatek na sekundę. W związku z tym rozwiązania programowe słabo
-nadają się do wykorzystania w środowisku, które ulega częstym i dynamicznym
-zmianom (a takie jest otoczenie robota mobilnego).
+kilkunastu klatek na sekundę~\cite{4670774, Hirschmuller:2008:SPS:1340087.1340245}.
+W związku z tym rozwiązania programowe słabo nadają się do wykorzystania w środowisku,
+które ulega częstym i dynamicznym zmianom (a takie jest otoczenie robota mobilnego).
 
 Dużo lepiej sprawdzają się rozwiązania sprzętowe, w których algorytm tworzenia
 mapy dysparacji zaimplementowany jest w układach FPGA zintegrowanych w jednym
@@ -225,7 +224,7 @@ wartościami z ich krawędzi.
 
 \begin{figure}[htpb!]
 \centering
-\includegraphics[width=16cm]{../../Common/img/stereo_texture} 
+\includegraphics[width=16cm]{../../Common/img/stereo_texture}
 \caption[Przykład projekcji tekstury w celu poprawy jakości
 stereowizji]{Przykład projekcji tekstury w celu poprawy jakości stereowizji
 \cite{konolige-icra-2010-a} W kolejności od lewej: scena bez dodatkowego
@@ -243,8 +242,7 @@ jednostki obliczeniowe (np. robot PR2). Natomiast w robotach poruszających się
 w naturalnym środowisku, gdzie występuje bardzo dużo szczegółów (a więc i
 punktów charakterystycznych) stereowizja stosowana jest praktycznie bez żadnych
 dodatkowych usprawnień i sprawdza się znakomicie (zwracane mapy głębi są
-wypełnione w ponad 80\%, a algorytm działa w tempie powyżej 10FPS)
-\cite{outdoor-stereo}.
+wypełnione w ponad 80\%, a algorytm działa w tempie powyżej 10FPS)~\cite{outdoor-stereo}.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -262,11 +260,11 @@ obrazu jest wykorzystanie światła strukturalnego. Na scenę rzucane jest świa
 formujące znany wzór, a kamera umieszczona jest w taki sposób, aby obserwować
 scenę pod innym kątem niż orientacja rzutnika. Na podstawie odczytanej deformacji
 wzorca prz użyciu algorytmów bazujących na riangulacji wyliczane są rzeczywiste
-współrzędne punktów w obrazie. 
+współrzędne punktów w obrazie.
 
 \begin{figure}[htb!]
 \centering
-\includegraphics[width=10cm]{../../Common/img/struct} 
+\includegraphics[width=10cm]{../../Common/img/struct}
 \caption[Schemat działania skanera opartego o światło strukturalne]
 {Schemat działania skanera opartego o światło strukturalne. Na podstawie:
 http://en.wikipedia.org/wiki/File:1-stripesx7.svg}
@@ -283,7 +281,7 @@ struktur.
 
 \begin{figure}[h!]
 \centering
-\includegraphics[width=8cm]{../../Common/img/struct_patterns} 
+\includegraphics[width=8cm]{../../Common/img/struct_patterns}
 \caption[Wzorce wykorzystywane przy obrazowaniu światłem strukturalnym]
 {Wzorce wykorzystywane przy obrazowaniu światłem strukturalnym}
 \label{fig:struct_patterns}
@@ -302,7 +300,7 @@ jego obracania (np. zestaw specjalnie ustawionych luster) \cite{LanmanCT07}.
 
 \begin{figure}[!ht]
 \centering
-\includegraphics[width=14cm]{../../Common/img/struct_all} 
+\includegraphics[width=14cm]{../../Common/img/struct_all}
 \caption[Przykład wykorzystania światła strukturalnego do modelowania obiektów]
 {Przykład wykorzystania światła strukturalnego do modelowania obiektów. Na
 pierwszym zdjęciu widać układ pomiarowy, następnie dwa wybrane etapy oświetlania
@@ -314,7 +312,7 @@ kodem Graya oraz wynikowy model otrzymany po oświetleniu 40-toma wzorcami.
 Do zastosowań czasu rzeczywistego, jak już wspomniano wcześniej, nadają się
 jedynie wzorce pojedyncze. Dzięki temu każda otrzymana klatka obrazu zawiera
 informacje o całym modelu, w metodach opartych o wzorce sekwencyjne obiekt
-przesuwający się pomiędzy kolejnymi naświetleniami powoduje zakłamanie wyników. 
+przesuwający się pomiędzy kolejnymi naświetleniami powoduje zakłamanie wyników.
 Wśród takich metod wyróżnić można oparte o wzorce kodowane geometrycznie i
 kolorowo. Pierwsza z metod wykorzystuje jednobarwne wzorce geometryczne
 zakodowane w taki sposób, aby poszczególne jego bloki były unikalne w pewnym
@@ -325,7 +323,7 @@ stu klatek przetwarzanych w ciągu sekundy \cite{4429304}.
 
 \begin{figure}[h!]
 \centering
-\includegraphics[width=8cm]{../../Common/img/struct_color} 
+\includegraphics[width=8cm]{../../Common/img/struct_color}
 \caption[Wzorzec kodowany kolorem]
 {Jedna z możliwości kolorowego kodowania wzorców \cite{4429304}}
 \label{fig:struct_color}
@@ -337,7 +335,7 @@ działać w paśmie światła widzialnego, co może przeszkadzać będącym w po
 ludziom. W takim wypadkuz zdecydowanie lepiej sprawdzają się wzorce
 geometryczne, których rzutniki mogą działać w podczerwieni, a więc w sposób
 niewidoczny i nieprzeszkadzający użytkownikom. W taki właśnie sposób działa
-Microsoft Kinect, opisany dokładnie w rozdziale~\ref{chap:sprzet}.  
+Microsoft Kinect, opisany dokładnie w rozdziale~\ref{chap:sprzet}.
 
 Największą niedogodnością związaną z wykorzystaniem obrazowania opartego o
 rzutowanie wzorców jest konieczność dokładnego wykrycia tego wzoru. Dlatego też
@@ -349,7 +347,7 @@ mocy. Żaden z wariantów nie sprawdza się jednak na otwartej przestrzeni, gdzi
 światło słoneczne zakłóca działanie praktycznie wszystkich sensorów tego typu.
 
 %-------------------------------------------------------------------------------
-\subsection{Rozwiązania programowe i sprzętowe} 
+\subsection{Rozwiązania programowe i sprzętowe}
 %-------------------------------------------------------------------------------
 
 W przypadku stosowania algorytmów zaimplementowanych programowo uruchamianych na
@@ -362,12 +360,12 @@ na runku wspomniany wcześniej Microsoft Kinect -- urządzenie o cenie o
 rząd wielkości niższej, będące faktycznie sprzętowym sensorem głębi opartym o
 analizę światła strukturalnego. Niską cenę zawdzięcza masowej produkcji -- jest
 produkowany jako kontroler do gier, i jako taki ma zdecydowanie większy rynek
-zbytu niż tradycyjne, specjalizowane rozwiązania. 
+zbytu niż tradycyjne, specjalizowane rozwiązania.
 
 Przed pojawieniem się na rynku urządzenia Microsoft Kinect, w robotyce mobilnej
 stosowane były głównie rozwiązania oparte o obrazowanie na podstawie projekcji
 pojedynczych linii (\cite{120445,5246792}), głównie ze względu na prostotę
-koniecznych obliczeń i szybkość działania całego systemu. 
+koniecznych obliczeń i szybkość działania całego systemu.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -395,7 +393,7 @@ punktu zarejestrowanego obrazu jest proporcjonalny do jego odległości od kamer
 
 \begin{figure}[h!]
 \centering
-\includegraphics[width=8cm]{../../Common/img/tof} 
+\includegraphics[width=8cm]{../../Common/img/tof}
 \caption{Schemat działania kamer TOF mierzących bezpośrednio czas przelotu}
 \label{fig:tof}
 \end{figure}
@@ -424,7 +422,7 @@ Spośród innych zalet tej metody pomiaru wymienić można chociażby zwartą
 konstrukcję sensora (cały system składa się z pojedynczego modułu zawierającego
 zarówno kamerę jak i oświetlacz), dzięki czemu jest on bardzo łatwy do
 zastosowania w gotowym robocie. Nie bez znaczenia jest też szybkość działania --
-dzięki naświetlaniu całej klatki jednocześnie oraz biorąc pod uwagę prędkość 
+dzięki naświetlaniu całej klatki jednocześnie oraz biorąc pod uwagę prędkość
 światła, możliwe jest uzyskanie prędkości nawet 100 klatek na sekundę, a dzięki
 całkowicie sprzętowemu przetwarzaniu danych uzyskuje się bardzo niskie
 obciążenie systemu -- kamera zwraca obraz zawierający bądź czas przelotu
@@ -435,12 +433,12 @@ odległości do obiektów.
 
 \begin{figure}[h!]
 \centering
-\includegraphics[height=5cm]{../../Common/img/sr4000} 
+\includegraphics[height=5cm]{../../Common/img/sr4000}
 \caption[Kamera TOF SwissRanger SR4000]{Kamera TOF SwissRanger SR4000.
 Rozdzielczość obrazu: 176x144px przy 54FPS, cena ok. 9000\$}
 \label{fig:sr4000}
 \end{figure}
- 
+
 Własności te sprawiają, że kamery TOF wydają się być bardzo dobrym rozwiązaniem
 do zastosowania przy nawigacji robota. Niestety, mają też kilka wad, które to
 wykorzystanie utrudniają. Pierwszą z nich jest cena -- jako że rozwiązania te są
@@ -448,7 +446,7 @@ stosunkowo nowe a także bardzo skomplikowane pod względem technicznym, ich cen
 jest wielokrotnie wyższa od układów opartych na stereowizji lub świetle
 strukturalnym. W porównaniu do tych metod niższa jest także rozdzielczość
 uzyskiwanej mapy głębi -- obecnie produkowane sensory posiadają rozdzielczość
-maksymalną rzędu 320x240px, a tańsze modele często posiadają rozdzielczość 
+maksymalną rzędu 320x240px, a tańsze modele często posiadają rozdzielczość
 poniżej 100x100px. Sama technika wykonywania pomiaru ma kilka cech, które mogą
 utrudniać jej wykorzystanie, np. występowanie wielokrotnych odbić, przez co
 do sensora może dotrzeć i zostać zarejestrowane światło odbite i załamane od
@@ -462,7 +460,7 @@ wielu kamer TOF jednocześnie należy uwzględnić problem interferencji emitowa
 
 \begin{figure}[h!]
 \centering
-\includegraphics[height=5cm]{../../Common/img/dimager} 
+\includegraphics[height=5cm]{../../Common/img/dimager}
 \caption[Kamera TOF Panasonic D-IMager]{Kamera TOF Panasonic D-IMager.
 Rozdzielczość obrazu: 160x120px przy 20FPS, cena ok. 3000\$}
 \label{fig:dimager}
@@ -535,7 +533,7 @@ jej boczne krawędzie, co mogłoby doprowadzić do próby przejazdu pomiędzy ni
 \includegraphics{../../Common/img/stereo_3}
 \caption[Trzecia scena testowa stereowizji]{Trzecia scena testowa stereowizji pokazująca problemy z dużymi, jednolitymi przeszkodami.}
 \label{fig:stereo_3}
-\end{figure} 
+\end{figure}
 
 %-------------------------------------------------------------------------------
 \subsection{Światło strukturalne -- Microsoft Kinect}

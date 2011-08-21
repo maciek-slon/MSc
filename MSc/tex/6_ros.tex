@@ -14,7 +14,7 @@ jest puste biurko?''
 \section{Dekompozycja zadania}
 
 Całe zadanie sterowania robota zostało rozdzielone na moduły odpowiedzialne
-za poszczególne fragmenty systemu -- lokalizację robota (lokalną i globalną), 
+za poszczególne fragmenty systemu -- lokalizację robota (lokalną i globalną),
 wykrywanie przeszkód (przez oba dostępne sensory -- skaner laserowy i Kinect),
 sterowanie samym robotem (poruszanie bazy jezdnej) oraz diagnostykę.
 
@@ -27,17 +27,17 @@ sterowanie samym robotem (poruszanie bazy jezdnej) oraz diagnostykę.
 
 Rysunek~\ref{fig:decomposition} przedstawia najważniejsze moduły systemu,
 wraz z ogólnymi zależnościami pomiędzy nimi. Najważniejsze podsystemy
-są opisane w dalszej części pracy. 
+są opisane w dalszej części pracy.
 
 Taki podział systemu pozwala na zmniejszenie zależności pomiędzy jego elementami
-do niezbędnego minimum. Poszczególne moduły komunikują się ze sobą przy pomocy 
-ogólnie określonych interfejsów, a format konkretnych komunikatów nie jest 
+do niezbędnego minimum. Poszczególne moduły komunikują się ze sobą przy pomocy
+ogólnie określonych interfejsów, a format konkretnych komunikatów nie jest
 zależny od modelu sprzętu, który jest używany do ich wygenerowania. Dzięki temu
 zmiana dowolnego elementu nie wymaga wprowadzania zmian w pozostałych,
 podobnie dodawanie nowych modułów (np. sensorycznych). Jest to podstawowe
 wymaganie przy tworzeniu platform badawczych, na których można testować różne
 algorytmy, m.in. sterowania ruchem robota, lokalizacji czy przetwarzania danych
-w celu wykrywania przeszkód. 
+w celu wykrywania przeszkód.
 
 
 \section{Obliczanie położenia robota}
@@ -99,7 +99,7 @@ Znając dodatwe parametry:
 \begin{mydescription}{5pt}
 \item[$N$] liczba impulsów enkodera na pełny obrót koła,
 \item[$d$] średnica koła,
-\item[$b$] odstęp pomiędzy kołami robota, 
+\item[$b$] odstęp pomiędzy kołami robota,
 \end{mydescription}
 
 można obliczyć dystans, jaki przebyły koła po każdej ze stron robota:
@@ -122,8 +122,8 @@ Przy odpowiednio krótkim okresie próbkowania danych z enkoderów można zało�
 
 \begin{align*}
 \theta_i &= \theta_{i-1} + \Delta \theta_i \\
-x_i &= x_{i-1} + \Delta S_i \cdot cos(\theta_i) \\ 
-y_i &= y_{i-1} + \Delta S_i \cdot sin(\theta_i) 
+x_i &= x_{i-1} + \Delta S_i \cdot cos(\theta_i) \\
+y_i &= y_{i-1} + \Delta S_i \cdot sin(\theta_i)
 \end{align*}
 
 
@@ -183,7 +183,7 @@ rezultaty pokazane są na wykresie~\ref{fig:odom_calib}.
 
 \begin{figure}[ht!]
 \centering
-\includegraphics[width=\textwidth]{../../Common/pomiary/odom_calib}
+\includegraphics[width=\textwidth]{../../Common/pomiary/odom_calib_bw}
 \caption{Kalibracja odometrii robota}
 \label{fig:odom_calib}
 \end{figure}
@@ -193,7 +193,7 @@ rezultaty pokazane są na wykresie~\ref{fig:odom_calib}.
 Korzystając z modułu wyposażonego w żyroskop można mierzyć prędkość kątową
 $\omega$ robota, a z niej można sukcesywnie wyznaczać jego orientację. Wzory w
 tym przypadku również nie są złożone i sprowadzają się do przemnożenia chwilowej
-wartości prędkości przez czas, jaki upłynął od ostatniego pomiaru. 
+wartości prędkości przez czas, jaki upłynął od ostatniego pomiaru.
 
 \subsubsection{Źródła błędów}
 
@@ -227,13 +227,13 @@ gdzie:
 \begin{mydescription}{5pt}
 \item[$\omega$] prędkość kątowa żyroskopu,
 \item[$U$] wartość napięcia zwracana przez żyroskop,
-\item[$a$] współczynnik skalujący 
-\item[$b$] składowa stała pomiaru. 
+\item[$a$] współczynnik skalujący
+\item[$b$] składowa stała pomiaru.
 \end{mydescription}
 
 \begin{figure}[htp!]
 \centering
-\includegraphics[width=15.5cm]{../../Common/pomiary/gyro_bias}
+\includegraphics[width=15.5cm]{../../Common/pomiary/gyro_bias_bw}
 \caption{Kalibracja składowej stałej żyroskopu}
 \label{fig:gyro_bias}
 \end{figure}
@@ -255,7 +255,7 @@ nie jest stabilna i podlega fluktuacjom o niekreślonej charakterystyce. Ostatni
 wykres przedstawia wartość orientacji robota liczoną dla kilku długości czasu
 interpolacji składowej stałej przed pomiarami (5, 20 i 120 sekund) oraz dla
 składowej stałej liczonej ze wszystkich dostępnych próbek (takie rozwiązanie
-nie jest możliwe do zastosowania przy pracy on-line). 
+nie jest możliwe do zastosowania przy pracy on-line).
 
 Z przedstawionego wykresu wynika, że pomiar składowej stałej jest prawidłowy dla
 krótkich okresów tuż po jego wykonaniu, a wraz z upływem czasu oorientacja
@@ -266,7 +266,7 @@ właśnie w tych momentach.
 
 \begin{figure}[ht!]
 \centering
-\includegraphics[width=\textwidth]{../../Common/pomiary/gyro_rot}
+\includegraphics[width=\textwidth]{../../Common/pomiary/gyro_rot_bw}
 \caption{Kalibracja współczynnika skalowania żyroskopu}
 \label{fig:gyro_rot}
 \end{figure}
@@ -407,7 +407,7 @@ Dodatkowo moduł monitora zasilania wykrywa podłączenie ładowarki (napięcie 
 linii większe niż 28V), dzięki czemu możliwe jest wysyłanie ostrzeżeń o
 podłączonym przewodzie, zapobiegające jego wyrwaniu przy ruszaniu robotem. W
 przyszłości, wraz z rozwojem układów sterujących robota, możliwe będzie badanie
-pojemności akumulatorów, a przez to dokładniejsza ich diagnostyka. Obecne 
+pojemności akumulatorów, a przez to dokładniejsza ich diagnostyka. Obecne
 rozwiązanie sprawdza się jednak stosunkowo dobrze i spełnia swoją najważniejszą
 funkcję -- powiadamia użytkownika o zbliżającym się wyczerpaniu akumulatorów i
 zapobiega ich zniszczeniu przez doprowadzenie do zbyt dużego rozładowania.
@@ -466,7 +466,7 @@ zasięgu stworzony został monitor poziomu sygnału WiFi, analizujący zawartoś
 pliku \cons{/proc/net/wireless}. Wahania w sile sygnału widoczne są też podczas
 przesyłania dużych ilości danych przez łącze bezprzewodowe, w takim przypadku
 operator może na chwilę zatrzymać robota w pobliżu punktu dostępowego tak, aby
-połaczenie nie zostało zerwane podczas transmisji. 
+połaczenie nie zostało zerwane podczas transmisji.
 
 \subsection{Interfejs diagnostyczny}
 
@@ -478,7 +478,7 @@ na celu wyróżnienie informacji w danej chwili ważnych -- niskiego poziomu
 naładowania baterii czy wysokiego zużycia pamięci. Oprócz wizualizacji
 możliwy jest także dokładny podgląd systemu diagnostycznego (wyświetlenie
 pełnej treści pakietów przychodzących z robota) oraz wyświetlanie konsoli
-komunikatów systemu ROS. Oba te przyciski również zmieniają swoje kolory 
+komunikatów systemu ROS. Oba te przyciski również zmieniają swoje kolory
 w zależności od ich stanu -- jeśli w ciągu ostatnich 10-ciu sekund pojawiły
 się jakieś komunikaty ostrzegawcze bądź błędy, to konsola zmienia kolor na
 pomarańczowy bądź czerwony, podobnie jeśli któryś z komponentów monitorujących
