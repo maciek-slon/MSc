@@ -21,12 +21,47 @@ algorytmy wykorzystujące przygotowane wcześniej dane do wykonania pewnego zada
 
 \section{Sterowniki wbudowane}
 
-\subsection{Ograniczenia}
+W przypadku prostych robotów wyposażonych w niewielką ilość czujników
+i przeznaczonych do wykonywania kilku z góry okreslonych zadań stosuje się systemy
+złożone z mikrokontrolera połączonego z układami sensorycznymi i sterującego pracą
+całego robota. Do jego zadań należy zarówno odczyt danych z czujników, ich analiza
+i przetwarzanie, a także sterowanie efektorami robota. Systemy takie mają niewielką
+wydajność, ale ze względu na ich dobre dostosowanie do przewidzianego zadania działają
+szybko i pozwalają na uruchomienie pętli sterowania nawet w tempie kilkuset na sekundę.
+Przykładem takiego systemu może byc układ sterowania robotów sportowych. W przypadku
+robotów śledzących linię ich prędkość często przekracza 2m/s, przy jednoczesnej
+akwizycji i analizie danych z kilkunastu czujników i zdolności do natychmiastowej
+reakcji na wykryte przeszkody.
+
+Największą zaletą takich systemów jest ich niski koszt (często oscylujący w okolicach
+kilkunastu PLN) i prostota konstrukcji (możliwość montażu na płytce uniwersalnej).
+Niestety, możliwości są mocno ograniczone, a zmiana zadania wymaga często oprócz przepisania
+samego algorytmu sterującego także zmian sprzętowych. Rozwiązanie tego typu nie nadaje
+się do przygotowania platformy badawczej.
 
 \section{Ramowe struktury programowe}
 
-Drugą metodą jest podział systemu sterowania na rozłączne elementy -- samego 
-robota (efektor) i komunikujący się z
+Drugą metodą jest podział systemu sterowania na rozłączne elementy -- samego
+robota (efektor) i komunikujący się z nim komputer nadrzędny (który może być umieszczony
+zarówno na robocie, jak i poza nim sterując nim zdalnie). W tym przypadku podzespoły
+robota (jego układy sensoryczne, silniki itp.) mają swoje odrębne sterowniki sprzętowe
+(np. układ sterownika silników może przyjmować jako sterowanie zadaną prędkość
+i na jej podstawie generować odpowiednie sygnały dla silników, układy sensoryczne
+mogą agregować dane z wielu czujników i wysyłać je we wstępnie przetworzonej formie
+do komputera sterującego). Na komputerze sterującym uruchomione jest oprogramowanie
+komunikujące się ze sterownikami sprzętowymi i udostępniające pozyskane w ten sposób
+dane zewnętrznym algorytmom sterowania.
+
+Metody takie są elastyczne, umożliwiają łatwą zmianę zadania, jakie ma wykonywac robot,
+a także wymianę poszczególnych fragmentów systemu sterowania. Dodatkowo same aplikacje
+działają niejako niezależnie od sprzętu na robocie, więc możliwe jest wykorzystanie
+raz napisanych algorytmów na innych robotach (o ile dostarczają one wymaganych danych
+pomiarowych), jak też łatwo można zastąpić rzeczywistego robota jego symulacją w celach
+testowych. Problemem jest dużo wieksza komplikacja całego układu -- wymagany jest
+komputer sterujący o dużej mocy (aby możliwe było wykonywanie różnych zadań i obsługa
+komunikacji), osobne sterowniki sprzętowe dla podzespołów robota (nie da się sterować
+wszystkimi elementami bezpośrednio) oraz niezawodnie działająca struktura programowa
+abstrachująca algorytmy sterowania od warstwy fizycznej.
 
 W ciągu ostatnich lat powstało wiele ramowych struktur programowych do sterowania
 robotami, niektóre z nich specjalizowane dla jednego typu robotów (np. manipulatorów),
