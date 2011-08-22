@@ -69,7 +69,7 @@ Kinect. Biorąc pod uwagę wielkość otrzymywanych danych (w przypadku lasera
 kilkaset punktów, w przypadku sensora Kinect kilka tysięcy na każdy pomiar) oraz
 stosunkowo niewielką prędkość poruszania się robota, do wykrywania przeszkód
 nie są wykorzystywane wszystkie odczyty, a jedynie pięć na sekundę w przypadku
-lasera oraz dwa na sekundę w przypadku Kinecta. 
+lasera oraz dwa na sekundę w przypadku Kinecta.
 
 Po zebraniu pomiarów muszą one jeszcze zostać przetransformowane do wspólnego
 układu współrzędnych, w tym przypadku do układu związanego z bazą robota (w
@@ -143,7 +143,7 @@ przeszkód będzie zachowywał robot.
 \includegraphics[width=15cm]{../../Common/img/ros/inflate.pdf}
 \caption{Nadmuchiwanie przeszkód.}
 \label{fig:inflation}
-\end{figure} 
+\end{figure}
 
 Mapa zajętości ma stały rozmiar, a jej środek związany jest ze środkiem bazy
 jezdnej robota. W środowiskach o dynamicznie zmieniającej się konfiguracji
@@ -156,8 +156,84 @@ od przejechanego przez robota dystansu i wielkości eksplorowanego środowiska.
 
 \section{Lokalizacja robota}
 
+Obliczanie względnej pozycji robota (a więc liczona na podstawie jego ruchu, względem
+punktu początkowego) zostało opisane już wcześniej przy okazji opisu odometrii
+oraz rozszerzonego filtru Kalmana. W przypadku aplikacji, gdzie nie jest wykorzystywany
+żaden system lokalizacji globalnej jest to jedyne źródło informacji o położeniu,
+użytkownik może dodatkowo wskazać na mapie położenie początkowe aby umożliwić pracę
+globalnego planera trasy.
+
+Możliwe jest także zastosowanie algorytmu globalnej lokalizacji -- jest to element
+wymienny w systemie nawigacji i może być tam zastosowany dowolny gotowy bądź zaimplementowany
+w ramach badań algorytm. Jest to więc jeden z elementów, które mogą być testowane
+przy użyciu stworzonej platformy badawczej -- sama wymiana modułu lokalizacji jest
+bardzo łatwa i sprowadza się jedynie do uruchomienia własnego procesu z algorytmem
+w miejsce istniejącego. W szczególności jako algorytm lokalizacji globalnej może być
+podany program wykorzystujący jedynie odometrię (tak jak zostało to opisane w poprzednim
+akapicie).
+
+Do celów globalnego wyznaczania trasy oraz ewentualnej globalnej lokalizacji stworzona
+została mapa kilku pomieszczeń, po których poruszał się robot. Jej tworzenie było
+dwuetapowe -- najpierw przy pomocy algorytmu SLAM i skanera laserowego zostały
+stworzone mapy poszczególnych pomieszczeń (w kilku częściach, ze względu na możliwości
+obliczeniowe komputera sterującego). Mapy te zawierały oczywiście wszystkie bieżące
+przeszkody i ruchome elementy wyposażenia, takie jak stoły, krzesła czy pudła.
+Na podstawie tych map stworzona została ręcznie w programie typu CAD oczyszczona
+mapa, zawierająca jedynie ściany pomieszczeń, duże meble (takie, których przestawienie
+nie jest w łatwy sposób możliwe, a więc szafy pancerne i ciężkie biurka warsztatowe)
+oraz niedostępny dla robotów mobilnych podest z manipulatorami. Wszystkie pozostałe
+elementy (w szczególności mniejsze stoły, krzesła czy kosze na śmieci) zostały z tej
+mapy usunięte.
+
+W przygotowanych aplikacjach jako do nawigacji globalnej (względem dostarczonej
+zgrubnej mapy środowiska) został wykorzystany algorytm AMCL (Adaptive Monte Carlo
+Localization~\cite{fox2001kld}) wykorzystujący filtr cząsteczkowy do śledzenia
+pozycji robota na znanej mapie. Pozycja jest wyznaczana na podstawie odczytów
+ze skanera laserowego oraz z układu odometrii robota. Ważne jest to, że pojawiające
+się wokół robota przeszkody, które nie są umieszczone na mapie, nie wpływają znacząco
+na jakośc lokalizacji (dopóki robot przez dłuższy czas nie będzie nimi całkowicie
+otoczony), oraz że algorytm szybko odnajduje właściwe położenie robota po jego
+chwilowym zagubieniu. Algorytm bardzo dobrze radzi sobie z lokalizowaniem robota nawet
+posiadając jedynie zgrubną mapę otoczenia zawierającą kluczowe cechy otoczenia
+(opisaną wcześniej).
 
 \section{Planowanie trasy}
 
 \subsection{Ścieżka globalna}
+
+Po wskazaniu punktu docelowego uruchamiany jest globalny planer trasy. Element ten
+jest wymienny i może być wykorzystana implementacja dowolnego algorytmu (spełniająca
+warunki narzucone przez interfejs systemu), tak więc jest to kolejny element, na którym
+mogą być przeprowadzane eksperymenty używając stworzonej platformy. W aplikacjach
+testowych został wykorzystany algorytm Dijkstry wyszukiwania ścieżki w grafie tworzonym
+na podstawie mapy globalnej. Początkowo uwzględniana jest jedynie sama mapa, bez
+dodatkowej informacji o przeszkodach, a w momencie, kiedy robot nie zdoła wykonać
+zadanego planu, algorytm uruchamiany jest ponownie uwzględniając już przeszkody
+z dynamicznie tworzonej mapy zajętości wokół robota (które w szczególności mogą
+przesłaniać niektóre przejazdy, np. zamknięte drzwi).
+
+Planwer globalny wprowadza dodatkowe założenia o kształcie robota -- przyjmuje, że
+jest on okrągły i do obliczeń wykorzystuje okrąg opisany na faktycznym obrysie robota.
+Wynikają z tego drobne problemy tego podejścia, mianowicie może się okazać, że nie
+zostanie wyznaczona żadna ścieżka mimo, iż w przy pewnej konfiguracji robot zmieściłby
+się pomiędzy przeszkodami (np. przejeżdżając ,,na styk'' pomiędzy nimi). Sytuacja
+taka nie wystąpiła jednak w czasie eksperymentów, a kształt robota Elektron jest
+na tyle zwarty, że dla celów globalnego planowania trasy może być przybliżony okręgiem.
+
 \subsection{Ścieżka lokalna}
+
+Po wyznaczeniu planu globalnego jego fragmenty są przesyłane do lokalnego planera
+trasy działającego z wykoszystaniem algorytmu okna dynamicznego (opisany w
+rozdziale~\ref{chap:nawigacja}). Obliczenia wykorzystują lokalną mapę zajętości
+tworzoną wokół robota (z nanoszonymi na nią na bieżąco przeszkodami) oraz
+bieżące odczyty z układu odometrii robota (aktualna prędkość).
+Funkcja liczenia kosztu ruchu jest ustawiona tak,
+aby najmniejszym kosztem obarczone były trajektorie kończące się blisko ścieżki globalnej,
+natomiast odjeżdżanie od niej owocowało zwiększaniem kosztu. Dużym problemem okazało
+się dobranie odpowiednich parametrów algorytmu (a więc ograniczeń na prędkości
+oraz długości pojedynczego kroku czasowego symulacji). Przy zbyt długim kroku
+algorytm często wybierał ruch obrotowy z niewielką prędkością liniową, który skutkował
+powrotem do punktu wyjścia (koszt takiego ruchu był minimalny, gdyż kończył się dokładnie
+na wyznaczonej ścieżce). Po eksperymentach i ustawieniu parametrów robot wykonywał
+wyznaczone ściezki z dużą szybkością (ok. 15cm/s, a więc 75\% maksymalnej prędkości
+dozwolonej dla robota) sprawnie unikając pojawiających się przeszkód.
