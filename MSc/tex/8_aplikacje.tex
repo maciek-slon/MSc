@@ -7,7 +7,7 @@
 \end{savequote}
 
 
-\chapter{Aplikacje}
+\chapter{Aplikacje i testy}
 \label{chap:aplikacje}
 
 \section{Automatyczna kalibracja odometrii i żyroskopu}
@@ -101,6 +101,35 @@ pomnożyć przez współczynniki już ustawione w sterownikach robota.
 
 \section{Prosta, losowa eksploracja}
 
+Kolejną aplikacją, która powstała w celu przetestowania porawnego działania 
+sensorów oraz sterownika silników była losowa eksploracja terenu. Podczas 
+ruchu wyznaczana jest minimalna odległość do przeszkód w dwóch strefach 
+-- po lewej oraz prawej stronie. Jeśli wokół robota nie ma przeszkód bliżej, 
+niż ustalona odległość minimalna, to porusza się on na wprost. W przeciwnym
+wypadku prędkość kątowa jest proporcjonalna do różnicy odległości przeszkód
+po lewej i prawej stronie (o kierunku takim, aby dążyć do wyrównania odległości
+po obu stronach), a prędkość liniowa proporcjonalna jest do średniej odległości
+przeszkód po obu stronach.
+
+Zadanie spełnia swoją podstawową rolę -- pozwala na przetestowanie różnych 
+zestawów sensorycznych (skanera laserowego, Kinecta) oraz zweryfikować
+poprawność działania układu zarządzającego pracą silników. Niestety, ze względu
+na bardzo prosty algorytm zastosowany do omijania przeszkód, zdarzają się sytuacje
+blokady robota w narożnikach pomieszczeń (średnia odległość od przeszkód po 
+obu stronach jest taka sama, więc robot nie skręca, a ściany są na tyle blisko, 
+że prędkość liniowa została wyzerowana). Innym pojawiającym się problemem
+jest wjeżdżanie w przeszkody podczas zakręcania przy korzystaniu z sensorów 
+o dużej minimalnej odległości działania i wąskim polu widzenia, 
+
+
+
 \section{Budowa mapy}
 
+
+
 \section{Dojazd do wyznaczonego celu z omijaniem przeszkód}
+
+Ostatnią, a zarazem kluczową aplikacją stworzoną w ramach tej pracy jest
+pełny system nawigacji (o strukturze opisanej w poprzednich rozdziałach)
+przygotowany do możliwie maksymalnego wykorzystania wszystkich dostępnych
+elementów (tj. układów sensorycznych, systemów lokalizacji).
