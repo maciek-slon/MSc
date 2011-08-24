@@ -193,7 +193,7 @@ uruchamiania zachowań ratunkowych przedstawiony jest na rysunku~\ref{fig:recove
 \label{fig:recovery}
 \end{figure}
 
-\subsection{Weryfikacja poprawności działania}
+\section{Weryfikacja poprawności działania}
 
 Największym problemem w aplikacjach robotycznych jest weryfikacja poprawności ich
 działania. Możliwe jest napisanie testów jednostkowych samego oprogramowania,
@@ -208,10 +208,170 @@ obie te metody można wykorzystać jednocześnie, sprawdzając najpierw ogólną
 algorytmu na symulacji, a następnie sprawdzając wszystkie możliwe przypadki użycia
 (a przynajmniej tyle, ile można przewidzieć).
 
-\subsubsection{Wykorzystanie symulacji}
+\subsection{Wykorzystanie symulacji}
 
+Obecnie istnieje wiele gotowych symulatorów do testowania zachowań robotów
+mobilnych, występują zarówno w wersjach dwuwymiarowych (Stage) jak i trójwymiarowych
+(Gazebo). Posiadają możliwość pełnej symulacji układu robotycznego, zarówno
+jego bazy jezdnej jak i wielu różnych sensorów. Dodatkowo wyposażone są 
+w moduł symulacji fizycznej, dzięki czemu symulacje mogą odwzorowywać dodatkowe
+czynniki, takie jak różne współczynniki tarcia podłoża czy zderzenia. 
+Niestety, wielu elementów nie da się dokładnie zasymulować, chociażby ze
+względu na występujące niedokładności rzeczywistych czujników, często o charakterze
+losowym i różnego rodzaju szumy. Poza tym w warunkach symulacji zazwyczaj dużo
+lepiej działają wszystkie systemy lokalizacji. 
 
+Mimo opisanych cech symulacji, jest to najlepsze narzędzie do przeprowadzania
+wstepnych testów algorytmów sterowania. Nie ma ryzyka uszkodzenia sprzętu
+przy wystąpieniu dużego błędu, można też zgrubnie dobrać wstepne wartości
+parametrów różnych algorytmów. Podczas prac z robotem Elektron wykorzystywany
+był symulator Gazebo, wraz z trójwymiarowym modelem robota i prostym modelem
+środowiska zawierającym kilka przeszkód. Podczas tych kilku pierwszych uruchomień
+ustalone zostały takie parametry wielkości map i dokładności różnych algorytmów,
+aby nie występowało nadmierne obciążenie procesora na komputerze sterującym
+robota.
 
-\subsubsection{Testy w kontrolowanych warunkach}
+\subsection{Testy w kontrolowanych warunkach}
 
+Po dobraniu wstępnych wartości dla algorytmów (zarówno lokalizacji jak 
+omijania przeszkód) rozpoczęły się testy na właściwym sprzęcie. Pierwsze 
+przejazdy odbywały się ze zmniejszoną prędkością, w środowisku pozbawionym
+przeszkód i miały na celu sprawdzenie w rzeczywistości poprawności pracy
+wszystkich elementów nawigacji.
 
+Pierwsze testy dotczyły działania systemu lokalnej i globalnej lokalizacji.
+Po skalibrowaniu żyroskopu i odometrii robot został ustawiony w znanym położeniu
+(oznaczonym później na mapie jako miejsce startowe) i był sterowany przy pomocy
+joysticka i modułu teleoperacji. Podczas ruchu wykonywane były różne trajektorie,
+m.in. jazda po prostej, zakręty o różnym promieniu i prędkości pokonywania
+oraz nagłe zmiany szybkości ruchu. Podczas całego testu system lokalizacji 
+globalnej utrzymywał poprawne położenie robota w odniesieniu do zgrubnej mapy 
+pomieszczenia, czasami jedynie gubiąc się w długim korytarzu pozbawionym 
+cech charakterystycznych. System lokalizacji lokalnej po powrocie do punktu 
+startowego wykazywał różnicę zarówno w położeniu jak i orientacji, wartości
+te wahały się od kilkunastu centymetrów przy krótkich trasach do nieco ponad
+metra przy długich testach (wartość różnicy w orientacji wynosiła maksymalnie 10\textdegree,
+dokładniejsze dane dotyczące dokładności systemu lokalizacji lokalnej podane
+są w części dotyczącej rozszerzonego filtru Kalmana).
+
+Kolejnym testowanym modułem był globalny planer trasy. Testy polegały na 
+wyznaczaniu robotowi różnych punktów docelowych, z czego były możliwe 
+trzy sytuacje: punkt osiągalny bez dodatkowych warunków, punkt osiągalny 
+o ile konfiguracja przeszkód na to pozwalała (w tym przypadku zawsze pozwalała, 
+miało to znaczenie przy kolejnych testach, gdzie pojawiły się przeszkody) 
+oraz punkt nieosiągalny. W każdym przypadku wykonano kilkanaście testów,
+w każdym przypadku trajektoria została wyznaczona prawidłowo i robot wykonał
+ją bez błędów, punkty docelowe nieosiągalne zostały wykryte i odrzucone przez 
+algorytm wyznaczania trajektorii. W tych samych testach sprawdzana była także
+poprawność wykonywania trajektorii przez moduły planera trajektorii lokalnej.
+Po dostrojeniu odpowiednich parametrów (głównie dotyczących w tym przypadku
+czasu planowania wprzód tak, aby uniknąć jazdy w kółko) robot przeszedł
+testy bezbłędnie (za każdym razem trajektoria lokalna śledziła globalną 
+bez kłopotów). 
+
+Po przetestowaniu zdolności śledzenia zadanej ścieżki testy przeniosły się
+na moduł wykrywania i omijania przeszkód. W tym momencie kluczowe były dwie
+kwestie: dokładne skalibrowanie chmury punktów uzyskiwanej z sensora Kinect
+tak, aby punkty odpowiadające podłodze leżały na płaszczyźnie o równaniu
+$z=0$, oraz ustawienie odpowiednich wartości dla wielkości oczka siatki
+w lokalnej mapie zajętości. Pierwsze zadanie wykonywane jest przed rozpoczęciem
+jazdy przez robota przy użyciu małej aplikacji, która pozycjonuje Kinect 
+pod kątem 20\textdegree ~w dół, a następnie odczytując dane z wbudowanego 
+w niego akcelerometru wyznacza faktyczne wartości kątów pochylenia i skręcenia
+używane przy przekształcaniu chmury z układu związanego z czujnikiem do układu
+związanego z robotem. 
+
+Dobór wielkości oczek lokalnej mapy zajętości miał kluczowe znaczenie przy zdolności
+do pokonywania wąskich przejazdów przez robota. Przy zbyt dużej ich wielkości
+przejazdy pomiędzy przeszkodami mogłyby stać się nieprzejezdne dla planera 
+ściezki lokalnej, przy zbyt małej robot mógł zacząć wpadać na niektóre przeszkody
+podczas wykonywania obrotów w ich pobliżu, wzrosłoby też znacząco obciążenie
+systemu. Wartość była dobierana eksperymentalnie w taki sposób, aby robot był
+w stanie przejechać przez drzwi o szerokości 80cm, pod możliwie wieloma kątami
+(a więc nie tylko na wprost). Oczka o wielkości 10cm okazały się zdecydowanie 
+zbyt mało dokładne, średnio w 70\% przypadków futryny po zaznaczeniu na mapie 
+znajdowały się w odległości 60cm, a po uwzględnieniu dodatkowej (dość niskiej, 
+bo jedynie 5cm) wartości dozwolonego dystansu od przeszkód okazywało się, że
+robot nie jest w stanie zmieścić się w drzwiach (poprzez zmieszczenie się
+rozumiana jest możliwość przejazdu przez drzwi oraz wykonania obrotu stojąc 
+pomiędzy futrynami). Siatka wielkości 5cm dużo dokładniej pokrywała przeszkody,
+pozwalając na przejazd robota przez wąskie przesmyki. Niestety, z powodu dodatkowego 
+obciążenia systemu konieczna stała się redukcja wielkości lokalnej mapy zajętości
+z początkowych dziewięciu do sześciu metrów (a więc po trzy metry od robota 
+w każdą stronę). 
+
+Po kalibracji orientacji czujnika robot miał za zadanie pokonać trasy podobne,
+jak przy poprzednich testach, tym razem mając na trasie ustawione dodatkowe
+przeszkody (takie jak krzesła i kartonowe pudełka). Planer trajektorii 
+globalnej wyznaczał oczywiście ścieżki nie uwzględniające ich, gdyż nie 
+były one zaznaczone na mapie, a więc zadanie ich ominięcia spoczywało na
+planerze lokalnym. Przy tym samym punkcie startowym i docelowym oraz tej 
+samej konfiguracji przeszkód robot wykonał po 10 przejazdów w obie strony 
+(od punktu startowego do docelowego i z powrotem), z czego w dwóch przypadkach 
+nastąpił kontakt z przeszkodą. Kontakt polegał na zahaczeniu podczas zakręcania
+o najbardziej wystające elementy podstawy fotela biurowego i jego delikatne 
+przesunięcie, było to spowodowane małą wielkością oczka siatki w mapie zajętości
+i dość wąskim polem widzenia sensora. Przeprowadzone zostały także testy 
+wykrywania sytuacji wyjątkowych opisanych wcześniej. Robot podczas ruchu 
+został otoczony przeszkodami (kartonowe pudła oraz ludzie) w odległości 
+ok. metra. Początkowo algorytm wyznaczał ścieżkę omijającą przeszkodę przed 
+robotem, jednak wraz z zakręcaniem wykrywane były kolejne, aż w końcu wokół
+całego robota na mapie zajętości pojawiły się przeszkody. W tym momencie 
+robot się zatrzymał i rozpoczął wykonywanie zachowań ratunkowych. Jeśli 
+w tym czasie przeszkody zostały usunięte, robot kontunuował jazdę do celu,
+jeśli natomiast pozostały na swoim miejscu, to po wykonaniu całej serii 
+wszystkich przewidzianych ruchów i aktualizacji mapy zajętości robot sygnalizował
+prawidłowo niemożność osiągnięcia celu. 
+
+Podczas testów z przeszkodami zostało też sprawdzone wykrywanie nieprzejezdnych
+obszarów (np. zamkniętych drzwi). Jeśli robot miał za zadanie przejechać pomiędzy
+dwoma pomieszczeniami, gdzie przejazd możliwy był tylko przez jedne drzwi,
+a podczas przejazdu dojechał do zamkniętych drzwi, zatrzymywał się. W tym 
+momencie uruchamiany był ponownie globalny planer trasy, który oczywiście
+nie był w stanie jej znaleźć i sygnalizowany był błąd (punkt docelowy jest
+nieosiągalny). Podobna sytuacja (zatrzymanie robota i ponowne generowanie 
+ścieżki globalnej) występowała też podczas normalnego ruchu, kiedy istniało
+kilka możliwych (z punktu widzenia dostarczonej mapy) dróg, a wybrana okazywała
+się nieprzejezdna (np. prowadziła przez obszar zastawiony krzesłami). W tym 
+wypadku po ponownym wyliczeniu robot kontynuowal jazdę inną trasą.
+
+\section{Eksperymenty porównawcze}
+
+Po przeprowadzeniu niezbędnych testów (zarówno w symulacji jak i na rzeczywistym
+sprzęcie) nadszedł czas na przeprowadzenie właściwych eksperymentów mających
+na celu stwierdzenie czy i w jaki sposób wykorzystanie kamery 3D wpływa na
+proces nawigacji robota mobilnego. Podstawowym czujnikiem, z którym porównywany
+był Kinect był skaner laserowy Sick. Przygotowane zostały dwie trasy, zawierające
+różne rodzaje przeszkód. Pierwsza zawierająca jedynie kartonowe pudła oraz
+stoły (pod którymi robot mógł bezpiecznie przejechać, przeszkodę stanowiły 
+jedynie ich nogi), druga składająca się dodatkowo z krzeseł biurowych oraz
+małych niskich pudełek (ok. 10cm wysokości). 
+
+W pierwszym przypadu zarówno skaner laserowy jak i Kinect wykrywały przeszkody 
+w ten sam sposób (niezależnie od wysokości przeszkody miały ten sam kształt), 
+więc nie było widać przewagi kamery 3D nad klasycznym laserem. Dodatkowo z powodu
+wąskiego pola widzenia sensora 3D podczas wykonywania trajektorii robot częściej
+musiał się obracać aby zbadać obszar po bokach, pomiary z lasera od razu
+pokazywały prawie całe otoczenie, więc trajektorie były gładsze i ogólna
+szybkość ich pokonywania była większa o ok. 30\% .
+
+W drugim wypadku wykorzystanie sensora 3D dało wymierne rezultaty -- wykrywał
+on bezbłednie wszystkie przeszkody, w tym niskie pudełka (całkowicie niewidoczne
+przy pomiarach laserowych) oraz podstawy krzeseł biurowych (w tym przypadku 
+na skanerze laserowym widoczne były jedynie ich wąskie nogi). W wielu wypadkach
+skutkowało to wpadaniem na te przeszkody przy korzystaniu ze skanera laserowego
+(praktycznie w każdym przejeździe robot wpadał na małe pudełka, co jest 
+oczywiste biorąc pod uwagę że całkowicie nie był w stanie ich wykryć, dodatkowo
+w ok. połowie przypadków zahaczał o podstawy krzeseł biurowych próbując 
+przejechać w ich pobliżu). Taki scenariusz rozmieszczenia przeszkód jest 
+dużo bardziej realistyczny w warunkach normalnej ekploatacji pomieszczeń 
+biurowych i podobnych, widać więc zdecydowaną zaletę z korzystania z czujników
+zwracających pełny, trójwymiarowy obraz sceny przed robotem. 
+
+W ramach ostatniego testu do nawigacji zostały wykorzystane oba dostępne czujniki 
+-- zarówno skaner laserowy jak i sensor Kinect. W tym wypadku rezultaty były 
+najlepsze ze wszystkich -- wykrywane były wszystkie przeszkody przed robotem
+(nawet najmniejsze i o nieregularnym kształcie), a dzięki zastosowaniu skanera
+o duzym polu widzenia część przeszkód po bokach także była zaznaczana powodując,
+że planer ścieżki lokalnej nie musiał wykonywać dodatkowych obrotów w celu 
+zbadania przejezdności tych obszarów.
