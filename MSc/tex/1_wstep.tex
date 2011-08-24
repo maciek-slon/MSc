@@ -35,13 +35,21 @@ poruszanie się do okreslonego celu.
 
 \section{Cel pracy}
 
-Celem pracy jest stworzenie pełnego systemu sterowania robota mobilnego,
+Celem pracy było stworzenie pełnego systemu nawigacji robota mobilnego,
 wykorzystującego informacje o otoczeniu z wielu źródeł, w tym z kamery 3D.
+Należało także dokonać wyboru konkretnej metody obrazowania trójwymiarowego
+spośród dostepnych rozwiązań z uwzględnieniem warunków, w których będzie ono
+wykorzystywane i ograniczeń sprzętowych platformy.
 
-Stanowisko do badania algorytmów sterowania, budowania map, nawigacji i inne takie
-propagandowe teksty, ogólnie chodziło o przygotowanie niezawodnej platformy
-gotowej na prostą podmianę pojedynczych algorytmów bez potrzeby głębokich
-zmian w pozostałych elementach.
+Dodatkowo przygotowany system nawigacji miał pozwalać na łatwe modyfikowanie
+i zmianę poszczególnych modułów (m.in. planerów trasy), a więc powinien być
+gotowym stanowiskiem badawczym i eksperymentalnym. Jego przeznaczeniem miało
+być badanie różnych algorytmów sterowania, budowy map, nawigacji czy lokalizacji.
+
+%Stanowisko do badania algorytmów sterowania, budowania map, nawigacji i inne takie
+%propagandowe teksty, ogólnie chodziło o przygotowanie niezawodnej platformy
+%gotowej na prostą podmianę pojedynczych algorytmów bez potrzeby głębokich
+%zmian w pozostałych elementach.
 
 \section{Struktura pracy}
 
@@ -49,11 +57,18 @@ Na początku pracy (rozdział~\ref{chap:porownanie}) skupiono się na porównani
 dostępnych metod pozyskiwania trójwymiarowego
 obrazu sceny. Wyniki przeprowadzonych doświadczeń pozwoliły wybrać docelowe rozwiązanie
 wykorzystane przy realizacji zadania. W kolejnych rozdziałach przedstawione są elementy
-stworzonego systemu, z podziałem na kolejne warstwy abstrakcji. Rozdział~\ref{chap:sprzet}
-przedstawia wykorzystane urządzenia, w rozdziale~\ref{chap:software} pokazana jest
-warstwa pośrednicząca odbierająca dane z czujników i przekształcająca je do postaci
-bezpośrednio użytecznej w sterowaniu. W rozdziale~\ref{chap:mapa} opisane zostało
-wykorzystanie tak przygotowanych danych do budowy mapy otoczenia oraz nawigacji robota.
+stworzonego systemu, z podziałem na kolejne warstwy abstrakcji. Po nim nastepuje
+teoretyczne wprowadzenie w podstawy nawigacji robotów mobilnych (rozdział~\ref{chap:nawigacja})
+zawierający opis najważniejszych konceptów z dziedziny wraz z przeglądem istniejących
+rozwiązań. Rozdział~\ref{chap:sprzet} przedstawia wykorzystaną platformę sprzetową,
+a więc samego robota mobilnego Elektron, jak i pozostałe moduły sensoryczne. Kolejne
+dwie części dotyczą części programowej całego systemu -- rozdział~\ref{chap:programowanie}
+zawiera przegląd metod programowania robotów mobilnych oraz wybór zastosowanego rozwiązania,
+a w rozdziale~\ref{chap:software} pokazana jest warstwa pośrednicząca odbierająca
+dane z czujników i przekształcająca je do postaci bezpośrednio użytecznej w sterowaniu.
+W rozdziale~\ref{chap:mapa} omówiony został w pełni system nawigacji przygotowany
+na omawianej platformie, wraz z opisem implementacji kluczowych elementów
+przetwarzania i filtrowania danych sensorycznych.
 Część~\ref{chap:aplikacje} przedstawia przekrojowo aplikacje przygotowane
 przy użyciu zaproponowanych technik mapowania i nawigacji, zaczynając od zadań
 najprostszych, takich jak losowa eksploracja terenu, kończąc na złożonych zadaniach

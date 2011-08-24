@@ -115,11 +115,61 @@ rozwiązania tego problemu: stworzenie kopii dużej części systemu i wprowadza
 w niej własnych zmian, bądź napisanie modułu pośredniczącego pomiędzy sensorem a
 algorytmami oznaczania przeszkód, która to metoda została wybrana.
 
-\subsubsection{Oznaczanie przeszkód}
+\subsubsection{Wykrywanie spadków terenu}
+
+Przed przekazaniem danych z sensora Kinect do dalszych algorytmów tworzenia map
+przeszkód są one przetwarzane przez zestaw filtrów. Pierwszy z nich usuwa punkty
+odstające w pewien sposób od reszty pomiaru, a więc takie, które mogą sugerować
+szum pomiarowy. Punkty te są wykrywane przez zliczanie sąsiadow w ich otoczeniu
+o okreslonej wielkości, a jesli tych sasiadów będzie mniej niż dwóch, punkt taki
+jest odrzucany z dalszych obliczeń.
+
+Kluczowym filtrem jest jednak wykrywanie spadków terenu. Zostało ono zrealizowane
+w sposób koncepcyjnie dość prosty, dający jednak bardzo dobre rezultaty. Dla punktów
+o współrzędnej $z>0$ wykonywane
+jest proste przepisanie bez żadnych zmian, natomiast punkty poniżej progu są przekazywane
+do dalszej obróbki. W pierwszym kroku są one odbijane względem płaszczyzny $z=0$
+(a więc punkt o współrzędnych $(x, y, z)$ zamieniany jest na punkt o współrzędnych
+$(x, y, -z)$). Jako, że zazwyczaj wykrywane są przeszkody dopiero w pewnej
+odległości od spadku terenu (patrz rysunek~\ref{fig:depresion}), konieczne jest
+znalezienie właściwego miejsca spadku. W tym celu wyznaczane jest równanie prostej
+łączącej aktualnie badany punkt ze środkiem sensora, a z niego wyliczane są współrzędne
+$x$ oraz $y$ miejsca przecięcia tej prostej z płaszczyzną $z=0$. Do chmury dodawane
+są dodatkowe punkty o współrzędnych $x$ i $y$ wyliczonych wcześniej oraz współrzędnej
+$z=0.1$ (symulowana jest przeszkoda znajdująca się 10cm ponad poziomem podłoża).
+W ten sposób lokalny planer trasy jest niejako zmuszany do omijania spadków terenu.
 
 \subsubsection{Czyszczenie przeszkód}
 
-\subsubsection{Wykrywanie spadków terenu}
+Pierwszym krokiem po dostarczeniu przetworzonej wstępnie chmury punktów do algorytmu
+oznaczającego przeszkody jest oczyszczenie mapy z przeszkód, które nie są już widoczne.
+Dla każdego punktu z danego pomiaru wykonywany jest ten sam algorytm. Pomiędzy
+bieżącym punktem a środkiem sensora z którego pochodzi dany pomiar prowadzony jest
+odcinek prostej, a każda komórka mapy, przez który dany odcinek przechodzi jest
+czyszczona z przeszkód. Jako, że mapa jest dyskretna i ma stosunkowo duże oczka,
+do wyznaczania kolejnych komórek przez które przechodzi bieżący promień wykorzystany
+został algorytm Bresenhama (rozszerzony na przypadek trojwymiarowy). Ogólnie czyszczenie
+przeszkód z mapy jest zadaniem dość czasochłonnym, widać też, że w przyjętym algorytmie
+do wyczyszczenia nieistniejących przeszkód konieczne jest istnienie innej przeszkody
+tak, aby odpowiednie punkty pojawiły się w chmurze z pomiaru (jeśli nie będzie możliwości
+poprowadzenia promienia przez dany punkt z powodu braku odpowiednich pomiarów, to
+przeszkoda taka nie zniknie z mapy). Własność ta sprawia, że tworzenie lokalnych
+map zajętości o zbyt dużych rozmiarach może spowodować problemy (przypadkowe przeszkody
+pojawiające się w otwartym terenie daleko od robota mogą nigdy nie zostać wyczyszczone).
+
+\subsubsection{Oznaczanie przeszkód}
+
+Oznaczaie przeszkód wykonywane po oczyszczeniu poprzedniego stanu mapy jest zadaniem
+dużo prostszym, zarówno koncepcyjnie jak i obliczeniowo. Dla każdego punktu z danego
+pomiaru wyznaczana jest komórka, w której dany punkt leży, a następnie jest ona
+oznaczana jako zajęta.
+
+Kolejność wykonywanych działań, a więc najpierw czyszczenie, a dopiero potem
+oznaczanie nowych przeszkód ma kluczowe znaczenie. Gdyby wykonywane było jednocześnie
+dla każdego punktu i czyszczenie, i oznaczanie przeszkód, mogłoby dochodzić do
+sytuacji, w których dopiero co oznaczone w mapie obiekty byłyby usuwane przez proces
+czyszczenia wywoływany dla innych punktów z danego pomiaru.
+
 
 \subsection{Mapa zajętości}
 
