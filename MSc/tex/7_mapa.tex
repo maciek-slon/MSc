@@ -115,6 +115,13 @@ rozwiązania tego problemu: stworzenie kopii dużej części systemu i wprowadza
 w niej własnych zmian, bądź napisanie modułu pośredniczącego pomiędzy sensorem a
 algorytmami oznaczania przeszkód, która to metoda została wybrana.
 
+\begin{figure}[htb!]
+\centering
+\includegraphics{../img/filtering}
+\caption{Potok przetwarzania chmury punktów z sensora Kinect}
+\label{fig:filtering}
+\end{figure}
+
 \subsubsection{Wykrywanie spadków terenu}
 
 Przed przekazaniem danych z sensora Kinect do dalszych algorytmów tworzenia map
@@ -123,6 +130,13 @@ odstające w pewien sposób od reszty pomiaru, a więc takie, które mogą suger
 szum pomiarowy. Punkty te są wykrywane przez zliczanie sąsiadow w ich otoczeniu
 o okreslonej wielkości, a jesli tych sasiadów będzie mniej niż dwóch, punkt taki
 jest odrzucany z dalszych obliczeń.
+
+\begin{figure}[htb!]
+\centering
+\includegraphics{../../Common/img/depresion}
+\caption{Wykrywanie spadków terenu}
+\label{fig:depresion}
+\end{figure}
 
 Kluczowym filtrem jest jednak wykrywanie spadków terenu. Zostało ono zrealizowane
 w sposób koncepcyjnie dość prosty, dający jednak bardzo dobre rezultaty. Dla punktów
