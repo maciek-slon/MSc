@@ -15,17 +15,17 @@
 
 \section{Robot mobilny Elektron}
 
-Robot mobilny Elektron powstał w roku 2007 jako efekt współpracy Instytutu Automatyki
-i Robotyki oraz Instytutu Automatyki i Informatyki Stosowanej Politechniki Warszawskiej
+Robot mobilny Elektron powstał w~roku 2007 jako efekt współpracy Instytutu Automatyki
+i~Robotyki oraz Instytutu Automatyki i~Informatyki Stosowanej Politechniki Warszawskiej
 \cite{SzynkiewiczEtal06}. Został zaprojektowany jako platforma laboratoryjna,
-przeznaczona do badań nad systemami sterowania i nawigacji robotów mobilnych,
-czemu sprzyjać miała modułowa konstrukcja zarówno części mechanicznej, jak i systemu
+przeznaczona do badań nad systemami sterowania i~nawigacji robotów mobilnych,
+czemu sprzyjać miała modułowa konstrukcja zarówno części mechanicznej, jak i~systemu
 sterowania. Od momentu powstania robot poddawany był kolejnym modernizacjom,
-mającym na ceu zarówno dołączenie nowych zestawów czujników, jak i umożliwienie
+mającym na celu zarówno dołączenie nowych zestawów czujników, jak i~umożliwienie
 sterowania robota przy wykorzystaniu nowych struktur programowych. Pierwotnie Elektron
-sterowany był przy wykorzystaniu środowiska Player/Stage, w ramach niniejszej pracy
-robot został uruchomiony wykorzystując system ROS (więcej na ten temat w
-rozdziale~\ref{chap:programowanie}).
+sterowany był przy wykorzystaniu środowiska Player/Stage, w~ramach niniejszej pracy
+robot został uruchomiony wykorzystując system ROS (więcej na ten temat 
+w~rozdziale~\ref{chap:programowanie}).
 
 
 \begin{figure}[h!]
@@ -40,12 +40,12 @@ sensorem Kinect.}
 \subsection{Konstrukcja mechaniczna}
 %-------------------------------------------------------------------------------
 
-Baza jezdna robota jest sześciokołową platformą o napędzie różnicowym na wszystkie
-koła. Robot ma budowę modułową i w jej skład wchodzą moduły: napędowy (monolityczny
+Baza jezdna robota jest sześciokołową platformą o~napędzie różnicowym na wszystkie
+koła. Robot ma budowę modułową i~w jej skład wchodzą moduły: napędowy (monolityczny
 blok zawierający silnik, przekładnię, trzy połączone koła oraz enkoder mierzący
 ich położenie), rama centralna umożliwiająca szybki montaż dodatkowych modułów oraz
 dwa niezbędne moduły elektroniczne - sekcja zasilania oraz sterowania. Bazowe podwozie
-wykonane jest w całości z profili aluminiowych, ma wymiary 500x380x220mm i całkowicie
+wykonane jest w~całości z~profili aluminiowych, ma wymiary 500x380x220mm i~całkowicie
 osłania wszystkie wewnętrzne systemy robota.
 
 \begin{table}[h!]
@@ -71,27 +71,27 @@ Dodatkowe & zintegrowana ładowarka \\
 \end{table}
 
 Pierwotnie komputer sterujący robotem był umieszczony wewnątrz ramy (był to komputer
-przemysłowy z procesorem klasy Pentium III), obecnie do sterowania wykorzystywany
-jest netbook EeePC mocowany w kieszeni z tyłu.
+przemysłowy z~procesorem klasy Pentium III), obecnie do sterowania wykorzystywany
+jest netbook EeePC mocowany w~kieszeni z~tyłu.
 
 %-------------------------------------------------------------------------------
 \subsection{Moduły sensoryczne}
 %-------------------------------------------------------------------------------
 
-Robot Elektron wyposażony jest w kilka niezależnych zestawów czujników. Przy realizacji
+Robot Elektron wyposażony jest w~kilka niezależnych zestawów czujników. Przy realizacji
 zadania wykorzystane zostały: układ pomiaru odometrycznego, układ zawierający żyroskop,
-układ kamery trójwymiarowej w postaci urządzenia Microsoft Kienct oraz skaner laserowy
-Sick LMS100. Układ pomiaru odometrycznego składa się z dwóch enkoderów optycznych
-umieszczonych w module napędowym. Każdy z nich jest w stanie zmierzyć kt obrotu kół
-napędowych z rozdzielczością 4000 impulsów na obrót. W projekcie zrezygnowano montowania
+układ kamery trójwymiarowej w~postaci urządzenia Microsoft Kienct oraz skaner laserowy
+Sick LMS100. Układ pomiaru odometrycznego składa się z~dwóch enkoderów optycznych
+umieszczonych w~module napędowym. Każdy z~nich jest w~stanie zmierzyć kt obrotu kół
+napędowych z~rozdzielczością 4000 impulsów na obrót. W~projekcie zrezygnowano montowania
 dodatkowych czujników na wałach silników.
 
-Drugi z wymienionych układów służy do pomiaru prędkości kątowej w celu wspagania
-obliczeń położenia i orientacji robota. Zawiera żyroskop Analog Devices ADXRS401,
-połaczony z mikrokomputerem jednoukładowym PIC16F688, przy pomocy którego pomiary
+Drugi z~wymienionych układów służy do pomiaru prędkości kątowej w~celu wspomagania
+obliczeń położenia i~orientacji robota. Zawiera żyroskop Analog Devices ADXRS401,
+połączony z~mikrokomputerem jednoukładowym PIC16F688, przy pomocy którego pomiary
 przekazywane są do komputera sterującego za pomocą interfejsu USB.
 
-% TODO: Sprawdzić model mikrokontrolera na płytce z żyroskopem
+% TODO: Sprawdzić model mikrokontrolera na płytce z~żyroskopem
 
 \begin{table}[h!]
 \caption{Parametry żyroskopu ADXRS401}
@@ -122,15 +122,15 @@ Współczynnik temperaturowy & 8.5mV/K \\
 Jest to kontroler do gier dla konsoli Xbox wykorzystujący analizę światła
 strukturalnego. Pomimo jego pierwotnego przeznaczenia, kilka dni po premierze
 został opublikowany nieoficjalny sterownik umożliwiający wykorzystanie
-informacji z jego czujników na komputerze PC~\cite{Giles201022}. Jego niska cena
+informacji z~jego czujników na komputerze PC~\cite{Giles201022}. Jego niska cena
 (500PLN), dostępność wielu algorytmów ułatwiających wykorzystanie dostarczanych
-przez niego informacji oraz szybkość i dokładność działania sprawiły, że został
-on wybrany jako główne źródło informacji o scenie do wykorzystania w projekcie.
+przez niego informacji oraz szybkość i~dokładność działania sprawiły, że został
+on wybrany jako główne źródło informacji o~scenie do wykorzystania w~projekcie.
 
 \begin{figure}[h!]
 \centering
 \includegraphics{../img/kinect_hardware}
-\caption[Sensor Kinect firmy Microsoft]{Sensor Kinect firmy Microsoft z zaznaczonymi
+\caption[Sensor Kinect firmy Microsoft]{Sensor Kinect firmy Microsoft z~zaznaczonymi
 kluczowymi elementami.}
 \label{fig:kinect_hardware}
 \end{figure}
@@ -140,11 +140,11 @@ kluczowymi elementami.}
 %-------------------------------------------------------------------------------
 
 Kluczowe elementy sensora Kinect zaznaczone są na rysunku~\ref{fig:kinect_hardware}.
-Pomiar głębi realizowany jest przy użyciu pary złożonej z projektora podczerwieni
-oraz kamery rejestrującej obraz w tym paśmie. Kamera RGB umieszczona pomiędzy nimi
-służy do rejestracji widocznej sceny, a dzięki jej kalibracji z pomiarem głębi
-możliwe jest tworzenie trójwymiarowych map otoczenia z nałożoną teksturą (dane
-kalibracyjne dostarczone przez producenta są zapisane bezpośrednio w urządzeniu).
+Pomiar głębi realizowany jest przy użyciu pary złożonej z~projektora podczerwieni
+oraz kamery rejestrującej obraz w~tym paśmie. Kamera RGB umieszczona pomiędzy nimi
+służy do rejestracji widocznej sceny, a~dzięki jej kalibracji z~pomiarem głębi
+możliwe jest tworzenie trójwymiarowych map otoczenia z~nałożoną teksturą (dane
+kalibracyjne dostarczone przez producenta są zapisane bezpośrednio w~urządzeniu).
 
 \begin{figure}[h!]
 \centering
@@ -153,11 +153,11 @@ kalibracyjne dostarczone przez producenta są zapisane bezpośrednio w urządzen
 \label{fig:kinect_block}
 \end{figure}
 
-Dodatkowo Kinect wyposażony jest w matrycę czterech mikrofonów, które mogą być
-wykorzystane do lokalizacji źródeł dźwięku w przestrzeni, a~także podstawę umożliwiającą
+Dodatkowo Kinect wyposażony jest w~matrycę czterech mikrofonów, które mogą być
+wykorzystane do lokalizacji źródeł dźwięku w~przestrzeni, a~także podstawę umożliwiającą
 pochylanie sensora w~zakresie~27\textdegree~w~górę i~w~dół.
 
-Istotne parametry techniczne zebrane są w tabeli~\ref{tab:kinect_params}.
+Istotne parametry techniczne zebrane są w~tabeli~\ref{tab:kinect_params}.
 
 \begin{table}[h!]
 \caption{Kinect -- parametry techniczne}
@@ -193,9 +193,9 @@ Prędkość & 30kl/s \\
 %-------------------------------------------------------------------------------
 
 Sercem urządzenia jest dedykowany układ tworzący mapę głębi na podstawie analizy
-obrazu z kamery IR. W pierwszym kroku na scenę rzutowany jest specjalny wzór
-(przedstawiony na rysunku~\ref{fig:kinect_pattern}), a uzyskany obraz jest
-rejestrowany przez kamerę działającą w paśmie bliskiej podczerwieni.
+obrazu z~kamery IR. W~pierwszym kroku na scenę rzutowany jest specjalny wzór
+(przedstawiony na rysunku~\ref{fig:kinect_pattern}), a~uzyskany obraz jest
+rejestrowany przez kamerę działającą w~paśmie bliskiej podczerwieni.
 
 \begin{figure}[h!]
 \centering
@@ -207,39 +207,39 @@ http://goo.gl/L7sJm}
 \end{figure}
 
 Wzór ma specjalną strukturę, umożliwiającą poprawne zlokalizowanie analizowanych
-pikseli w obrazie wzorcowym bez konieczności wielokrotnego rzutowania różnych
-tekstur (tak jak przy metodzie wykorzystującej kod Graya i coraz węższe paski).
-Zaczynając od największych bloków wyróżnić w nim można szachownicę 3x3 pola, a
-na środku każdego z nich jaśniejszy punkt służący do lokalizacji centrum danego
-segmentu. Każde z pól pokryte jest siatką punktów ułożonych w taki sposób, aby
-ich bloki potwarzały się bardzo rzadko lub wcale w obrębie danego pola
+pikseli w~obrazie wzorcowym bez konieczności wielokrotnego rzutowania różnych
+tekstur (tak jak przy metodzie wykorzystującej kod Graya i~coraz węższe paski).
+Zaczynając od największych bloków wyróżnić w~nim można szachownicę 3x3 pola, 
+a~na środku każdego z~nich jaśniejszy punkt służący do lokalizacji centrum danego
+segmentu. Każde z~pól pokryte jest siatką punktów ułożonych w~taki sposób, aby
+ich bloki powtarzały się bardzo rzadko lub wcale w~obrębie danego pola
 szachownicy (w ten sposób wyeliminowany został problem fałszywych dopasowań
-podczas porównywania z obrazem referencyjnym). Po zlokalizowaniu pozycji
-pikseli w mapie wzorcowej z triangulacji wyliczane jest ich względne
-przesunięcie, a z niego ostateczna mapa głębi.
+podczas porównywania z~obrazem referencyjnym). Po zlokalizowaniu pozycji
+pikseli w~mapie wzorcowej z~triangulacji wyliczane jest ich względne
+przesunięcie, a~z niego ostateczna mapa głębi.
 
 %-------------------------------------------------------------------------------
 \subsection{Mocowanie na robocie}
 %-------------------------------------------------------------------------------
 
 Mocując sensor na robocie należało uwzględnić ograniczoną minimalną odległość,
-z jakiej Kinect wykrywa obiekty. Początkowo urządzenie zostało zamocowane na
+z~jakiej Kinect wykrywa obiekty. Początkowo urządzenie zostało zamocowane na
 dole robota, przed skanerem laserowym. Rozwiązanie to miało jednak dwie wady --
 po pierwsze obiekty znajdujące się bliżej niż 60cm od robota nie były
 wykrywane, po drugie oś optyczna sensora była pod tak ostrym kątem do podłogi,
 że nie była ona praktycznie wykrywana. Na rysunku~\ref{fig:elektron} pokazana
-jest druga próba mocowania, na głowicy lasera, ale okazało się, że i taka
-wysokość nie jest wystarczająca, aby w pełni wykrywać obiekty przed robotem.
+jest druga próba mocowania, na głowicy lasera, ale okazało się, że i~taka
+wysokość nie jest wystarczająca, aby w~pełni wykrywać obiekty przed robotem.
 Ostatecznie sensor zamocowany jest bliżej tylnej części robota, kilka
-centymetrów powyżej skanera Sick, i jest pochylony o 20\textdegree w dół. Taka
-konfiguracja umożliwia wykrywanie przeszkód w całym pasie przed robotem,
-znajdujących się nie bliżej niż 10cm od jego przednej krawędzi.
+centymetrów powyżej skanera Sick, i~jest pochylony o~20\textdegree w~dół. Taka
+konfiguracja umożliwia wykrywanie przeszkód w~całym pasie przed robotem,
+znajdujących się nie bliżej niż 10cm od jego przedniej krawędzi.
 Rysunek~\ref{fig:range} przedstawia ostateczne umiejscowienie czujników
-na robocie, wraz z zaznaczonymi polami widzenia Kinecta (kolor niebieski) i
-skanera laserowego(kolor czerwony).
+na robocie, wraz z~zaznaczonymi polami widzenia Kinecta (kolor niebieski) 
+i~skanera laserowego (kolor czerwony).
 
-% TODO: Stworzyć schemat elektrona z zamocowanym kinectem i pokazanym polem
-% widzenia kinecta i sicka
+% TODO: Stworzyć schemat elektrona z~zamocowanym kinectem i~pokazanym polem
+% widzenia kinecta i~sicka
 
 
 \begin{figure}[htp!]
@@ -249,7 +249,7 @@ skanera laserowego(kolor czerwony).
 ELektron]{Przybliżone zasięgi działania czujników umieszczonych na robocie
 ELektron. Kolorem czerwonym oznaczono efektywne pole działania skanera Sick,
 kolorem niebieskim zasięg sensora Kinect. Dla czytelności rysunek samego robota
-jest w skali większej niż pokazane zasięgi.}
+jest w~skali większej niż pokazane zasięgi.}
 \label{fig:range}
 \end{figure}
 
@@ -260,16 +260,16 @@ jest w skali większej niż pokazane zasięgi.}
 \section{Skaner laserowy SICK LMS100}
 
 Skaner laserowy firmy Sick, model LMS100 jest urządzeniem zdolnym do mierzenia
-odległości do otaczających obiektów w zakresie 270\textdegree. Pomiar dokonywany
+odległości do otaczających obiektów w~zakresie 270\textdegree. Pomiar dokonywany
 jest przy użyciu promienia lasera, który odbijany jest od obracającego się
 lustra. Po odbiciu od przeszkody dokonywany jest pomiar czasu, po jakim wiązka
-wróciła do detektora, a z tego wyliczana jest odległość. W przypadku modelu
+wróciła do detektora, a~z tego wyliczana jest odległość. W~przypadku modelu
 LMS100 dla każdego promienia dokonywane są faktycznie dwa pomiary, dzięki czemu
 dużo rzadziej zdarzają się zafałszowane wyniki (spowodowane np. odbiciem
-promienia od kropli deszczu), dodatkowo wraz z odległością każdy pomiar ma
-dołączoną intensywność wracającego światła (to z kolei pozwala np. wykrywać
-szyby znajdujące się przed robotem -- powodują one powrót pierwszego impulsu o
-niskim natężeniu).
+promienia od kropli deszczu), dodatkowo wraz z~odległością każdy pomiar ma
+dołączoną intensywność wracającego światła (to z~kolei pozwala np. wykrywać
+szyby znajdujące się przed robotem -- powodują one powrót pierwszego impulsu 
+o~niskim natężeniu).
 
 \begin{figure}[h!]
 \centering
@@ -279,12 +279,12 @@ niskim natężeniu).
 \end{figure}
 
 Początkowo na robocie Elektron zamontowany był skaner laserowy Sick LMS200
-(pokazany na rysunku~\ref{fig:sick_obrotnica}), jednak z powodu jego wielkości
+(pokazany na rysunku~\ref{fig:sick_obrotnica}), jednak z~powodu jego wielkości
 utrudnione było montowanie dodatkowych elementów na korpusie robota. Dlatego też
-został on zastapiony mniejszymi skanerami LMS100, które dodatkowo mają
+został on zastąpiony mniejszymi skanerami LMS100, które dodatkowo mają
 korzystniejsze parametry techniczne przy wykorzystaniu na robotach mobilnych
-operujących w pomieszczeniach zamkniętych (ich zestawienie zebrane w
-tabeli~\ref{tab:sick_params}).
+operujących w~pomieszczeniach zamkniętych (ich zestawienie zebrane 
+w~tabeli~\ref{tab:sick_params}).
 
 \begin{table}[h!]
 \caption{Parametry skanera laserowego Sick LMS100}
@@ -313,8 +313,8 @@ Masa & 1.1kg & 4.5kg\\
 
 \subsection{Mocowanie na robocie}
 
-Skaner zamocowany jest w przedniej części robota, na stałe. Zrezygnowanie z
-mocowania na obrotowej głowicy umożliwiło jego częściowe wsunięcie do wnętrza,
+Skaner zamocowany jest w~przedniej części robota, na stałe. Zrezygnowanie 
+z~mocowania na obrotowej głowicy umożliwiło jego częściowe wsunięcie do wnętrza,
 przez co obniżony został poziom pracy skanera (wykrywane są obiekty na
 wysokości zbliżonej do wysokości robota). Sposób zamocowania lasera zobaczyć
 można na rysunku~\ref{fig:elektron}.
@@ -326,12 +326,12 @@ można na rysunku~\ref{fig:elektron}.
 
 Pierwotnie Elektron posiadał zabudowany komputer przemysłowy klasy Pentium III 900MHz.
 Był on umieszczony wewnątrz robota, przez co dostęp do niego był lekko utrudniony.
-Dodatkową wadą takiego rozwiązania był brak monitora -- podczas pracy w laboratorium
-możliwa była jego obsługa zdalna, jednak wychodząc z robotem poza laboratorium
-konieczne było zabieranie bądź dodatkowego monitora i klawiatury, bądź laptopa
-w celu jego obsługi. Aby wyeliminować te niedogodności, a także zwiększyć moc
+Dodatkową wadą takiego rozwiązania był brak monitora -- podczas pracy w~laboratorium
+możliwa była jego obsługa zdalna, jednak wychodząc z~robotem poza laboratorium
+konieczne było zabieranie bądź dodatkowego monitora i~klawiatury, bądź laptopa
+w~celu jego obsługi. Aby wyeliminować te niedogodności, a~także zwiększyć moc
 obliczeniową, komputery przemysłowe zostały zastąpione netbookami Asus Eee PC 901.
-Mocowane są one w tylnej części robota, w specjalnej kieszeni, przez co jest do
+Mocowane są one w~tylnej części robota, w~specjalnej kieszeni, przez co jest do
 nich łatwy dostęp.
 
 \begin{figure}[h!]
@@ -341,21 +341,21 @@ nich łatwy dostęp.
 \label{fig:eee}
 \end{figure}
 
-Konkretny model laptopa wybrany został ze względu na kilka parametrów, z których
+Konkretny model laptopa wybrany został ze względu na kilka parametrów, z~których
 najważniejszymi były wielkość oraz technologia wykonania dysku twardego. Wybrany
-komputer posiada ekran o przekątnej 8.9", przez co cała konstrukcja jest zwarta
-i niewielka, bez problemów mieszcząc się w przeznaczonym do tego miejscu (robot
-z zamocowanym komputerem przedstawony jest na rysunku~\ref{fig:elektron}). W przypadku
+komputer posiada ekran o~przekątnej 8.9", przez co cała konstrukcja jest zwarta
+i~niewielka, bez problemów mieszcząc się w~przeznaczonym do tego miejscu (robot
+z~zamocowanym komputerem przedstawiony jest na rysunku~\ref{fig:elektron}). W~przypadku
 dysku twardego kluczowe było, aby nie posiadał żadnych elementów mechanicznych,
 które mogłyby doprowadzić do jego uszkodzenia podczas jazdy robota (nagłe uderzenia
-czy nierówności nawierzchni). Pierwszy komputer wyposażony był w karty pamięci
-CompactFlash w roli dysków twardych, wybrany model laptopa posiada natomiast
-dyski twarde wykonane w technologii SSD. Najważniejsze parametry techniczne
-zastosowanych komputerów zebrane są w tabeli~\ref{tab:eee_params}.
-Pomimo, iż moc obliczeniowa nowych komputerów zwiększyła się w porównaniu z
-rozwiązaniem pierwotnym, to i tak jest ona niewielka (jak na obecne czasy),
-dlatego należy uwaznie planować wykorzystywanie czasochłonnych algorytmów i w
-miarę możliwości wykorzystywać do tego inne maszyny dostępne w obrębie sieci
+czy nierówności nawierzchni). Pierwszy komputer wyposażony był w~karty pamięci
+CompactFlash w~roli dysków twardych, wybrany model laptopa posiada natomiast
+dyski twarde wykonane w~technologii SSD. Najważniejsze parametry techniczne
+zastosowanych komputerów zebrane są w~tabeli~\ref{tab:eee_params}.
+Pomimo, iż moc obliczeniowa nowych komputerów zwiększyła się w~porównaniu 
+z~rozwiązaniem pierwotnym, to i~tak jest ona niewielka (jak na obecne czasy),
+dlatego należy uważnie planować wykorzystywanie czasochłonnych algorytmów 
+i~w~miarę możliwości wykorzystywać do tego inne maszyny dostępne w~obrębie sieci
 WiFi.
 
 \begin{table}[h!]
@@ -384,7 +384,7 @@ Pojemność & 4+8GB \\
 \textbf{Inne} \\
 \midrule
 Ciężar & 1.1kg \\
-Pojemnośc akumulatora & 6600mAh \\
+Pojemność akumulatora & 6600mAh \\
 \bottomrule
 \end{tabular*}
 \label{tab:eee_params}

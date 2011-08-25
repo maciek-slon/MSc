@@ -16,115 +16,115 @@ Do wykorzystania wszystkich możliwości dawanych przez sprzęt zainstalowany na
 wymagane jest odpowiednie oprogramowanie na komputerze sterującym robota. Odpowiada
 ono za zadania na wielu poziomach abstrakcji, od sterowników niskiego poziomu
 komunikujących się bezpośrednio ze sprzętem, przez moduły przetwarzające dane otrzymane
-bezpośrednio z sensorów do pewnej, z góry założonej postaci, aż po wysokopoziomowe
+bezpośrednio z~sensorów do pewnej, z~góry założonej postaci, aż po wysokopoziomowe
 algorytmy wykorzystujące przygotowane wcześniej dane do wykonania pewnego zadania.
 
 \section{Sterowniki wbudowane}
 
-W przypadku prostych robotów wyposażonych w niewielką ilość czujników
-i przeznaczonych do wykonywania kilku z góry okreslonych zadań stosuje się systemy
-złożone z mikrokontrolera połączonego z układami sensorycznymi i sterującego pracą
-całego robota. Do jego zadań należy zarówno odczyt danych z czujników, ich analiza
-i przetwarzanie, a także sterowanie efektorami robota. Systemy takie mają niewielką
+W przypadku prostych robotów wyposażonych w~niewielką ilość czujników
+i~przeznaczonych do wykonywania kilku z~góry określonych zadań stosuje się systemy
+złożone z~mikrokontrolera połączonego z~układami sensorycznymi i~sterującego pracą
+całego robota. Do jego zadań należy zarówno odczyt danych z~czujników, ich analiza
+i~przetwarzanie, a~także sterowanie efektorami robota. Systemy takie mają niewielką
 wydajność, ale ze względu na ich dobre dostosowanie do przewidzianego zadania działają
-szybko i pozwalają na uruchomienie pętli sterowania nawet w tempie kilkuset na sekundę.
-Przykładem takiego systemu może byc układ sterowania robotów sportowych. W przypadku
+szybko i~pozwalają na uruchomienie pętli sterowania nawet w~tempie kilkuset na sekundę.
+Przykładem takiego systemu może być układ sterowania robotów sportowych. W~przypadku
 robotów śledzących linię ich prędkość często przekracza 2m/s, przy jednoczesnej
-akwizycji i analizie danych z kilkunastu czujników i zdolności do natychmiastowej
+akwizycji i~analizie danych z~kilkunastu czujników i~zdolności do natychmiastowej
 reakcji na wykryte przeszkody.
 
-Największą zaletą takich systemów jest ich niski koszt (często oscylujący w okolicach
-kilkunastu PLN) i prostota konstrukcji (możliwość montażu na płytce uniwersalnej).
-Niestety, możliwości są mocno ograniczone, a zmiana zadania wymaga często oprócz przepisania
+Największą zaletą takich systemów jest ich niski koszt (często oscylujący w~okolicach
+kilkunastu PLN) i~prostota konstrukcji (możliwość montażu na płytce uniwersalnej).
+Niestety, możliwości są mocno ograniczone, a~zmiana zadania wymaga często oprócz przepisania
 samego algorytmu sterującego także zmian sprzętowych. Rozwiązanie tego typu nie nadaje
 się do przygotowania platformy badawczej.
 
 \section{Ramowe struktury programowe}
 
 Drugą metodą jest podział systemu sterowania na rozłączne elementy -- samego
-robota (efektor) i komunikujący się z nim komputer nadrzędny (który może być umieszczony
-zarówno na robocie, jak i poza nim sterując nim zdalnie). W tym przypadku podzespoły
+robota (efektor) i~komunikujący się z~nim komputer nadrzędny (który może być umieszczony
+zarówno na robocie, jak i~poza nim sterując nim zdalnie). W~tym przypadku podzespoły
 robota (jego układy sensoryczne, silniki itp.) mają swoje odrębne sterowniki sprzętowe
 (np. układ sterownika silników może przyjmować jako sterowanie zadaną prędkość
-i na jej podstawie generować odpowiednie sygnały dla silników, układy sensoryczne
-mogą agregować dane z wielu czujników i wysyłać je we wstępnie przetworzonej formie
+i~na jej podstawie generować odpowiednie sygnały dla silników, układy sensoryczne
+mogą agregować dane z~wielu czujników i~wysyłać je we wstępnie przetworzonej formie
 do komputera sterującego). Na komputerze sterującym uruchomione jest oprogramowanie
-komunikujące się ze sterownikami sprzętowymi i udostępniające pozyskane w ten sposób
+komunikujące się ze sterownikami sprzętowymi i~udostępniające pozyskane w~ten sposób
 dane zewnętrznym algorytmom sterowania.
 
-Metody takie są elastyczne, umożliwiają łatwą zmianę zadania, jakie ma wykonywac robot,
-a także wymianę poszczególnych fragmentów systemu sterowania. Dodatkowo same aplikacje
+Metody takie są elastyczne, umożliwiają łatwą zmianę zadania, jakie ma wykonywać robot,
+a~także wymianę poszczególnych fragmentów systemu sterowania. Dodatkowo same aplikacje
 działają niejako niezależnie od sprzętu na robocie, więc możliwe jest wykorzystanie
 raz napisanych algorytmów na innych robotach (o ile dostarczają one wymaganych danych
-pomiarowych), jak też łatwo można zastąpić rzeczywistego robota jego symulacją w celach
-testowych. Problemem jest dużo wieksza komplikacja całego układu -- wymagany jest
-komputer sterujący o dużej mocy (aby możliwe było wykonywanie różnych zadań i obsługa
+pomiarowych), jak też łatwo można zastąpić rzeczywistego robota jego symulacją w~celach
+testowych. Problemem jest dużo większa komplikacja całego układu -- wymagany jest
+komputer sterujący o~dużej mocy (aby możliwe było wykonywanie różnych zadań i~obsługa
 komunikacji), osobne sterowniki sprzętowe dla podzespołów robota (nie da się sterować
 wszystkimi elementami bezpośrednio) oraz niezawodnie działająca struktura programowa
-abstrachująca algorytmy sterowania od warstwy fizycznej.
+abstrahująca algorytmy sterowania od warstwy fizycznej.
 
-W ciągu ostatnich lat powstało wiele ramowych struktur programowych do sterowania
-robotami, niektóre z nich specjalizowane dla jednego typu robotów (np. manipulatorów),
+W~ciągu ostatnich lat powstało wiele ramowych struktur programowych do sterowania
+robotami, niektóre z~nich specjalizowane dla jednego typu robotów (np. manipulatorów),
 inne przygotowane do sterowania całą gamą różnych robotów, od platform mobilnych,
-przez różnego rodzaju manipulatory, na robotach latających i pływających kończąc.
-W tej części rozdziału przedstawię porównanie kilku struktur przeznaczonych do
-sterowania m.in. robotami mobilnymi, wraz z zestawieniem wad i zalet każdego z rozwiązań
-oraz uzasadnieniem wyboru jednego z nich.
+przez różnego rodzaju manipulatory, na robotach latających i~pływających kończąc.
+W~tej części rozdziału przedstawię porównanie kilku struktur przeznaczonych do
+sterowania m.in. robotami mobilnymi, wraz z~zestawieniem wad i~zalet każdego z~rozwiązań
+oraz uzasadnieniem wyboru jednego z~nich.
 
 
 \subsection{Player/Stage}
 
 Pakiet oprogramowania Player/Stage\footnote{\footurl{playerstage.sourceforge.net}}
-składa się z trzech elementów: serwera Player (pośredniczącego w wymianie danych
-pomiędzy robotem a układem sterowania), oraz wielorobotowych symulatorów Stage (2D)
-i Gazebo (3D). System zbudoway jest w architekturze klient-serwer, gdzie serwer
-uruchomiony jest na komputerze, który bezpośrednio steruje robotem i odbiera
-pomiary z czujników, a programy klientów wykorzystując dostarczone interfejsy
-pobierają dane sensoryczne i odsyłają komendy sterujące.~\cite{gerkey03playerstage}
+składa się z~trzech elementów: serwera Player (pośredniczącego w~wymianie danych
+pomiędzy robotem a~układem sterowania), oraz wielorobotowych symulatorów Stage (2D)
+i~Gazebo (3D). System zbudowany jest w~architekturze klient-serwer, gdzie serwer
+uruchomiony jest na komputerze, który bezpośrednio steruje robotem i~odbiera
+pomiary z~czujników, a~programy klientów wykorzystując dostarczone interfejsy
+pobierają dane sensoryczne i~odsyłają komendy sterujące.~\cite{gerkey03playerstage}
 Zadaniem serwera jest abstrakcja aplikacji klienckich od kwestii sprzętowych.
-Komunikacja pomiędzy serwerem i klientami (może ich byc podłączonych wielu)
+Komunikacja pomiędzy serwerem i~klientami (może ich być podłączonych wielu)
 odbywa się poprzez systemowe gniazda sieciowe TCP, dzięki czemu możliwe jest także
 zdalne sterowanie robotem przez programy klienckie uruchomione na komputerach poza
-robotem i komunikujące się z nim przez sieci bezprzewodowe.
+robotem i~komunikujące się z~nim przez sieci bezprzewodowe.
 
 System ten został stworzony specjalnie do sterowania robotami mobilnymi oraz sieciami
-czujników, od czasu jego powstania zostało w nim zaimplementowane wiele sterowników
+czujników, od czasu jego powstania zostało w~nim zaimplementowane wiele sterowników
 do popularnych robotów (np. Pioneer2DX) oraz sensorów (np. Sick LMS200). Istnieje
 też pokaźna baza algorytmów przygotowanych do zastosowania na robotach uruchamianych
-z systemem Player. Największą jego wadą jest narzucony sposób komunikacji, czyli
-jedynie pomiędzy serwerem a klientami (możliwe jest uzyskanie komunikacji klient-klient
-oraz serwer-serwer, nie są to jednak rozwiązania standardowe i łatwe w implementacji).
-Z tego powodu utrudnione jest budowanie wielowarstwowych systemów nawigacji z wieloetapowym
-przetwarzaniem danych sensorycznych -- całe przetwarzanie musi odbywać się w aplikacji
+z~systemem Player. Największą jego wadą jest narzucony sposób komunikacji, czyli
+jedynie pomiędzy serwerem a~klientami (możliwe jest uzyskanie komunikacji klient-klient
+oraz serwer-serwer, nie są to jednak rozwiązania standardowe i~łatwe w~implementacji).
+Z tego powodu utrudnione jest budowanie wielowarstwowych systemów nawigacji z~wieloetapowym
+przetwarzaniem danych sensorycznych -- całe przetwarzanie musi odbywać się w~aplikacji
 serwera (wszystkie sterowniki uruchamiane są jako osobne wątki), przez co ucierpieć
 może wydajność.
 
 \subsection{ROS}
 
 System ROS\footnote{Robot Operating System\footurl{www.ros.org}} stworzony został
-do sterowania złożonymi platformami do mobilenej manipulacji, wyposażonymi w wiele
-czujników oraz efektorów, w szczególności manipulatory. Jest bardziej złożony od
+do sterowania złożonymi platformami do mobilnej manipulacji, wyposażonymi w~wiele
+czujników oraz efektorów, w~szczególności manipulatory. Jest bardziej złożony od
 opisanego wcześniej systemu Player/Stage, kładąc dużo większy nacisk na rozproszenie
-obliczeń na wiele maszyn. Jest to pewnego rodzaju meta-system o architekturze rozproszonej,
+obliczeń na wiele maszyn. Jest to pewnego rodzaju meta-system o~architekturze rozproszonej,
 zawierający warstwę abstrahującą algorytmy od sprzętu, mechanizmy komunikacji
 pomiędzy różnymi procesami, zaawansowane zarządzanie pakietami modułów oraz zestaw
 aplikacji do zarządzania ich wykonaniem na wielu maszynach~\cite{288}.
 
-W przeciwieństwie do aplikacji w systemie Player, tutaj każdy uruchomiony proces
-może pełnić rolę zarówno serwera jak i klienta (a także obu jednocześnie), umożliwiając
-pełne wykorzystanie mocy obliczeniowej dostępnych w sieci komputerów do przetwarzania
+W przeciwieństwie do aplikacji w~systemie Player, tutaj każdy uruchomiony proces
+może pełnić rolę zarówno serwera jak i~klienta (a także obu jednocześnie), umożliwiając
+pełne wykorzystanie mocy obliczeniowej dostępnych w~sieci komputerów do przetwarzania
 danych (każdy proces pobiera dane od swojego poprzednika, dokonuje kolejnego przekształcenia,
-a wyniki od niego odbierane są przez jego następnik, każdy z procesów może działac na
-innej maszynie). Należy zaznaczyć, że w systemie ROS możliwe jest uruchomienie serwera Player jako
-jeden z procesów, oraz tworzenie węzłów korzystających z danych udostępnianych przez
-niego. W ten sposób umożliwiono łatwą migrację do nowego systemu (rozwijanego częściowo
+a~wyniki od niego odbierane są przez jego następnik, każdy z~procesów może działać na
+innej maszynie). Należy zaznaczyć, że w~systemie ROS możliwe jest uruchomienie serwera Player jako
+jeden z~procesów, oraz tworzenie węzłów korzystających z~danych udostępnianych przez
+niego. W~ten sposób umożliwiono łatwą migrację do nowego systemu (rozwijanego częściowo
 przez ten sam zespół programistów co Player). System ROS wykorzystuje również symulator
 Gazebo.
 
 System ROS został wybrany do wykonania zadań tej pracy ze względu na swoją nowoczesną
-architekturę, mnogość gotowych algorytmów nawigacji, a także dostępne sterowniki
+architekturę, mnogość gotowych algorytmów nawigacji, a~także dostępne sterowniki
 do sensora Kinect (mające oficjalne wsparcie autorów tej technologii). Ze względu
 na możliwość rozproszenia przetwarzania na wiele maszyn możliwe stało się odciążenie
-głównego komputera sterującego robotem (którego wydajność nie jest wysoka) i przeniesienie
+głównego komputera sterującego robotem (którego wydajność nie jest wysoka) i~przeniesienie
 części obliczeń na maszyny zewnętrzne (np. globalnego planowania trasy, tworzenia
 mapy itp).

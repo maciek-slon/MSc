@@ -16,64 +16,64 @@
 \section{Motywacja}
 
 Nawigacja autonomicznego bądź semiautonomicznego robota mobilnego wymaga możliwie
-efektywnych i dokładnych metod analizy otoczenia oraz wykrywania przeszkód.
-Najczęściej stosuje się w tym celu całe zestawy różnych czujników, z których
+efektywnych i~dokładnych metod analizy otoczenia oraz wykrywania przeszkód.
+Najczęściej stosuje się w~tym celu całe zestawy różnych czujników, z~których
 podaje odczyty bądź punktowe (np. czujniki zderzeniowe bądź sensory odległości
 wykorzystujące podczerwień albo ultradźwięki) bądź czasami dwuwymiarowe (skanery
 laserowe podające odległość do otaczających przedmiotów, jednak odczyty wykonywane
-jedynie w jednej płaszczyźnie). Taka konfiguracja czujników umożliwia dość sprawne
-poruszanie się w nieznym środowisku, jednak istnieje szereg przesgód, których za
+jedynie w~jednej płaszczyźnie). Taka konfiguracja czujników umożliwia dość sprawne
+poruszanie się w~nieznanym środowisku, jednak istnieje szereg przeszkód, których za
 ich pomocą nie da się wykryć. Należą do nich chociażby małe obiekty znajdujące
 się bardzo blisko ziemi (czujniki najczęściej są umieszczone na wysokości od kilku
-do kilkunastu centymetrów) czy obiekty zwisające z góry mogące zahaczyć o wystające
+do kilkunastu centymetrów) czy obiekty zwisające z~góry mogące zahaczyć o~wystające
 części przejeżdżającego pod nimi robota.
 
 Wykorzystanie informacji dostarczanych przez czujniki 3D (a więc zwracające informacje
-o głębi w każdym punkcie obserwowanego obrazu w przypadku czujników opartych o kamery)
-pozwala na wykrywanie dużo szerszego spektrum obiektów, a więc sprawniejsze i bezpeczniejsze
-poruszanie się do okreslonego celu.
+o~głębi w~każdym punkcie obserwowanego obrazu w~przypadku czujników opartych o~kamery)
+pozwala na wykrywanie dużo szerszego spektrum obiektów, a~więc sprawniejsze i~bezpieczniejsze
+poruszanie się do określonego celu.
 
 \section{Cel pracy}
 
 Celem pracy było stworzenie pełnego systemu nawigacji robota mobilnego,
-wykorzystującego informacje o otoczeniu z wielu źródeł, w tym z kamery 3D.
+wykorzystującego informacje o~otoczeniu z~wielu źródeł, w~tym z~kamery 3D.
 Należało także dokonać wyboru konkretnej metody obrazowania trójwymiarowego
-spośród dostepnych rozwiązań z uwzględnieniem warunków, w których będzie ono
-wykorzystywane i ograniczeń sprzętowych platformy.
+spośród dostępnych rozwiązań z~uwzględnieniem warunków, w~których będzie ono
+wykorzystywane i~ograniczeń sprzętowych platformy.
 
 Dodatkowo przygotowany system nawigacji miał pozwalać na łatwe modyfikowanie
-i zmianę poszczególnych modułów (m.in. planerów trasy), a więc powinien być
-gotowym stanowiskiem badawczym i eksperymentalnym. Jego przeznaczeniem miało
+i~zmianę poszczególnych modułów (m.in. planerów trasy), a~więc powinien być
+gotowym stanowiskiem badawczym i~eksperymentalnym. Jego przeznaczeniem miało
 być badanie różnych algorytmów sterowania, budowy map, nawigacji czy lokalizacji.
 
-%Stanowisko do badania algorytmów sterowania, budowania map, nawigacji i inne takie
-%propagandowe teksty, ogólnie chodziło o przygotowanie niezawodnej platformy
+%Stanowisko do badania algorytmów sterowania, budowania map, nawigacji i~inne takie
+%propagandowe teksty, ogólnie chodziło o~przygotowanie niezawodnej platformy
 %gotowej na prostą podmianę pojedynczych algorytmów bez potrzeby głębokich
-%zmian w pozostałych elementach.
+%zmian w~pozostałych elementach.
 
 \section{Struktura pracy}
 
 Na początku pracy (rozdział~\ref{chap:porownanie}) skupiono się na porównaniu
 dostępnych metod pozyskiwania trójwymiarowego
 obrazu sceny. Wyniki przeprowadzonych doświadczeń pozwoliły wybrać docelowe rozwiązanie
-wykorzystane przy realizacji zadania. W kolejnych rozdziałach przedstawione są elementy
-stworzonego systemu, z podziałem na kolejne warstwy abstrakcji. Po nim nastepuje
-teoretyczne wprowadzenie w podstawy nawigacji robotów mobilnych (rozdział~\ref{chap:nawigacja})
-zawierający opis najważniejszych konceptów z dziedziny wraz z przeglądem istniejących
-rozwiązań. Rozdział~\ref{chap:sprzet} przedstawia wykorzystaną platformę sprzetową,
-a więc samego robota mobilnego Elektron, jak i pozostałe moduły sensoryczne. Kolejne
+wykorzystane przy realizacji zadania. W~kolejnych rozdziałach przedstawione są elementy
+stworzonego systemu, z~podziałem na kolejne warstwy abstrakcji. Po nim następuje
+teoretyczne wprowadzenie w~podstawy nawigacji robotów mobilnych (rozdział~\ref{chap:nawigacja})
+zawierający opis najważniejszych konceptów z~dziedziny wraz z~przeglądem istniejących
+rozwiązań. Rozdział~\ref{chap:sprzet} przedstawia wykorzystaną platformę sprzętową,
+a~więc samego robota mobilnego Elektron, jak i~pozostałe moduły sensoryczne. Kolejne
 dwie części dotyczą części programowej całego systemu -- rozdział~\ref{chap:programowanie}
 zawiera przegląd metod programowania robotów mobilnych oraz wybór zastosowanego rozwiązania,
-a w rozdziale~\ref{chap:software} pokazana jest warstwa pośrednicząca odbierająca
-dane z czujników i przekształcająca je do postaci bezpośrednio użytecznej w sterowaniu.
-W rozdziale~\ref{chap:mapa} omówiony został w pełni system nawigacji przygotowany
-na omawianej platformie, wraz z opisem implementacji kluczowych elementów
-przetwarzania i filtrowania danych sensorycznych.
+a~w~rozdziale~\ref{chap:software} pokazana jest warstwa pośrednicząca odbierająca
+dane z~czujników i~przekształcająca je do postaci bezpośrednio użytecznej w~sterowaniu.
+W rozdziale~\ref{chap:mapa} omówiony został w~pełni system nawigacji przygotowany
+na omawianej platformie, wraz z~opisem implementacji kluczowych elementów
+przetwarzania i~filtrowania danych sensorycznych.
 Część~\ref{chap:aplikacje} przedstawia przekrojowo aplikacje przygotowane
-przy użyciu zaproponowanych technik mapowania i nawigacji, zaczynając od zadań
+przy użyciu zaproponowanych technik mapowania i~nawigacji, zaczynając od zadań
 najprostszych, takich jak losowa eksploracja terenu, kończąc na złożonych zadaniach
-zawierających moduły mapowania, samolokalizacji i omijania przeszkód. Rozdział ten
+zawierających moduły mapowania, samolokalizacji i~omijania przeszkód. Rozdział ten
 zawiera również opis procedury testowania przygotowanych algorytmów. Praca zakończona
-jest podsumowaniem przeprowadzonych badań i doświadczeń.
+jest podsumowaniem przeprowadzonych badań i~doświadczeń.
 
 
