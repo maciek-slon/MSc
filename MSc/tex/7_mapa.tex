@@ -194,6 +194,13 @@ puste bądź nieznane, to w~zależności od ilości nieznanych oznaczenie jest r
 Jeśli więcej niż 4 komórki są nieznane, wtedy cała kolumna jest uznawana za
 nieznaną, w~przeciwnym wypadku kolumna jest uznawana za pustą.
 
+\begin{figure}[htb!]
+\centering
+\includegraphics[width=15cm]{../../Common/img/ros/inflate.pdf}
+\caption{Nadmuchiwanie przeszkód.}
+\label{fig:inflation}
+\end{figure}
+
 Po oznaczeniu przeszkód dokonywane jest ich powiększenie na określoną odległość
 (nadmuchiwanie). Operacja ta ma na celu wygładzenie mapy kosztu i~spowodowanie,
 że robot nie będzie preferował szerokie przejazdy (o ile będzie miał wybór). NA
@@ -204,9 +211,12 @@ przeszkód będzie zachowywał robot.
 
 \begin{figure}[htb!]
 \centering
-\includegraphics[width=15cm]{../../Common/img/ros/inflate.pdf}
-\caption{Nadmuchiwanie przeszkód.}
-\label{fig:inflation}
+\includegraphics[width=13cm]{../img/costmap}
+\caption[Mapa kosztu]{Lokalna mapa kosztu podczas nawigacji. W tle mapa globalna, ciemniejsze
+kwadraty oznaczają komórki z oznaczoną przeszkodą, jaśniejsze komórki wypełnione
+w~procesie ,,nadmuchiwania''. Układ współrzędnych w~centralnej części obrazka pokazuje
+pozycję robota, a~białe punkty odczyty ze skanera laserowego.}
+\label{fig:costmap}
 \end{figure}
 
 Mapa zajętości ma stały rozmiar, a~jej środek związany jest ze środkiem bazy
@@ -235,6 +245,15 @@ bardzo łatwa i~sprowadza się jedynie do uruchomienia własnego procesu z~algor
 w~miejsce istniejącego. W~szczególności jako algorytm lokalizacji globalnej może być
 podany program wykorzystujący jedynie odometrię (tak jak zostało to opisane w~poprzednim
 akapicie).
+
+\begin{figure}[htb!]
+\centering
+\includegraphics[width=15cm]{../../Common/img/maps}
+\caption[Mapa otoczenia]{Zgrubna mapa otoczenia. A,~B~--~mapy uzyskane z~algorytmu SLAM, 
+C~--~stworzona na ich podstawie mapa otoczenia. Kolor czarny oznacza przeszkody, szary teren
+nieznany, biały przestrzeń wolną.}
+\label{fig:maps}
+\end{figure}
 
 Do celów globalnego wyznaczania trasy oraz ewentualnej globalnej lokalizacji stworzona
 została mapa kilku pomieszczeń, po których poruszał się robot. Jej tworzenie było

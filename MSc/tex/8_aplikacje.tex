@@ -221,12 +221,21 @@ względu na występujące niedokładności rzeczywistych czujników, często o~c
 losowym i~różnego rodzaju szumy. Poza tym w~warunkach symulacji zazwyczaj dużo
 lepiej działają wszystkie systemy lokalizacji. 
 
+\begin{figure}[htb!]
+\centering
+\includegraphics[width=13cm]{../img/gazebo}
+\caption[Robot Elektron w symulatorze Gazebo]{Robot Elektron w symulatorze Gazebo.
+Dodatkowo załadowany jedno ze środowisk dołączych do symulatora.}
+\label{fig:gazebo}
+\end{figure}
+
 Mimo opisanych cech symulacji, jest to najlepsze narzędzie do przeprowadzania
 wstępnych testów algorytmów sterowania. Nie ma ryzyka uszkodzenia sprzętu
 przy wystąpieniu dużego błędu, można też zgrubnie dobrać wstępne wartości
 parametrów różnych algorytmów. Podczas prac z~robotem Elektron wykorzystywany
 był symulator Gazebo, wraz z~trójwymiarowym modelem robota i~prostym modelem
-środowiska zawierającym kilka przeszkód. Podczas tych kilku pierwszych uruchomień
+środowiska zawierającym kilka przeszkód (widok z~symulacji przedstawiony jest
+na rysunku~\ref{fig:gazebo}). Podczas tych kilku pierwszych uruchomień
 ustalone zostały takie parametry wielkości map i~dokładności różnych algorytmów,
 aby nie występowało nadmierne obciążenie procesora na komputerze sterującym
 robota.
@@ -353,7 +362,7 @@ więc nie było widać przewagi kamery 3D nad klasycznym laserem. Dodatkowo z~po
 wąskiego pola widzenia sensora 3D podczas wykonywania trajektorii robot częściej
 musiał się obracać aby zbadać obszar po bokach, pomiary z~lasera od razu
 pokazywały prawie całe otoczenie, więc trajektorie były gładsze i~ogólna
-szybkość ich pokonywania była większa o~ok. 30\% .
+szybkość ich pokonywania była większa o~ok. 30\%.
 
 W drugim wypadku wykorzystanie sensora 3D dało wymierne rezultaty -- wykrywał
 on bezbłędnie wszystkie przeszkody, w~tym niskie pudełka (całkowicie niewidoczne
