@@ -9,3 +9,42 @@
 
 \chapter{Wnioski}
 \label{chap:wnioski}
+
+\section{Spełnienie założeń}
+
+Stworzony system sterowania robota mobilnego spełnia założenia określone na początku pracy.
+Dzięki modularnej budowie i~pełnemu odseparowaniu poszczególnych jego elementów
+zgodnie z~ich logicznymi zależnościami uzyskano wysoką elastyczność i~umożliwiono
+łatwą wymianę pojedynczych jego fragmentów.
+
+Wyniki uzyskane w przeprowadzonych testach pokazują, że informacja z~sensorów otoczenia
+działających w~trzech wymiarach może być z~powodzeniem wykorzystana podczas nawigacji
+robotów mobilnych, zarówno w~trybie symulowanego skanera laserowego, jak i~wykorzystując
+w~pełni uzyskiwaną chmurę punktów. Dodatkowe obciążenie wprowadzane przez przetwarzanie
+większej ilości danych jest kompensowane przez dużo szersze spektrum możliwych do
+wykrycia przeszkód, zarówno tych stosunkowo mniej niebezpiecznych, jak małe przedmioty,
+jak i~mogących spowodować duże uszkodzenia robota, np. schody prowadzące w~dół.
+
+
+\section{Perspektywy rozwoju}
+
+Sama struktura systemu sterowania stworzonego w~ramach pracy jest zamkniętą całością,
+perspektywy rozwoju dotyczą raczej poszczególnych jego elementów. Po pierwsze w~najbliższym
+czasie zmianie ulegną sprzętowe sterowniki robota Elektron, w~związku z~czym trzeba będzie
+przygotować nowe moduły komunikacyjne. Innym kierunkiem rozwoju jest tworzenie nowych
+aplikacji wykorzystujących stworzone już elementy, jak na przykład śledzenie poruszających
+się obiektów czy połączenie aplikacji eksplorujących nieznany teren z~zadaniami tworzenia
+map.
+
+W~dynamicznie zmiennym otoczeniu, jakim bez wątpienia są pomieszczenia biurowe oraz
+przestrzenie laboratoryjne, sensory trójwymiarowe są praktycznie jedyną możliwą do
+zastosowania formą niezawodnego i~szybkiego wykrywania przeszkód. Stworzony system
+można wykorzystać na mobilnych robotach usługowych działających w~takim środowisku
+bez konieczności przystosowywania otoczenia do pracy robota. W~szczególności nie jest
+wymagane ani usuwanie przeszkód, ani specjalne oznaczanie przestrzeni dostępnych dla
+robota (poprzez np. oznaczenia na podłocze), dzięki czemu robot może być w~krótkim
+czasie uruchomiony w~nowym środowisku, a~podczas jego działania nie jest konieczne
+opuszczanie tych pomieszczeń przez ludzi. Do zadań, które mogą być realizowane przez
+mobilne roboty usługowe należą chociażby pomoc w~laboratoriach badawczych (różnego
+rodzaju ruchome stoły narzędziowe), platformy informacyjno-usługowe na lotniskach
+czy roboty telekonferencyjne w~biurach.

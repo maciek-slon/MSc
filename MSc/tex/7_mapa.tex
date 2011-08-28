@@ -19,7 +19,7 @@ wybory związane ze strukturą systemu nawigacji robota. Zgodnie z~filozofią
 twórców tego oprogramowania, podsystem nawigacji dla robota mobilnego podzielony
 jest na kilka modułów, których wzajemna współpraca i~zależności pokazane są na
 rysunku~\ref{fig:diag_move_base}. Część z~nich jest dostarczana razem z~systemem
-ROS i~wykorzystywana bez zmian w~kodzie (of the shelf), niektóre mogą być
+ROS i~wykorzystywana bez zmian w~kodzie (z~ang. \lang{of the shelf}), niektóre mogą być
 swobodnie wymieniane pod warunkiem, że spełniają wymogi odpowiednich interfejsów
 (razem z~systemem dostarczone są pewne implementacje, z~których można
 skorzystać), wymagane jest też dostarczenie kilku modułów zależnych od samego
@@ -40,7 +40,7 @@ zachowania awaryjne mające na celu wyprowadzenie robota z~trudnych sytuacji
 modułów sensorycznych, modułów określających lokalizację robota w~pewnym,
 globalnym układzie współrzędnych (może to być układ związany z~punktem startowym
 robota) oraz oczywiście głównego sterownika robota. Ogólnie cały system można
-podzielić na trzy główne części, odpowiedzialne za wykrywanie przeszkód 
+podzielić na trzy główne części, odpowiedzialne za wykrywanie przeszkód
 i~tworzenie lokalnych map zajętości (kosztu), lokalizację robota oraz planowanie
 trasy (globalne i~lokalne).
 
@@ -72,7 +72,7 @@ nie są wykorzystywane wszystkie odczyty, a~jedynie pięć na sekundę w~przypad
 lasera oraz dwa na sekundę w~przypadku Kinecta.
 
 Po zebraniu pomiarów muszą one jeszcze zostać przetransformowane do wspólnego
-układu współrzędnych, w~tym przypadku do układu związanego z~bazą robota 
+układu współrzędnych, w~tym przypadku do układu związanego z~bazą robota
 (w~przypadku sensora Kinect należy także wziąć pod uwagę jego pochylenie względem
 bazy). Za publikację wszystkich niezbędnych transformacji  odpowiedzialne są
 komponenty \comp{kinect\_tf\_broadcaster} oraz \comp{laser\_tf}.
@@ -82,7 +82,7 @@ komponenty \comp{kinect\_tf\_broadcaster} oraz \comp{laser\_tf}.
 Dane odebrane z~sensorów podlegają dalszemu procesowi filtracji, który ma na
 celu usunięcie odczytów w~jakikolwiek sposób zafałszowanych. Odczyty ze skanera
 laserowego są obarczone takimi błędami w~sposób niewielki, dlatego w~tym
-przypadku filtracja się nie odbywa. Inaczej przedstawia się kwestia odczytów 
+przypadku filtracja się nie odbywa. Inaczej przedstawia się kwestia odczytów
 z~Kinecta -- pojawiające się w~nich pojedyncze, przypadkowe punkty mogą powodować
 pojawianie się na mapie przeszkód uniemożliwiających ruch robota. Z tego powodu
 stosowana jest filtracja danych ze względu na otoczenie punktów -- pojedyncze
@@ -109,10 +109,10 @@ Największym ograniczeniem tej struktury danych jest założenie, że robot poru
 się po płaskim terenie, na którym nie występują spadki (np. schody w~dół), przez
 co przeszkody o~,,ujemnej wysokości'' nie są w~żaden sposób wykrywane. Niestety,
 moduł odpowiedzialny za tworzenie map otoczenia nie jest przystosowany do
-łatwego dostarczania własnych implementacji wewnętrznych struktur danych 
+łatwego dostarczania własnych implementacji wewnętrznych struktur danych
 i~algorytmów (tak jak np. planery trasy). Istniały dwie możliwości
 rozwiązania tego problemu: stworzenie kopii dużej części systemu i~wprowadzanie
-w~niej własnych zmian, bądź napisanie modułu pośredniczącego pomiędzy sensorem 
+w~niej własnych zmian, bądź napisanie modułu pośredniczącego pomiędzy sensorem
 a~algorytmami oznaczania przeszkód, która to metoda została wybrana.
 
 \begin{figure}[htb!]
@@ -151,7 +151,7 @@ znalezienie właściwego miejsca spadku. W~tym celu wyznaczane jest równanie pr
 $x$ oraz $y$ miejsca przecięcia tej prostej z~płaszczyzną $z=0$. Do chmury dodawane
 są dodatkowe punkty o~współrzędnych $x$ i~$y$ wyliczonych wcześniej oraz współrzędnej
 $z=0.1$ (symulowana jest przeszkoda znajdująca się 10cm ponad poziomem podłoża).
-W ten sposób lokalny planer trasy jest niejako zmuszany do omijania spadków terenu.
+W~ten sposób lokalny planer trasy jest niejako zmuszany do omijania spadków terenu.
 
 \subsubsection{Czyszczenie przeszkód}
 
@@ -203,7 +203,7 @@ nieznaną, w~przeciwnym wypadku kolumna jest uznawana za pustą.
 
 Po oznaczeniu przeszkód dokonywane jest ich powiększenie na określoną odległość
 (nadmuchiwanie). Operacja ta ma na celu wygładzenie mapy kosztu i~spowodowanie,
-że robot nie będzie preferował szerokie przejazdy (o ile będzie miał wybór). NA
+że robot nie będzie preferował szerokie przejazdy (o ile będzie miał wybór). Na
 rysunku~\ref{fig:inflation} przedstawiona jest ogólna metoda obliczania kosztu
 dla komórki podczas tego procesu. Parametrem kontrolującym ten proces jest
 promień ,,nadmuchiwania'', od którego zależy, jak dużą odległość od
@@ -212,7 +212,7 @@ przeszkód będzie zachowywał robot.
 \begin{figure}[htb!]
 \centering
 \includegraphics[width=13cm]{../img/costmap}
-\caption[Mapa kosztu]{Lokalna mapa kosztu podczas nawigacji. W tle mapa globalna, ciemniejsze
+\caption[Mapa kosztu]{Lokalna mapa kosztu podczas nawigacji. W~tle mapa globalna, ciemniejsze
 kwadraty oznaczają komórki z oznaczoną przeszkodą, jaśniejsze komórki wypełnione
 w~procesie ,,nadmuchiwania''. Układ współrzędnych w~centralnej części obrazka pokazuje
 pozycję robota, a~białe punkty odczyty ze skanera laserowego.}
@@ -249,7 +249,7 @@ akapicie).
 \begin{figure}[htb!]
 \centering
 \includegraphics[width=15cm]{../../Common/img/maps}
-\caption[Mapa otoczenia]{Zgrubna mapa otoczenia. A,~B~--~mapy uzyskane z~algorytmu SLAM, 
+\caption[Mapa otoczenia]{Zgrubna mapa otoczenia. A,~B~--~mapy uzyskane z~algorytmu SLAM,
 C~--~stworzona na ich podstawie mapa otoczenia. Kolor czarny oznacza przeszkody, szary teren
 nieznany, biały przestrzeń wolną.}
 \label{fig:maps}
@@ -268,7 +268,7 @@ oraz niedostępny dla robotów mobilnych podest z~manipulatorami. Wszystkie pozo
 elementy (w~szczególności mniejsze stoły, krzesła czy kosze na śmieci) zostały z~tej
 mapy usunięte.
 
-W przygotowanych aplikacjach jako do nawigacji globalnej (względem dostarczonej
+W~przygotowanych aplikacjach jako do nawigacji globalnej (względem dostarczonej
 zgrubnej mapy środowiska) został wykorzystany algorytm AMCL (Adaptive Monte Carlo
 Localization~\cite{fox2001kld}) wykorzystujący filtr cząsteczkowy do śledzenia
 pozycji robota na znanej mapie. Pozycja jest wyznaczana na podstawie odczytów
@@ -306,7 +306,7 @@ na tyle zwarty, że dla celów globalnego planowania trasy może być przybliżo
 \subsection{Ścieżka lokalna}
 
 Po wyznaczeniu planu globalnego jego fragmenty są przesyłane do lokalnego planera
-trasy działającego z~wykorzystaniem algorytmu okna dynamicznego (opisany 
+trasy działającego z~wykorzystaniem algorytmu okna dynamicznego (opisany
 w~rozdziale~\ref{chap:nawigacja}). Obliczenia wykorzystują lokalną mapę zajętości
 tworzoną wokół robota (z nanoszonymi na nią na bieżąco przeszkodami) oraz
 bieżące odczyty z~układu odometrii robota (aktualna prędkość).
