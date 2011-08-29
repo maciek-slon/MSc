@@ -17,7 +17,7 @@
 
 Nawigacja autonomicznego bądź semiautonomicznego robota mobilnego wymaga możliwie
 efektywnych i~dokładnych metod analizy otoczenia oraz wykrywania przeszkód.
-Najczęściej stosuje się w~tym celu całe zestawy różnych czujników, z~których
+Najczęściej stosuje się w~tym celu całe zestawy różnych czujników, z~których część
 podaje odczyty bądź punktowe (np. czujniki zderzeniowe bądź sensory odległości
 wykorzystujące podczerwień albo ultradźwięki) bądź czasami dwuwymiarowe (skanery
 laserowe podające odległość do otaczających przedmiotów, jednak odczyty wykonywane
@@ -44,7 +44,7 @@ wykorzystywane i~ograniczeń sprzętowych platformy.
 Dodatkowo przygotowany system nawigacji miał pozwalać na łatwe modyfikowanie
 i~zmianę poszczególnych modułów (m.in. planerów trasy), a~więc powinien być
 gotowym stanowiskiem badawczym i~eksperymentalnym. Jego przeznaczeniem miało
-być badanie różnych algorytmów sterowania, budowy map, nawigacji czy lokalizacji.
+być badanie różnych algorytmów sterowania, budowy map, generacji trajektorii czy lokalizacji.
 
 %Stanowisko do badania algorytmów sterowania, budowania map, nawigacji i~inne takie
 %propagandowe teksty, ogólnie chodziło o~przygotowanie niezawodnej platformy
@@ -56,8 +56,7 @@ być badanie różnych algorytmów sterowania, budowy map, nawigacji czy lokaliz
 Na początku pracy (rozdział~\ref{chap:porownanie}) skupiono się na porównaniu
 dostępnych metod pozyskiwania trójwymiarowego
 obrazu sceny. Wyniki przeprowadzonych doświadczeń pozwoliły wybrać docelowe rozwiązanie
-wykorzystane przy realizacji zadania. W~kolejnych rozdziałach przedstawione są elementy
-stworzonego systemu, z~podziałem na kolejne warstwy abstrakcji. Po nim następuje
+wykorzystane przy realizacji zadania. Po nim następuje
 teoretyczne wprowadzenie w~podstawy nawigacji robotów mobilnych (rozdział~\ref{chap:nawigacja})
 zawierający opis najważniejszych konceptów z~dziedziny wraz z~przeglądem istniejących
 rozwiązań. Rozdział~\ref{chap:sprzet} przedstawia wykorzystaną platformę sprzętową,
@@ -69,7 +68,7 @@ dane z~czujników i~przekształcająca je do postaci bezpośrednio użytecznej w
 W rozdziale~\ref{chap:mapa} omówiony został w~pełni system nawigacji przygotowany
 na omawianej platformie, wraz z~opisem implementacji kluczowych elementów
 przetwarzania i~filtrowania danych sensorycznych.
-Część~\ref{chap:aplikacje} przedstawia przekrojowo aplikacje przygotowane
+Rozdział~\ref{chap:aplikacje} przedstawia przekrojowo aplikacje przygotowane
 przy użyciu zaproponowanych technik mapowania i~nawigacji, zaczynając od zadań
 najprostszych, takich jak losowa eksploracja terenu, kończąc na złożonych zadaniach
 zawierających moduły mapowania, samolokalizacji i~omijania przeszkód. Rozdział ten

@@ -9,7 +9,7 @@ przydatności.''
 \end{savequote}
 
 
-\chapter{System nawigacji}
+\chapter{Zrealizowany system nawigacji}
 \label{chap:mapa}
 
 \section{Struktura systemu nawigacji}
@@ -230,7 +230,7 @@ od przejechanego przez robota dystansu i~wielkości eksplorowanego środowiska.
 
 \section{Lokalizacja robota}
 
-Obliczanie względnej pozycji robota (a więc liczona na podstawie jego ruchu, względem
+Obliczanie względnej pozycji robota (a więc liczonej na podstawie jego ruchu, względem
 punktu początkowego) zostało opisane już wcześniej przy okazji opisu odometrii
 oraz rozszerzonego filtru Kalmana. W~przypadku aplikacji, gdzie nie jest wykorzystywany
 żaden system lokalizacji globalnej jest to jedyne źródło informacji o~położeniu,
@@ -268,7 +268,7 @@ oraz niedostępny dla robotów mobilnych podest z~manipulatorami. Wszystkie pozo
 elementy (w~szczególności mniejsze stoły, krzesła czy kosze na śmieci) zostały z~tej
 mapy usunięte.
 
-W~przygotowanych aplikacjach jako do nawigacji globalnej (względem dostarczonej
+W~przygotowanych aplikacjach do lokalizacji globalnej (względem dostarczonej
 zgrubnej mapy środowiska) został wykorzystany algorytm AMCL (Adaptive Monte Carlo
 Localization~\cite{fox2001kld}) wykorzystujący filtr cząsteczkowy do śledzenia
 pozycji robota na znanej mapie. Pozycja jest wyznaczana na podstawie odczytów
@@ -301,7 +301,7 @@ Wynikają z~tego drobne problemy tego podejścia, mianowicie może się okazać,
 zostanie wyznaczona żadna ścieżka mimo, iż w~przy pewnej konfiguracji robot zmieściłby
 się pomiędzy przeszkodami (np. przejeżdżając ,,na styk'' pomiędzy nimi). Sytuacja
 taka nie wystąpiła jednak w~czasie eksperymentów, a~kształt robota Elektron jest
-na tyle zwarty, że dla celów globalnego planowania trasy może być przybliżony okręgiem.
+na tyle foremny, że dla celów globalnego planowania trasy może być przybliżony okręgiem.
 
 \subsection{Ścieżka lokalna}
 

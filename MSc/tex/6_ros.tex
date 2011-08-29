@@ -8,7 +8,7 @@ jest puste biurko?''
 \end{savequote}
 
 
-\chapter{Opis systemu sterowania}
+\chapter{Projekt systemu sterowania}
 \label{chap:software}
 
 \section{Dekompozycja zadania}
@@ -293,7 +293,7 @@ sekund). Pierwszy wykres przedstawia wartość prędkości kątowej odczytanej
 z~żyroskopu (stosując domyślny współczynnik skalowania dla tego układu wynoszący
 $15mV/{}^o/s$). Podczas kalibracji robot został obrócony o~pełny obrót 
 w~lewo, następnie pełny obrót w~prawo, później kolejno dwa razy w~lewo, dwukrotnie
-w~prawo, i~na końcu o~90\textdegree w~lewo. Oczekiwane wartości orientacji w~tym
+w~prawo, i~na końcu o~90\textdegree~w~lewo. Oczekiwane wartości orientacji w~tym
 procesie wynosiły kolejno -360\textdegree, 0\textdegree, -720\textdegree,
 0\textdegree, -90\textdegree. Wartości odczytane w~punktach charakterystycznych
 wynosiły: -385.743\textdegree, 0.047\textdegree, -774.087\textdegree,
@@ -382,7 +382,7 @@ odometria+żyro+laser.
 \section{Monitorowanie stanu robota}
 
 W celu monitorowania stanu podzespołów robota oraz samego komputera sterującego,
-stworzone zostało kilka modułów nadzorujących poszczególne elementy.
+stworzone zostało kilka modułów nadzorujących jego poszczególne elementy.
 
 \subsection{Podzespoły robota}
 
@@ -421,7 +421,7 @@ procesora, wykorzystanie pamięci RAM oraz poziom sygnału WiFi.
 
 \subsubsection{Akumulator}
 
-W przypadku komputera sterującego monitorowanie poziomu naładowania akumulatora
+W przypadku komputera sterującego monitorowanie poziomu naładowania jego akumulatora
 jest dużo prostsze i~sprowadza się do odczytania statystyk udostępnianych przez
 producenta komputera. Moduł nadzorujący parsuje wyjście programu \cons{upower}
 (dającego dostęp do tych statystyk) wykorzystując wybrane parametry: pozostałą 
@@ -451,7 +451,7 @@ spowolnienia systemu (przez przenoszenie niektórych danych z~pamięci
 operacyjnej na partycję tymczasową na dysku, co jest operacją blokującą dla
 systemu) bądź wręcz do przerywania zadań, jeśli zabraknie dla nich pamięci.
 
-Oba systemu (nadzór procesora i~pamięci) wymagają ingerencji operatora, który
+Oba systemy (nadzór procesora i~pamięci) wymagają ingerencji operatora, który
 widząc zbyt wysokie wykorzystanie zasobów musi sam podjąć decyzję, co z~tym
 faktem zrobić. Obecnie nie są zaimplementowane żadne automatyczne systemy
 podejmujące jakieś działania w~takich sytuacjach.

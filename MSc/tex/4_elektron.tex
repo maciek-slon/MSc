@@ -63,7 +63,7 @@ Maksymalna prędkość kątowa & 85\textdegree/s\\
 \midrule
 Pojemność akumulatorów & 2x7200mAh \\
 Napięcie akumulatorów & 2x12V \\
-Dostępne napięcia zasilania & 5V, 12V, 24V \\
+Dostępne napięcia & 5V, 12V, 24V \\
 Dodatkowe & zintegrowana ładowarka \\
 \bottomrule
 \end{tabular*}
@@ -72,7 +72,7 @@ Dodatkowe & zintegrowana ładowarka \\
 
 Pierwotnie komputer sterujący robotem był umieszczony wewnątrz ramy (był to komputer
 przemysłowy z~procesorem klasy Pentium III), obecnie do sterowania wykorzystywany
-jest netbook EeePC mocowany w~kieszeni z~tyłu.
+jest netbook EeePC mocowany z~tyłu robota.
 
 %-------------------------------------------------------------------------------
 \subsection{Moduły sensoryczne}
@@ -82,8 +82,8 @@ Robot Elektron wyposażony jest w~kilka niezależnych zestawów czujników. Przy
 zadania wykorzystane zostały: układ pomiaru odometrycznego, układ zawierający żyroskop,
 układ kamery trójwymiarowej w~postaci urządzenia Microsoft Kienct oraz skaner laserowy
 Sick LMS100. Układ pomiaru odometrycznego składa się z~dwóch enkoderów optycznych
-umieszczonych w~module napędowym. Każdy z~nich jest w~stanie zmierzyć kt obrotu kół
-napędowych z~rozdzielczością 4000 impulsów na obrót. W~projekcie zrezygnowano montowania
+umieszczonych w~module napędowym. Każdy z~nich jest w~stanie zmierzyć kąt obrotu kół
+napędowych z~rozdzielczością 4000 impulsów na obrót. W~projekcie zrezygnowano z~montowania
 dodatkowych czujników na wałach silników.
 
 Drugi z~wymienionych układów służy do pomiaru prędkości kątowej w~celu wspomagania
@@ -175,14 +175,14 @@ Efektywny pomiar odległości & 1.2m - 3.5m \\
 \textbf{Kamera RGB} \\
 \midrule
 Rozdzielczość & 640x480px \\
-Głębia bitowa & 8 bitów \\
-Prędkość & 30kl/s \\
+Głębia & 8 bitów \\
+Częstotliwość akwizycji & 30kl/s \\
 \midrule
 \textbf{Mapa głębi} \\
 \midrule
 Rozdzielczość & 320x240px \\
-Głębia bitowa & 16 bitów \\
-Prędkość & 30kl/s \\
+Głębia & 16 bitów \\
+Częstotliwość akwizycji & 30kl/s \\
 \bottomrule
 \end{tabular*}
 \label{tab:kinect_params}
@@ -235,8 +235,7 @@ centymetrów powyżej skanera Sick, i~jest pochylony o~20\textdegree w~dół. Ta
 konfiguracja umożliwia wykrywanie przeszkód w~całym pasie przed robotem,
 znajdujących się nie bliżej niż 10cm od jego przedniej krawędzi.
 Rysunek~\ref{fig:range} przedstawia ostateczne umiejscowienie czujników
-na robocie, wraz z~zaznaczonymi polami widzenia Kinecta (kolor niebieski) 
-i~skanera laserowego (kolor czerwony).
+na robocie, wraz z~zaznaczonymi polami widzenia Kinecta i~skanera laserowego.
 
 % TODO: Stworzyć schemat elektrona z~zamocowanym kinectem i~pokazanym polem
 % widzenia kinecta i~sicka
@@ -287,7 +286,7 @@ operujących w~pomieszczeniach zamkniętych (ich zestawienie zebrane
 w~tabeli~\ref{tab:sick_params}).
 
 \begin{table}[h!]
-\caption{Parametry skanera laserowego Sick LMS100}
+\caption{Parametry skanerów laserowych Sick LMS100 i LMS200}
 \centering
 \small
 \begin{tabular*}{0.8\textwidth}{@{\extracolsep{\fill}} lcc}
@@ -342,7 +341,7 @@ nich łatwy dostęp.
 \end{figure}
 
 Konkretny model laptopa wybrany został ze względu na kilka parametrów, z~których
-najważniejszymi były wielkość oraz technologia wykonania dysku twardego. Wybrany
+najważniejszymi były wielkość oraz technologia wykonania pamięci masowej. Wybrany
 komputer posiada ekran o~przekątnej 8.9", przez co cała konstrukcja jest zwarta
 i~niewielka, bez problemów mieszcząc się w~przeznaczonym do tego miejscu (robot
 z~zamocowanym komputerem przedstawiony jest na rysunku~\ref{fig:elektron}). W~przypadku
@@ -376,7 +375,7 @@ Architektura & 32bit \\
 Pojemność & 1GB \\
 Taktowanie & 667MHz \\
 \midrule
-\textbf{Dysk twardy} \\
+\textbf{Pamięć masowa} \\
 \midrule
 Technologia & SSD \\
 Pojemność & 4+8GB \\

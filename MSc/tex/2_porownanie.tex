@@ -32,7 +32,7 @@ wykorzystanie tradycyjnych czujników odległości (np. dalmierzy bądź skaner�
 laserowych). Montując taki czujnik na ruchomej głowicy można zebrać serię
 skanów, które ostatecznie dadzą pełną mapę głębi. Koszt zastosowania takich
 rozwiązań na robotach mobilnych często jest niewielki, gdyż można wykorzystać
-czujniki już obecne, dodając do nich tylko serwomechanizmy.
+czujniki już obecne, mocując je jedynie na dodatkowych głowicach.
 
 \subsection{Uzyskiwane parametry}
 
@@ -59,7 +59,8 @@ Trojanka jako moduł do robota Elektron).
 \begin{figure}[h!]
 \centering
 \includegraphics[height=6cm]{../../Common/img/sick_obrotnica}
-\caption{Skaner laserowy Sick LMS200 zamocowany na obrotnicy}
+\caption{Skaner laserowy Sick LMS200 zamocowany na obrotnicy. Obecnie wykorzystywany
+jako stacjonarny sensor do pracy z manipulatorami.}
 \label{fig:sick_obrotnica}
 \end{figure}
 
@@ -82,7 +83,8 @@ pokazane są na rysunku~\ref{fig:laser_aggregate}~\cite{Surmann01a3d}.
 \centering
 \includegraphics[width=12cm]{../../Common/img/laser_aggregate}
 \caption{Kolejne poziomy agregacji danych zebranych przy pomocy skanera
-laserowego}
+laserowego. W~kolejności od lewej: chmura punktów, odcinki utworzone z~kolejnych
+odczytów, płaszczyzny określające przeszkody.}
 \label{fig:laser_aggregate}
 \end{figure}
 
@@ -137,7 +139,7 @@ przedstawia kolejne kroki podczas odtwarzania informacji o~głębi z~dwóch kame
 
 \begin{figure}[h!]
 \centering
-\includegraphics{../../Common/img/stereo_steps}
+\includegraphics[width=15cm]{../../Common/img/stereo_steps}
 \caption[Kolejne kroki podczas przetwarzania w~stereowizji]
 {Kolejne kroki podczas przetwarzania w~stereowizji. 1: obraz pobrany
 bezpośrednio z~kamer; 2: obraz po interpolacji kolorów i~rektyfikacji,
@@ -155,9 +157,9 @@ bezpośrednio od ich jakości. Stosowanie kamer z~interfejsem analogowym jest
 możliwe, jednak nie jest zalecane przy dynamicznych scenach. Obiekty
 poruszające się z~dużą szybkością są wykrywane błędnie bądź całkowicie
 ignorowane ze względu na występujące rozmycie wynikające ze stosowania
-przeplotu podczas akwizycji z~kamer analogowych. Najlepsze wyniki uzyskuje się
-stosując dobrej jakości kamery z~interfejsami cyfrowymi, jednak ich koszt jest
-dużo wyższy.
+przeplotu podczas akwizycji. Najlepsze wyniki uzyskuje się
+stosując dobrej jakości kamery z~interfejsami cyfrowymi pozbawionymi tej wady,
+jednak ich koszt jest dużo wyższy.
 
 Samo rozmieszczenie kamer również ma istotny wpływ na uzyskiwane wyniki --
 kamery umieszczone blisko siebie będą dawały dobre wyniki dla obiektów
@@ -206,7 +208,7 @@ dwie kamery analogowe można kupić za ok. 200\$.
 \subsection{Zastosowania}
 %-------------------------------------------------------------------------------
 
-Algorytm opiera się o~wykrywanie punktów charakterystycznych w~obrazie, a~to
+Opisany algorytm opiera się o~wykrywanie punktów charakterystycznych w~obrazie, a~to
 najczęściej sprowadza się do analizy obrazu krawędziowego. W~związku z~tym
 obiekty o~jednolitej, drobnej teksturze (bądź całkowicie gładkie) są słabo bądź
 całkowicie niewykrywalne. W~najlepszym wypadku wykrywane są jedynie ich
@@ -267,15 +269,15 @@ współrzędne punktów w~obrazie.
 \includegraphics[width=10cm]{../../Common/img/struct}
 \caption[Schemat działania skanera opartego o~światło strukturalne]
 {Schemat działania skanera opartego o~światło strukturalne. Na podstawie:
-http://en.wikipedia.org/wiki/File:1-stripesx7.svg}
+\url{http://en.wikipedia.org/wiki/File:1-stripesx7.svg}}
 \label{fig:struct_principle}
 \end{figure}
 
 Rzutowane mogą być różne wzory, zaczynając od pojedynczego punktu, przez
 wzory złożone z~linii (statycznych bądź przesuwających się po
 scenie, w~takim przypadku scena jest analizowana stopniowo), aż po złożone,
-pseudolosowe wzory (także kolorowe) oraz sekwencje wzorów \cite{1588327}. W
-przypadku korzystania z~sekwencji wzorów wymagany jest statyczny charakter
+pseudolosowe wzory (także kolorowe) oraz sekwencje wzorów \cite{1588327}. 
+W~przypadku korzystania z~sekwencji wzorów wymagany jest statyczny charakter
 sceny, sceny dynamiczne wymagają stosowania pojedynczych, skomplikowanych
 struktur.
 
@@ -305,7 +307,7 @@ jego obracania (np. zestaw specjalnie ustawionych luster) \cite{LanmanCT07}.
 {Przykład wykorzystania światła strukturalnego do modelowania obiektów. Na
 pierwszym zdjęciu widać układ pomiarowy, następnie dwa wybrane etapy oświetlania
 kodem Graya oraz wynikowy model otrzymany po oświetleniu 40-toma wzorcami.
-Źródło: http://web.media.mit.edu/~dlanman/}
+Źródło: \url{http://web.media.mit.edu/\textasciitilde dlanman/}}
 \label{fig:struct_all}
 \end{figure}
 
@@ -317,7 +319,7 @@ Wśród takich metod wyróżnić można oparte o~wzorce kodowane geometrycznie
 i~kolorowo. Pierwsza z~metod wykorzystuje jednobarwne wzorce geometryczne
 zakodowane w~taki sposób, aby poszczególne jego bloki były unikalne w~pewnym
 otoczeniu. W~przypadku tej drugiej metody stosowane są np. różnokolorowe pasy
-bądź szachownice, a~z układu kolorów rekonstruowana jest powierzchnia obiektów.
+bądź szachownice, a~z układu kolorów rekonstruowana jest powierzchnia obiektów (rysunek~\ref{fig:struct_color}).
 Rozwiązania te cechują się dużą szybkością działania, od kilkunastu do ponad
 stu klatek przetwarzanych w~ciągu sekundy \cite{4429304}.
 
@@ -342,7 +344,7 @@ o~rzutowanie wzorców jest konieczność dokładnego wykrycia tego wzoru. Dlateg
 najczęściej stosowane jest ono na niewielkie odległości, przy skanowaniu
 pojedynczych obiektów. Przy stosowaniu na większe odległości konieczne jest
 stosowanie bądź projekcji w~paśmie podczerwonym (aby wykluczyć zakłócenia od
-tradycyjnych źródeł światła), bądź wykorzystanie projektorów o~bardzo dużej
+źródeł światła obecnych normalnie w~scenie, takich jak lampy), bądź wykorzystanie projektorów o~bardzo dużej
 mocy. Żaden z~wariantów nie sprawdza się jednak na otwartej przestrzeni, gdzie
 światło słoneczne zakłóca działanie praktycznie wszystkich sensorów tego typu.
 
@@ -387,7 +389,7 @@ oświetlają i~wykonują pomiar całej sceny naraz.
 Kamery TOF mogą działać w~oparciu o~dwie główne metody: bezpośredni pomiar
 czasu przelotu wiązki światła (od błysku naświetlającego scenę do jego
 zarejestrowania na matrycy) bądź pośredni pomiar tej wielkości z~różnicy fazy
-emitowanego światła (w~tym przypadku bez przerwy emitowane jest modulowane
+emitowanego światła (w~tym przypadku emitowane jest modulowane
 światło~\cite{910448}). W~obu wypadkach wyliczony czas przelotu dla każdego
 punktu zarejestrowanego obrazu jest proporcjonalny do jego odległości od kamery.
 
@@ -468,7 +470,7 @@ Rozdzielczość obrazu: 160x120px przy 20FPS, cena ok. 3000\$}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Porównanie dostępnych rozwiązań}
+\section{Porównanie wybranych rozwiązań}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 

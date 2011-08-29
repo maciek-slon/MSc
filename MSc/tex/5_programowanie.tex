@@ -27,7 +27,7 @@ złożone z~mikrokontrolera połączonego z~układami sensorycznymi i~sterujące
 całego robota. Do jego zadań należy zarówno odczyt danych z~czujników, ich analiza
 i~przetwarzanie, a~także sterowanie efektorami robota. Systemy takie mają niewielką
 wydajność, ale ze względu na ich dobre dostosowanie do przewidzianego zadania działają
-szybko i~pozwalają na uruchomienie pętli sterowania nawet w~tempie kilkuset na sekundę.
+szybko i~pozwalają na uruchomienie pętli sterowania nawet w~tempie kilkuset obiegów na sekundę.
 Przykładem takiego systemu może być układ sterowania robotów sportowych. W~przypadku
 robotów śledzących linię ich prędkość często przekracza 2m/s, przy jednoczesnej
 akwizycji i~analizie danych z~kilkunastu czujników i~zdolności do natychmiastowej
@@ -39,7 +39,7 @@ Niestety, możliwości są mocno ograniczone, a~zmiana zadania wymaga często op
 samego algorytmu sterującego także zmian sprzętowych. Rozwiązanie tego typu nie nadaje
 się do przygotowania platformy badawczej.
 
-\section{Ramowe struktury programowe}
+\section{Programowe struktury ramowe}
 
 Drugą metodą jest podział systemu sterowania na rozłączne elementy -- samego
 robota (efektor) i~komunikujący się z~nim komputer nadrzędny (który może być umieszczony
@@ -96,8 +96,8 @@ jedynie pomiędzy serwerem a~klientami (możliwe jest uzyskanie komunikacji klie
 oraz serwer-serwer, nie są to jednak rozwiązania standardowe i~łatwe w~implementacji).
 Z tego powodu utrudnione jest budowanie wielowarstwowych systemów nawigacji z~wieloetapowym
 przetwarzaniem danych sensorycznych -- całe przetwarzanie musi odbywać się w~aplikacji
-serwera (wszystkie sterowniki uruchamiane są jako osobne wątki), przez co ucierpieć
-może wydajność.
+serwera (wszystkie sterowniki uruchamiane są jako osobne wątki), co może negatywnie
+odbić się na wydajności.
 
 \subsection{ROS}
 

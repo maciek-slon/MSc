@@ -38,22 +38,22 @@ znaczenie w~nawigacji.
 Istnieje cały szereg różnych
 czujników, które ogólnie można pogrupować ze względu na rodzaj mierzonych
 wielkości (wyróżniamy proprioreceptory -- czujniki mierzące wartości parametrów
-wewnętrznych robota,oraz eksteroreceptory -- mierzące wartości parametrów
+wewnętrznych robota, oraz eksteroreceptory -- mierzące wartości parametrów
 otoczenia) oraz wpływ na otoczenie (tutaj mamy podział na czujniki pasywne 
 i~aktywne)~\cite{siegwart}.
 
 
 \subsubsection{Proprioreceptory i~eksteroreceptory}
 
-Proprioreceptory mierzą parametry określające w~pewien sposób wewnętrzny stan
+Proprioreceptory mierzą parametry określające wewnętrzny stan
 robota, takie jak prędkość silników czy napięcie akumulatorów. Wykorzystywane są
 przy wyznaczaniu pozycji robota (czujniki odometryczne), sterowaniu (prędkość
 obrotowa silników) czy diagnostyce jego podzespołów. Eksteroreceptory
 pozyskują informację z~otoczenia robota, takie jak natężenie
 światła czy amplituda dźwięku. Można za ich pomocą mierzyć odległość,
-orientację, lokalizować zewnętrzne obiekty aż wreszcie budować mapy.
+orientację, lokalizować zewnętrzne obiekty a także budować mapy.
 
-Ważne jest to, że konkretne sensory są przypisywane do proprio- lub
+Ważne jest to, że konkretne sensory są przypisywane do proprio lub
 eksteroreceptorów w~zależności od ich zastosowania, a~nie typu mierzonej
 wartości (np. czujnik temperatury zamontowany na radiatorze silnika jest
 czujnikiem wewnętrznym, a~ten sam czujnik mierzący temperaturę otoczenia robota
@@ -172,9 +172,7 @@ w~specjalistycznych aplikacjach robotycznych.
 
 Pod pojęciem samolokalizacji robota rozumie się określenie bieżącej pozycji
 robota w~pewnym, ustalonym układzie odniesienia. Do obliczeń wykorzystywane mogą
-być dane uzyskiwane z~czujników robota,
-
-\subsection{Klasyfikacja metod lokalizacji}
+być dane uzyskiwane z~czujników robota.
 
 Metody lokalizacji robotów mobilnych można podzielić biorąc pod uwagę różne
 kryteria. Kilka możliwych podziałów przedstawione jest w~dalszej części
@@ -201,7 +199,7 @@ Korzystając z~odbiorników GPS łatwo zlokalizować robota w~przestrzeni otwart
 trudniej jest to wykonać w~pomieszczeniach. Rozwiązują to metody czynne, których
 opis znajduje się w~dalszej części rozdziału.
 
-\subsubsection{Środowisko statyczne i~ dynamiczne}
+\subsubsection{Środowisko statyczne i~dynamiczne}
 
 Poprzez określenie środowiska statycznego rozumie się takie otoczenie, w~którym
 ruch innych obiektów oprócz robota nie występuje bądź jest niewykrywalny przez
@@ -223,13 +221,14 @@ W~metodach czynnych do dokładnego określenia pozycji robota wymagany jest jego
 ruch. W~takim przypadku możliwe jest dowolne początkowe położenie w~układzie
 współrzędnych (bądź na mapie), a~wraz z~ruchem robota kolejne obserwacje
 doprowadzają do zawężenia przestrzeni możliwych rozwiązań, a~po pewnym czasie
-doprowadzają do podania jednego, ostatecznego położenia. Takimi metodami są np.
-różnego rodzaju filtry cząsteczkowe i~inne metody probabilistyczne.
+doprowadzają do podania jednoznacznego, ostatecznego położenia. Takimi metodami są np.
+różnego rodzaju algorytmy wykorzystujące filtry cząsteczkowe, a~także inne 
+metody probabilistyczne.
 
 \section{Mapy otoczenia}
 
 W przypadku, kiedy konieczna jest znajomość otoczenia robota wymagany jest pewien
-sposób jej reprezentacji, taki, który będzie można stosunkowo łatwo analizować
+sposób jego reprezentacji, taki, który będzie można stosunkowo łatwo analizować
 i~podejmować na jego podstawie decyzje (np. o~aktualnej pozycji). Wyróżnić
 można dwa podstawowe zagadnienia w~tym zakresie -- sam sposób reprezentacji,
 oraz metody tworzenia map.
@@ -237,7 +236,7 @@ oraz metody tworzenia map.
 \subsection{Rodzaje map}
 
 Problem odwzorowania otoczenia robota na postać użyteczną w~jego sterowaniu
-związany z~ogólnymi założeniami przyjętymi co do dokładności lokalizacji robota
+związany jest z~ogólnymi założeniami przyjętymi co do dokładności lokalizacji robota
 na owej mapie oraz precyzji osiągania celów. Im większa wymagana precyzja
 tym dokładniejsze muszą być wykorzystywane mapy. Kolejnym czynnikiem wpływającym
 na wybór typu mapy są czujniki dostępne na robocie -- bezcelowe jest wykorzystywanie
@@ -264,12 +263,12 @@ Inną metodą jest dyskretyzacja całej przestrzeni mapy. Można to wykonać prz
 równomiernej siatki (np. kwadratów), otrzymując mapę złożoną z~jednakowych komórek,
 z~których każda może przechowywać informację o~jej zajętości (bądź binarnie wolna/zajęta,
 bądź z~pewnymi dodatkowymi wartościami mogącymi reprezentować np. prawdopodobieństwo
-obecności przeszkody w~danym miejscu). Zaletą takiej mapy jej prostota implementacji
+obecności przeszkody w~danym miejscu). Zaletą takiej mapy jest prostota implementacji
 (podstawowa struktura danych oparta o~tablicę wielowymiarową), ogólność (można opisywać
 przestrzeń bez żadnych dodatkowych założeń co do przeszkód) oraz możliwość łatwej modyfikacji
 w~trakcie działania (dodanie czy usunięcie przeszkody na mapie nie wymaga przebudowy
 całej struktury, a~jedynie zmiany wartości w~komórce). Wielkość komórek decyduje wprost
-o~wymaganiach pamięciowych do przechowywania mapy, wpływa też wprost na możliwość
+o~wymaganiach pamięciowych do przechowywania mapy, wpływa też na możliwość
 wykrywania wąskich przejść pomiędzy przeszkodami -- jeśli komórki będą zbyt duże, to
 drobne przeszkody mogą się ze sobą zlewać. Tego rodzaju mapy są często wykorzystywane
 przy przechowywaniu map zajętości tworzonych dynamicznie w~trakcie ruchu robota.
@@ -278,7 +277,7 @@ w~przypadku map dwuwymiarowych. Podział komórki następuje wtedy, gdy nie jest
 ani całkowicie wolna, ani całkowicie zajęta przez przeszkodę. W~ten sposób, ustalając
 dodatkowo pewną maksymalną głębokość podziału, otrzymujemy mapę dobrze dopasowaną
 zarówno do dużych jak i~drobnych przeszkód, dodatkowo zachowującą wszystkie wąskie
-przejścia,, a~także bardzo efektywną z~punktu widzenia wymagań pamięciowych (sąsiadujące
+przejścia, a~także bardzo efektywną z~punktu widzenia wymagań pamięciowych (sąsiadujące
 komórki jednakowego typu są przechowywane jako pojedynczy węzeł). Problemem jest
 nieco bardziej skomplikowana struktura danych (najczęściej drzewiasta), w~której
 operacje dodawania i~usuwania przeszkód wymagają przeprowadzenia procesu podziału
@@ -288,7 +287,7 @@ podziału jest binarne, tak samo jak przechowywane w~węzłach wartości.
 
 \subsubsection{Mapy topologiczne}
 
-Mapy topologiczne zamiast informacji o~całym otoczeniu zawierają jedynie wiedzę
+Mapy topologiczne zamiast informacji o~całym otoczeniu zawierają jedynie wiedzę 
 o~charakterystycznych obiektach, które mogą być reprezentatywne dla danego podobszaru.
 Reprezentowane są najczęściej w~postaci grafu, gdzie węzły reprezentują podobszary
 (przechowując też informację o~ich cechach charakterystycznych), natomiast łuki
@@ -300,7 +299,7 @@ w~świecie rzeczywistym jest np. schemat połączeń komunikacyjnych w~mieście 
 określone są nazwami, łuki określają możliwe do przebycia komunikacją odcinki pomiędzy
 nimi.
 
-Przy używaniu map togologicznych kluczowe jest to, aby robot był w~stanie zlokalizować
+Przy używaniu map togologicznych kluczowe jest, aby robot był w~stanie zlokalizować
 się jednoznacznie w~danym węźle i~wykryć charakterystyczne elementy w~otoczeniu.
 Największą ich zaletą jest duża efektywność obliczeniowa i~skalowalność, gdyż rozmiar
 reprezentacji nie zależy od rozmiaru obszaru do opisania, a~jedynie od ilości wymaganych,
@@ -341,8 +340,8 @@ jako przeszkody, jednak są dość dokładne i~łatwe do zdobycia.
 
 \subsubsection{Ręczne tworzenie prostych map otoczenia}
 
-Sposób opisany w~poprzednim punkcie pozwala na pozyskanie map w~postaci metrycznej,
-dopasowanie istniejących map topologicznych wymaga większych nakładów pracy
+Sposób opisany w~poprzednim punkcie pozwala na pozyskanie map w~postaci metrycznej.
+Dopasowanie istniejących map topologicznych wymaga większych nakładów pracy
 i~nie wystarcza zwykły skan. W~tym wypadku cała mapa praktycznie musi być
 stworzona od nowa, bazując jedynie na informacjach z~mapy oryginalnej, wymagana
 jest całkowita zmiana sposobu reprezentacji. Mapy metryczne również mogą być
@@ -367,8 +366,8 @@ nie posiadając żadnej informacji o~otoczeniu. Następnie porusza się (kierowa
 operatora bądź korzystając ze swoich czujników w~celu omijania przeszkód) zbierając
 kolejne odczyty z~sensora odpowiedzialnego za budowanie mapy (może być to skaner laserowy~\cite{laser_slam},
 różnego rodzaju inne czujniki odległości czy kamera bądź ich zestaw~\cite{vslam}). Dodatkową
-informacją, którą można podać do algorytmu jest przybliżone przemieszczenie robota
-pomiędzy pomiarami (uzyskiwane np. z~odometrii), jego podanie nie jest jednak w~ogólności
+informacją, którą można podać do algorytmu, jest przybliżone przemieszczenie robota
+pomiędzy pomiarami (uzyskiwane np. z~odometrii). Jego podanie nie jest jednak w~ogólności
 konieczne, parametr ten może zostać wyliczony przez porównywanie kolejnych odczytów
 (wtedy jednak algorytm jest dużo bardziej obciążający dla systemu i~trudniejszy do zrealizowania
 w~czasie rzeczywistym). Agregacja kolejnych odczytów wraz z~przybliżoną estymacją
@@ -384,8 +383,8 @@ innego punktu obserwacji sceny). Tworzone przy użyciu metod SLAM mapy mogą by�
 dwuwymiarowe, jak i~w pełni trójwymiarowe~\cite{6dslam}, przy czym w~tym drugim przypadku
 korzystając z~odpowiednich sensorów możliwe jest tworzenie w~pełni trójwymiarowych
 modeli otoczenia, łącznie z~informacją o~kolorach~\cite{kinect_slam}.
-Istnieje wiele gotowych implementacji algorytmów SLAM, z~których wiele udostępnione
-jest do dowolnego wykorzystania w~internecie~\cite{openslam}.
+Istnieje wiele gotowych implementacji algorytmów SLAM, z~których wiele udostępnionych
+jest w~internecie do dowolnego wykorzystania~\cite{openslam}.
 
 \section{Generowanie trajektorii}
 
@@ -412,7 +411,7 @@ oraz heurystyczne), a~także ze względu na sposób reprezentacji informacji o~�
 Ścieżki wyliczane przez algorytmy globalne opisują pełną drogę robota od punktu początkowego
 do docelowego. Działanie tych algorytmów opiera się najczęściej na minimalizacji
 funkcji kosztu (określanej w~różny sposób), wykorzystując dostarczoną mapę środowiska
-oraz określony model robota (opisujący zarówno jego właściwości fizyczne jak i~dynamiczne).
+oraz określony model robota (opisujący zarówno jego właściwości statyczne jak i~dynamiczne).
 Algorytmy te ze względu na swoją naturę i~iteracyjny charakter działają najczęściej
 w~trybie off-line, czyli ścieżka jest przesyłana do robota dopiero po jej całkowitym
 zaplanowaniu i~dopiero wtedy robot rozpoczyna jej wykonywanie. Zaletą tych metod
@@ -446,7 +445,7 @@ zależy od dobrego doboru parametrów dyskretyzacji).
 Wyróżnić można także algorytmy losowe, a~więc takie, które przeszukują przestrzeń
 możliwych rozwiązań w~sposób niedeterministyczny, jednak przy odpowiednio długim czasie
 (dążącym do nieskończoności) prawdopodobieństwo znalezienia rozwiązania dąży do jedności.
-Ostatnią grupą są algorytmu heurystyczne, a~więc niezupełne, które wyszukują ścieżkę
+Ostatnią grupą są algorytmy heurystyczne, a~więc niezupełne, które wyszukują ścieżkę
 w~sposób przybliżony, a~w czasie działania często dokonują wielu uproszczeń, wybierając
 np. tylko jedną ze wszystkich możliwości, tą, która w~danym momencie jest najbardziej
 obiecująca. Z tego powodu możliwe są sytuacje, kiedy ścieżka w~ogóle nie zostaje
@@ -503,8 +502,8 @@ pomiędzy sąsiednimi komórkami może być wyznaczona np. jako droga łącząca
 Jeśli dyskretyzacja mapy nie jest oparta o~cechy i~kształt przeszkód, ale polega na
 prostym podziale na regularną siatkę, to graf sąsiedztwa jest dużo bardziej skomplikowany
 i~większy niż przy podziale dokładnym. W~takim wypadu oczywiście można wyszukiwać
-ścieżki bezpośrednio w~tym grafie, są jednak metody robiące to w~nieco inny sposób.
-Polegają one na propagacji fali. Polegają one na systematycznym poruszaniu się
+ścieżki bezpośrednio w~tym grafie, są jednak metody robiące to w~nieco inny sposób, 
+na zasadzie propagacji fali. Polegają one na systematycznym poruszaniu się
 od komórki startowej, wpisując w~sąsiednich komórkach koszt o~jeden większy niż w~obecnej.
 Po wypełnieniu całej mapy (bądź szybciej, po wypełnieniu komórki docelowej) ścieżka
 może być wyznaczona wstecz, jako łącząca komórki o~coraz niższym koszcie.
@@ -514,7 +513,7 @@ może być wyznaczona wstecz, jako łącząca komórki o~coraz niższym koszcie.
 Metody te traktują robota jako sztuczny ładunek elektryczny umieszczony w~polu potencjału
 generowanego przez punkt docelowy o~ładunku przeciwnym do ładunku robota
 (przyciągający, a~więc będący minimum funkcji) oraz przeszkody o~ładunku zgodnym
-z~ładunkiem robota (a więc odpychające go, tworzące lokalne zbocza na funkcji).
+z~ładunkiem robota (a więc odpychające go, tworzące lokalne zbocza na przebiegu funkcji).
 Trajektoria generowana jest jako ścieżka śledząca gradient funkcji w~danym punkcie
 i~poruszająca się w~kierunku największego spadku (a więc w~kierunku celu). Istnieją
 też odmiany algorytmu wykorzystujące informację o~orientacji robota i~generujące
@@ -540,7 +539,7 @@ trajektorii i~omijania przeszkód, polegają na podążaniu wzdłuż ich konturu
 Istnieją kilka głównych wariantów tej metody -- Bug0, Bug1, Bug2 i~TangentBug.
 Pierwsze trzy wymagają jedynie czujników zderzeniowych, ostatnia sensorów odległości,
 wszystkie wymagają także informacji o~przybliżonym kierunku do celu i~jego położeniu.
-Zależnie od wersji, przeszkody sa otaczane całkowicie, nawet więcej niż raz (Bug1),
+Zależnie od wersji, przeszkody są objeżdżane całkowicie, nawet więcej niż raz (Bug1),
 bądź tylko do momentu wykrycia wolnej drogi do celu (Bug0, Bug2). W~przypadku TangentBug
 dodatkowo robot modyfikuje ścieżkę już zbliżając się do celu bez konieczności kontaktu
 z~nim. Algorytm Bug1 jest dodatkowo zupełny, pozostałe nie.
@@ -568,10 +567,10 @@ z~nim. Algorytm Bug1 jest dodatkowo zupełny, pozostałe nie.
 
 Algorytmy z~grupy VFH~\cite{borenstein1991vector} tworzą dookoła robota małą mapę zajętości, akumulując kolejne
 pomiary z~sensorów, dzięki czemu działają lepiej niż te z~grupy Bug z~czujnikami
-o~niewielkim zasięgu i~polu widzenia. Na podstawie niej tworzony jest histogram
+o~niewielkim zasięgu i~polu widzenia. Na podstawie tej mapy tworzony jest histogram
 zawierający prawdopodobieństwo pojawienia się przeszkody pod danym kątem przed robotem.
-Po progowaniu identyfikowane są w~nim wolne miejsca na tyle duże, aby robot mógł
-nimi przejechać, a~z nich wybierane jest to o~najmniejszym koszcie (np. będące najbardziej
+Po progowaniu identyfikowane są w~nim wolne przestrzenie na tyle duże, aby robot mógł
+nimi przejechać, a~z nich wybierana jest ta o~najmniejszym koszcie (np. będąca najbardziej
 w~kierunku celu). Poprawione metody algorytmu (VFH+) biorą dodatkowo pod uwagę
 ograniczenia kinematyczne robota, np. możliwy promień skrętu, przy wyborze kierunku ruchu.
 
