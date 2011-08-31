@@ -2,8 +2,8 @@
 
 
 \begin{savequote}[70mm]
-,,''
-\qauthor{}
+,,Mów prawdę lub blefuj, ale osiągnij cel.''
+\qauthor{Mark Twain}
 \end{savequote}
 
 \chapter{Nawigacja robotów mobilnych}
@@ -15,8 +15,8 @@ składników \cite[cz.~9]{szynkiewiczWR}:
 \begin{itemize}
   \item percepcję,
   \item samolokalizację robota,
-  \item wnioskowanie i/lub planowanie,
   \item tworzenie mapy otoczenia,
+  \item wnioskowanie i/lub planowanie,
   \item generowanie trajektorii i~omijanie przeszkód.
 \end{itemize}
 
@@ -30,7 +30,7 @@ rozdział opisuje ogólne metody realizacji poszczególnych elementów systemu.
 
 Ta część systemu odpowiada za gromadzenie wiedzy o~stanie zarówno samego robota,
 jak i~otaczającego go środowiska, w~którym operuje. Dokonuje się tego przez
-akwizycję danych z~czujników a~następnie wybieranie tych informacji, które mają
+akwizycję danych z~czujników, a~następnie wybieranie tych informacji, które mają
 znaczenie w~nawigacji.
 
 \subsection{Klasyfikacja czujników}
@@ -39,7 +39,7 @@ Istnieje cały szereg różnych
 czujników, które ogólnie można pogrupować ze względu na rodzaj mierzonych
 wielkości (wyróżniamy proprioreceptory -- czujniki mierzące wartości parametrów
 wewnętrznych robota, oraz eksteroreceptory -- mierzące wartości parametrów
-otoczenia) oraz wpływ na otoczenie (tutaj mamy podział na czujniki pasywne 
+otoczenia) oraz wpływ na otoczenie (tutaj mamy podział na czujniki pasywne
 i~aktywne)~\cite{siegwart}.
 
 
@@ -51,7 +51,7 @@ przy wyznaczaniu pozycji robota (czujniki odometryczne), sterowaniu (prędkość
 obrotowa silników) czy diagnostyce jego podzespołów. Eksteroreceptory
 pozyskują informacje z~otoczenia robota, takie jak natężenie
 światła czy amplituda dźwięku. Można za ich pomocą mierzyć odległość,
-orientację, lokalizować zewnętrzne obiekty a także budować mapy.
+orientację, lokalizować zewnętrzne obiekty, a także budować mapy.
 
 Ważne jest to, że konkretne sensory są przypisywane do proprio lub
 eksteroreceptorów w~zależności od ich zastosowania, a~nie typu mierzonej
@@ -154,7 +154,7 @@ kamer~\cite{vodom_stereo} jak i~kamery pojedynczej~\cite{vodom_mono}) czy budowa
 map (zamierających punkty charakterystyczne otoczenia~\cite{vslam}). Oprócz
 czynności czysto nawigacyjnych sensory tego typu wykorzystywane są przy całej
 gamie innych czynności, jak wykrywanie i~śledzenie obiektów w~obszarze pracy robota,
-rozpoznawanie twarzy w~aplikacjach wymagających bliskiej współpracy z~operatorem
+rozpoznawanie twarzy w~aplikacjach wymagających bliskiej współpracy z~operatorem,
 czy wreszcie całościowej analizy i~rozumienia sceny.
 
 \subsubsection{Czujniki innych wielkości fizycznych i~chemicznych}
@@ -181,10 +181,10 @@ rozdziału, wraz z~przykładami.
 \subsubsection{Metody lokalne i~globalne}
 
 W zależności od lokalizacji układu odniesienia metody lokalizacji możemy
-podzielić na lokalne i~globalne. W~metodach lokalnych układ odniesienia, 
+podzielić na lokalne i~globalne. W~metodach lokalnych układ odniesienia,
 w~którym następuje lokalizacja jest związany z~punktem, z~którego robot rozpoczyna
 pracę (a więc początkowe położenie robota jest zerowe bądź wskazane przez
-operatora), tak więc rozpoczynając pracę z~faktycznie różnych punktów 
+operatora), tak więc rozpoczynając pracę z~faktycznie różnych punktów
 i~wykonując tę samą trajektorię (zakładając, że w~ogóle może ją w~każdym
 przypadku wykonać), mimo takiej samej pozycji wyliczonej przez układ
 lokalizacji robot będzie się znajdował w~różnych miejscach.
@@ -192,7 +192,7 @@ lokalizacji robot będzie się znajdował w~różnych miejscach.
 Metody globalne operują z~kolei w~układach odniesienia związanych z~elementami,
 które nie są bezpośrednio zależne od robota. Mogą to być układy związane z~danym
 pomieszczeniem (z ustalonym odgórnie punktem zerowym) bądź takie jak układ
-współrzędnych geograficznych, jak również oparte o~mapę i~lokalizujące robota
+współrzędnych geograficznych, a~także oparte o~mapę i~lokalizujące robota
 względem umieszczonych na niej obiektów. W~takich metodach kluczowe jest
 określenie pozycji początkowej, które nie zawsze jest łatwe do wykonania.
 Korzystając z~odbiorników GPS łatwo zlokalizować robota w~przestrzeni otwartej,
@@ -215,22 +215,22 @@ wykorzystujące odczyty laserowe.
 \subsubsection{Metody bierne i~czynne}
 
 Przy biernych metodach lokalizacji do określenia pozycji robota jego ruch
-(a dokładniej ruch sensorów) nie jest konieczny. Tak działa chociażby GPS, oraz
-wszystkie metody wykorzystujące zewnętrzne nadajniki (np. latarnie radiowe). 
+(a dokładniej ruch sensorów) nie jest konieczny. Tak działa chociażby GPS oraz
+wszystkie metody wykorzystujące zewnętrzne nadajniki (np. latarnie radiowe).
 W~metodach czynnych do dokładnego określenia pozycji robota wymagany jest jego
 ruch. W~takim przypadku możliwe jest dowolne początkowe położenie w~układzie
 współrzędnych (bądź na mapie), a~wraz z~ruchem robota kolejne obserwacje
 doprowadzają do zawężenia przestrzeni możliwych rozwiązań, a~po pewnym czasie
 doprowadzają do podania jednoznacznego, ostatecznego położenia. Takimi metodami są np.
-różnego rodzaju algorytmy wykorzystujące filtry cząsteczkowe, a~także inne 
+różnego rodzaju algorytmy wykorzystujące filtry cząsteczkowe, a~także inne
 metody probabilistyczne.
 
 \section{Mapy otoczenia}
 
-W przypadku, kiedy konieczna jest znajomość otoczenia robota wymagany jest pewien
+W przypadku, kiedy konieczna jest znajomość otoczenia robota, wymagany jest pewien
 sposób jego reprezentacji, taki, który będzie można stosunkowo łatwo analizować
 i~podejmować na jego podstawie decyzje (np. o~aktualnej pozycji). Wyróżnić
-można dwa podstawowe zagadnienia w~tym zakresie -- sama postać reprezentacji,
+można dwa podstawowe zagadnienia w~tym zakresie -- sama postać reprezentacji
 oraz metody tworzenia map.
 
 \subsection{Rodzaje map}
@@ -255,7 +255,7 @@ i~złożoności opisywanych obiektów. Praktycznie stosowanie takich map jest ni
 aby zmniejszyć ilość wymaganych danych stosowane są różne metody ich przybliżania.
 Jedną z~metod jest zastępowanie obiektów na mapie ich uproszczonymi odpowiednikami
 (np. podstawowymi figurami geometrycznymi i~ich złożeniami czy opisywanie ich za pomocą
-krzywych parametrycznych, np. NURBS). W!dalszym etapie można dokonać podziału mapy
+krzywych parametrycznych, np. NURBS). W~dalszym etapie można dokonać podziału mapy
 na segmenty odpowiadające obszarom wolnym (opisane przy pomocy wielokątów wypukłych,
 np. trapezów i~trójkątów) wraz z~załączoną informacją o~ich sąsiedztwie.
 
@@ -281,13 +281,13 @@ przejścia, a~także bardzo efektywną z~punktu widzenia wymagań pamięciowych 
 komórki jednakowego typu są przechowywane jako pojedynczy węzeł). Problemem jest
 nieco bardziej skomplikowana struktura danych (najczęściej drzewiasta), w~której
 operacje dodawania i~usuwania przeszkód wymagają przeprowadzenia procesu podziału
-od początku, jeśli nie w~całej to często w~dużej części mapy. Trudniejsza jest też
+od początku, jeśli nie w~całej, to często w~dużej części mapy. Trudniejsza jest też
 reprezentacja prawdopodobieństwa pojawienia się przeszkód na mapie -- z~założenia kryterium
 podziału jest binarne, tak samo jak przechowywane w~węzłach wartości.
 
 \subsubsection{Mapy topologiczne}
 
-Mapy topologiczne zamiast informacji o~całym otoczeniu zawierają jedynie wiedzę 
+Mapy topologiczne zamiast informacji o~całym otoczeniu zawierają jedynie wiedzę
 o~charakterystycznych obiektach, które mogą być reprezentatywne dla danego podobszaru.
 Reprezentowane są najczęściej w~postaci grafu, gdzie węzły reprezentują podobszary
 (przechowując też informację o~ich cechach charakterystycznych), natomiast łuki
@@ -299,7 +299,7 @@ w~świecie rzeczywistym jest np. schemat połączeń komunikacyjnych w~mieście 
 określone są nazwami, łuki określają możliwe do przebycia komunikacją odcinki pomiędzy
 nimi.
 
-Przy używaniu map togologicznych kluczowe jest, aby robot był w~stanie zlokalizować
+Przy używaniu map topologicznych kluczowe jest, aby robot był w~stanie zlokalizować
 się jednoznacznie w~danym węźle i~wykryć charakterystyczne elementy w~otoczeniu.
 Największą ich zaletą jest duża efektywność obliczeniowa i~skalowalność, gdyż rozmiar
 reprezentacji nie zależy od rozmiaru obszaru do opisania, a~jedynie od ilości wymaganych,
@@ -328,7 +328,7 @@ aplikacji uruchomionych na robocie.
 
 \subsubsection{Wykorzystanie gotowych map}
 
-Jeśli środowisko, w~którym będzie poruszał się robot jest w~pewien sposób
+Jeśli środowisko, w~którym będzie poruszał się robot, jest w~pewien sposób
 ustrukturyzowane oraz opisane, można wykorzystać istniejące już mapy w~celu
 nawigacji i~lokalizacji. Mogą one wymagać mniejszych bądź większych ingerencji
 w~celu dopasowania sposobu reprezentacji czy zmniejszenia szczegółowości,
@@ -356,7 +356,7 @@ dopasowane do wymagań algorytmów nawigacji.
 Ostatnią metodą jest wreszcie automatyczne tworzenie map otoczenia. Ogólnie
 algorytmy tego typu składają się z~fazy akwizycji danych oraz następującej
 po niej fazy tworzenia mapy (dopasowania kolejnych pomiarów, oceny jakości
-dopasowania itp). Rozwiązanie takie pozwalają na zastosowanie bardziej skomplikowanych
+dopasowania itp). Rozwiązania takie pozwalają na zastosowanie bardziej skomplikowanych
 algorytmów dokładniej odwzorowujących otoczenie robota. Czasami jednak konieczne
 jest tworzenie mapy on-line, inkrementalnie w~trakcie działania robota,
 wraz z~jednoczesną lokalizacją. Cała grupa takich algorytmów zwana jest SLAM
@@ -413,7 +413,7 @@ do docelowego. Działanie tych algorytmów opiera się najczęściej na minimali
 funkcji kosztu (określanej w~różny sposób), wykorzystując dostarczoną mapę środowiska
 oraz określony model robota (opisujący zarówno jego właściwości statyczne jak i~dynamiczne).
 Algorytmy te ze względu na swoją naturę i~iteracyjny charakter działają najczęściej
-w~trybie off-line, czyli ścieżka jest przesyłana do robota dopiero po jej całkowitym
+w~trybie off-line, czyli ścieżka jest przesyłana do robota po jej całkowitym
 zaplanowaniu i~dopiero wtedy robot rozpoczyna jej wykonywanie. Zaletą tych metod
 jest teoretyczna optymalność znalezionych ścieżek, wadą jest konieczność powtórnego generowania
 praktycznie całej ścieżki, jeśli zmienią się warunki otoczenia (podczas ruchu robota
@@ -424,7 +424,7 @@ do ścieżki robota w~miarę jak czujniki wykrywają kolejne przeszkody. Metody 
 pod uwagę wszystkie przeszkody w~otoczeniu robota (o ile są one wykrywane przez czujniki).
 Mogą być stosowane jako jedyna metoda planowania (bez generowania globalnych trajektorii),
 wtedy robot porusza się zawsze w~kierunku punktu docelowego, a~trajektoria jest wyznaczana
-tak, aby nie wpaść na żadną przeszkodę. Wadą takiego podejścia jest często generowanie
+tak, aby nie uderzyć w~żadną przeszkodę. Wadą takiego podejścia jest często generowanie
 ścieżek wielokrotnie dłuższych od optymalnej (np. próba dojazdu do innego pomieszczenia
 może skończyć się najpierw przejazdem przez całe obecne pomieszczenie aż do ściany, a~następnie
 jazdy wzdłuż ścian i~innych przeszkód aż do osiągnięcia celu). Z tego powodu często
@@ -438,7 +438,7 @@ Algorytmy deterministyczne (dokładne) przeszukują wszystkie możliwe trajektor
 a~jeśli tylko ścieżka do celu istnieje, to zostanie ona znaleziona. Bardzo często algorytmy
 te są czasochłonne i~mogą być stosowane jedynie przy przeszukiwaniu map topologicznych
 (przeszukiwanie grafów). Podejścia przybliżone zakładają pewną dyskretyzację przestrzeni
-poszukiwać (np. dyskretyzacja mapy czy ograniczenie możliwych sterowań robota do określonego
+poszukiwań (np. dyskretyzacja mapy czy ograniczenie możliwych sterowań robota do określonego
 zbioru), a~w tak ograniczonej przestrzeni są zupełne (a więc znalezienie rozwiązania
 zależy od dobrego doboru parametrów dyskretyzacji).
 
@@ -448,8 +448,8 @@ możliwych rozwiązań w~sposób niedeterministyczny, jednak przy odpowiednio d�
 Ostatnią grupą są algorytmy heurystyczne, a~więc niezupełne, które wyszukują ścieżkę
 w~sposób przybliżony, a~w czasie działania często dokonują wielu uproszczeń, wybierając
 np. tylko jedną ze wszystkich możliwości, tą, która w~danym momencie jest najbardziej
-obiecująca. Z tego powodu możliwe są sytuacje, kiedy ścieżka w~ogóle nie zostaje
-znaleziona, pomimo jej istnienia.
+obiecująca. Z tego powodu możliwe są sytuacje, kiedy ścieżka, pomimo jej istnienia,
+w~ogóle nie zostaje znaleziona.
 
 \subsubsection{Reprezentacja środowiska}
 
@@ -482,7 +482,7 @@ mają jednak pewną wadę -- są niejako ,,przyklejone'' do przeszkód, przez co
 konieczne może okazać się korygowanie trajektorii w~czasie jej wykonania.
 
 Inaczej jest przy wykorzystaniu generowania mapy dróg z~użyciem diagramów Voronoi -- w~tym
-przypadku segmenty drogi są umieszczone tak, aby być możliwie daleko od otaczających
+przypadku segmenty drogi są umieszczone tak, aby były możliwie daleko od otaczających
 przeszkód. Najpierw w~każdym punkcie wolnej przestrzeni wyliczane są odległości
 do najbliższej przeszkody, tworząc w~punktach równo odległych od sąsiednich obiektów
 grzbiet. Grzbiety te są następnie zamieniane w~segmenty dróg, a~ich przecięcia tworzą
@@ -501,8 +501,8 @@ pomiędzy sąsiednimi komórkami może być wyznaczona np. jako droga łącząca
 
 Jeśli dyskretyzacja mapy nie jest oparta o~cechy i~kształt przeszkód, ale polega na
 prostym podziale na regularną siatkę, to graf sąsiedztwa jest dużo bardziej skomplikowany
-i~większy niż przy podziale dokładnym. W~takim wypadu oczywiście można wyszukiwać
-ścieżki bezpośrednio w~tym grafie, są jednak metody robiące to w~nieco inny sposób, 
+i~większy, niż przy podziale dokładnym. W~takim wypadku oczywiście można wyszukiwać
+ścieżki bezpośrednio w~tym grafie, są jednak metody wykonujące to w~nieco inny sposób,
 na zasadzie propagacji fali. Polegają one na systematycznym poruszaniu się
 od komórki startowej, wpisując w~sąsiednich komórkach koszt o~jeden większy niż w~obecnej.
 Po wypełnieniu całej mapy (bądź szybciej, po wypełnieniu komórki docelowej) ścieżka
@@ -528,7 +528,7 @@ wypukłymi). Metodą wyjechania z~takiej sytuacji może być losowe zaszumianie 
 bądź (już w~czasie wykonania trajektorii) czasowe przełączenie się na algorytm śledzenia
 ścian. Metody sztucznego pola potencjału są efektywne obliczeniowo i~łatwo można wprowadzać
 do nich nowe przeszkody, także on-line w~trakcie jazdy robota. Dzięki temu mogą służyć
-zarówno do globalnego planowania trasy jak i~później do lokalnego omijania przeszkód.
+zarówno do globalnego planowania trasy jak i~później, do lokalnego omijania przeszkód.
 
 \subsection{Metody lokalne}
 
@@ -536,7 +536,7 @@ zarówno do globalnego planowania trasy jak i~później do lokalnego omijania pr
 
 Algorytmy typu Bug są najprostszymi algorytmami lokalnej modyfikacji
 trajektorii i~omijania przeszkód, polegają na podążaniu wzdłuż ich konturu.
-Istnieją kilka głównych wariantów tej metody -- Bug0, Bug1, Bug2 i~TangentBug.
+Istnieje kilka głównych wariantów tej metody -- Bug0, Bug1, Bug2 i~TangentBug.
 Pierwsze trzy wymagają jedynie czujników zderzeniowych, ostatnia sensorów odległości,
 wszystkie wymagają także informacji o~przybliżonym kierunku do celu i~jego położeniu.
 Zależnie od wersji, przeszkody są objeżdżane całkowicie, nawet więcej niż raz (Bug1),
@@ -574,7 +574,7 @@ nimi przejechać, a~z nich wybierana jest ta o~najmniejszym koszcie (np. będąc
 w~kierunku celu). Poprawione metody algorytmu (VFH+) biorą dodatkowo pod uwagę
 ograniczenia kinematyczne robota, np. możliwy promień skrętu, przy wyborze kierunku ruchu.
 
-Inną metodą z~tej grupy jest diagram bliskości~\cite{minguez2004nearness}, będący 
+Inną metodą z~tej grupy jest diagram bliskości~\cite{minguez2004nearness}, będący
 w~pewnym sensie rozwinięciem VFH.
 Spisuje się on dużo lepiej w~przypadku środowisk z~wieloma przeszkodami, bierze też
 pod uwagę kształt robota.
@@ -587,12 +587,12 @@ jest generowanie zbioru możliwych sterowań (a więc zadanej prędkości liniow
 i~sprawdzanie, które z~nich są możliwe do wykonania w~danym momencie, a~które prowadzą
 do zderzenia z~przeszkodami. W~przestrzeni konfiguracyjnej robota wprowadza się ograniczenia
 zarówno na prędkości robota, jak i~na przyspieszenia. Metoda krzywizn i~prędkości
-(Curvature velocity, CVM~\cite{511023}) przybliża kształt przeszkód okręgami (ze względu na wydajność
+(z~ang. Curvature velocity, CVM~\cite{511023}) przybliża kształt przeszkód okręgami (ze względu na wydajność
 obliczeń), a~następnie wyznacza takie sterowania, aby w~kroku o~zadanej długości
 nie doprowadzić do zderzenia, jednocześnie maksymalizując prędkość liniową i~poruszając
 się w~kierunku celu.
 
-Metoda okna dynamicznego (Dynamic Window Approach, DWA~\cite{fox1997dynamic}) tworzy wokół robota w~przestrzeni
+Metoda okna dynamicznego (z~ang. Dynamic Window Approach, DWA~\cite{fox1997dynamic}) tworzy wokół robota w~przestrzeni
 konfiguracyjnej okno zawierające możliwe w~danym momencie sterowania, a~następnie nakłada
 je na bieżącą mapę zajętości. Pozostają jedynie te sterowania, które zapewniają,
 że robot zdąży zatrzymać się przed przeszkodą. Z pozostałych sterowań wybierane jest

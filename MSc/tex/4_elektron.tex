@@ -24,7 +24,7 @@ sterowania. Od momentu powstania robot poddawany był kolejnym modernizacjom,
 mającym na celu zarówno dołączenie nowych zestawów czujników, jak i~umożliwienie
 sterowania robota przy wykorzystaniu nowych struktur programowych. Pierwotnie Elektron
 sterowany był przy wykorzystaniu środowiska Player/Stage, w~ramach niniejszej pracy
-robot został uruchomiony wykorzystując system ROS (więcej na ten temat 
+robot został uruchomiony wykorzystując system ROS (więcej na ten temat
 w~rozdziale~\ref{chap:programowanie}).
 
 
@@ -209,7 +209,7 @@ http://goo.gl/L7sJm}
 Wzór ma specjalną strukturę, umożliwiającą poprawne zlokalizowanie analizowanych
 pikseli w~obrazie wzorcowym bez konieczności wielokrotnego rzutowania różnych
 tekstur (tak jak przy metodzie wykorzystującej kod Graya i~coraz węższe paski).
-Zaczynając od największych bloków wyróżnić w~nim można szachownicę 3x3 pola, 
+Zaczynając od największych bloków wyróżnić w~nim można szachownicę 3x3 pola,
 a~na środku każdego z~nich jaśniejszy punkt służący do lokalizacji centrum danego
 segmentu. Każde z~pól pokryte jest siatką punktów ułożonych w~taki sposób, aby
 ich bloki powtarzały się bardzo rzadko lub wcale w~obrębie danego pola
@@ -241,13 +241,13 @@ na robocie, wraz z~zaznaczonymi polami widzenia Kinecta i~skanera laserowego.
 % widzenia kinecta i~sicka
 
 
-\begin{figure}[htp!]
+\begin{figure}[htb!]
 \centering
-\includegraphics{../../Common/img/elektron/range}
+\includegraphics[width=8cm]{../../Common/img/elektron/range}
 \caption[Przybliżone zasięgi działania czujników umieszczonych na robocie
-ELektron]{Przybliżone zasięgi działania czujników umieszczonych na robocie
-ELektron. Kolorem czerwonym oznaczono efektywne pole działania skanera Sick,
-kolorem niebieskim zasięg sensora Kinect. Dla czytelności rysunek samego robota
+Elektron]{Przybliżone zasięgi działania czujników umieszczonych na robocie
+Elektron. Odcieniem jaśniejszym oznaczono efektywne pole działania skanera Sick,
+ciemniejszym zasięg sensora Kinect. Dla czytelności rysunek samego robota
 jest w~skali większej niż pokazane zasięgi.}
 \label{fig:range}
 \end{figure}
@@ -267,7 +267,7 @@ LMS100 dla każdego promienia dokonywane są faktycznie dwa pomiary, dzięki cze
 dużo rzadziej zdarzają się zafałszowane wyniki (spowodowane np. odbiciem
 promienia od kropli deszczu), dodatkowo wraz z~odległością każdy pomiar ma
 dołączoną intensywność wracającego światła (to z~kolei pozwala np. wykrywać
-szyby znajdujące się przed robotem -- powodują one powrót pierwszego impulsu 
+szyby znajdujące się przed robotem -- powodują one powrót pierwszego impulsu
 o~niskim natężeniu).
 
 \begin{figure}[h!]
@@ -282,7 +282,7 @@ Początkowo na robocie Elektron zamontowany był skaner laserowy Sick LMS200
 utrudnione było montowanie dodatkowych elementów na korpusie robota. Dlatego też
 został on zastąpiony mniejszymi skanerami LMS100, które dodatkowo mają
 korzystniejsze parametry techniczne przy wykorzystaniu na robotach mobilnych
-operujących w~pomieszczeniach zamkniętych (ich zestawienie zebrane 
+operujących w~pomieszczeniach zamkniętych (ich zestawienie zebrane
 w~tabeli~\ref{tab:sick_params}).
 
 \begin{table}[h!]
@@ -293,7 +293,7 @@ w~tabeli~\ref{tab:sick_params}).
 \toprule
 \textbf{Parametry skanu} & LMS100 & LMS200\\
 \midrule
-Zasięg & 20m & 20m \\
+Zasięg & 10m & 20m \\
 Rozdzielczość kątowa & 0.25\textdegree / 0.5\textdegree & 0.25\textdegree /
 0.5\textdegree / 1\textdegree \\
 Kąt skanowania & 270\textdegree / 270\textdegree & 100\textdegree /
@@ -312,8 +312,8 @@ Masa & 1.1kg & 4.5kg\\
 
 \subsection{Mocowanie na robocie}
 
-Skaner zamocowany jest w~przedniej części robota, na stałe. Zrezygnowanie 
-z~mocowania na obrotowej głowicy umożliwiło jego częściowe wsunięcie do wnętrza,
+Skaner zamocowany jest na stałe w~przedniej części robota. Rezygnacja
+z~mocowania na obrotowej głowicy umożliwiła jego częściowe wsunięcie do wnętrza,
 przez co obniżony został poziom pracy skanera (wykrywane są obiekty na
 wysokości zbliżonej do wysokości robota). Sposób zamocowania lasera zobaczyć
 można na rysunku~\ref{fig:elektron}.
@@ -351,9 +351,9 @@ czy nierówności nawierzchni). Pierwszy komputer wyposażony był w~karty pami�
 CompactFlash w~roli dysków twardych, wybrany model laptopa posiada natomiast
 dyski twarde wykonane w~technologii SSD. Najważniejsze parametry techniczne
 zastosowanych komputerów zebrane są w~tabeli~\ref{tab:eee_params}.
-Pomimo, iż moc obliczeniowa nowych komputerów zwiększyła się w~porównaniu 
+Pomimo, iż moc obliczeniowa nowych komputerów zwiększyła się w~porównaniu
 z~rozwiązaniem pierwotnym, to i~tak jest ona niewielka (jak na obecne czasy),
-dlatego należy uważnie planować wykorzystywanie czasochłonnych algorytmów 
+dlatego należy uważnie planować wykorzystywanie czasochłonnych algorytmów
 i~w~miarę możliwości wykorzystywać do tego inne maszyny dostępne w~obrębie sieci
 WiFi.
 

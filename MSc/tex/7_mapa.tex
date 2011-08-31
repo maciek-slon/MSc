@@ -19,7 +19,7 @@ wybory związane ze strukturą systemu nawigacji robota. Zgodnie z~filozofią
 twórców tego oprogramowania, podsystem nawigacji dla robota mobilnego podzielony
 jest na kilka modułów, których wzajemna współpraca i~zależności pokazane są na
 rysunku~\ref{fig:diag_move_base}. Część z~nich jest dostarczana razem z~systemem
-ROS i~wykorzystywana bez zmian w~kodzie (z~ang. \lang{of the shelf}), niektóre mogą być
+ROS i~wykorzystywana bez zmian w~kodzie, niektóre mogą być
 swobodnie wymieniane pod warunkiem, że spełniają wymogi odpowiednich interfejsów
 (razem z~systemem dostarczone są pewne implementacje, z~których można
 skorzystać), wymagane jest też dostarczenie kilku modułów zależnych od samego
@@ -35,7 +35,7 @@ robota, na którym całość jest uruchamiana.
 Modułami, które są dostarczone i~niezmienne są mapy przeszkód (konkretnie
 moduły agregujące dane z~sensorów i~tworzące na ich podstawie mapy zajętości).
 Modułami wymiennymi są planery trasy (zarówno lokalny jak i~globalny) oraz
-zachowania awaryjne mające na celu wyprowadzenie robota z~trudnych sytuacji
+zachowania awaryjne, mające na celu wyprowadzenie robota z~trudnych sytuacji
 (np. otoczenie przeszkodami). Dodatkowo wymagane jest dostarczenie przynajmniej
 modułów sensorycznych, modułów określających lokalizację robota w~pewnym,
 globalnym układzie współrzędnych (może to być układ związany z~punktem startowym
@@ -57,7 +57,7 @@ cztery etapy:
 \begin{itemize}
   \item agregacja danych z~sensorów,
   \item filtrowanie danych,
-  \item oznaczanie przeszkód w~pewnej, wybranej strukturze danych,
+  \item oznaczanie przeszkód w~strukturze danych o~wybranej implementacji,
   \item tworzenie dwuwymiarowej mapy kosztu.
 \end{itemize}
 
@@ -118,7 +118,7 @@ a~algorytmami oznaczania przeszkód, która to metoda została wybrana.
 \begin{figure}[htb!]
 \centering
 \includegraphics{../img/filtering}
-\caption{Potok przetwarzania chmury punktów z~sensora Kinect}
+\caption{Potok przetwarzania chmury punktów z~sensora Kinect.}
 \label{fig:filtering}
 \end{figure}
 
@@ -134,7 +134,7 @@ jest odrzucany z~dalszych obliczeń.
 \begin{figure}[htb!]
 \centering
 \includegraphics{../../Common/img/depresion}
-\caption{Wykrywanie spadków terenu}
+\caption{Wykrywanie spadków terenu.}
 \label{fig:depresion}
 \end{figure}
 
@@ -203,7 +203,7 @@ nieznaną, w~przeciwnym wypadku kolumna jest uznawana za pustą.
 
 Po oznaczeniu przeszkód dokonywane jest ich powiększenie na określoną odległość
 (nadmuchiwanie). Operacja ta ma na celu wygładzenie mapy kosztu i~spowodowanie,
-że robot nie będzie preferował szerokie przejazdy (o ile będzie miał wybór). Na
+że robot będzie preferował szerokie przejazdy (o ile będzie miał wybór). Na
 rysunku~\ref{fig:inflation} przedstawiona jest ogólna metoda obliczania kosztu
 dla komórki podczas tego procesu. Parametrem kontrolującym ten proces jest
 promień ,,nadmuchiwania'', od którego zależy, jak dużą odległość od
@@ -259,7 +259,7 @@ Do celów globalnego wyznaczania trasy oraz ewentualnej globalnej lokalizacji st
 została mapa kilku pomieszczeń, po których poruszał się robot. Jej tworzenie było
 dwuetapowe -- najpierw przy pomocy algorytmu SLAM i~skanera laserowego zostały
 stworzone mapy poszczególnych pomieszczeń (w~kilku częściach, ze względu na możliwości
-obliczeniowe komputera sterującego). Mapy te zawierały oczywiście wszystkie bieżące
+obliczeniowe komputera sterującego). Mapy te zawierały wszystkie bieżące
 przeszkody i~ruchome elementy wyposażenia, takie jak stoły, krzesła czy pudła.
 Na podstawie tych map stworzona została ręcznie w~programie typu CAD oczyszczona
 mapa, zawierająca jedynie ściany pomieszczeń, duże meble (takie, których przestawienie
