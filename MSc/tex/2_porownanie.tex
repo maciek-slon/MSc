@@ -48,7 +48,7 @@ wymagany jest szybki skan całego otoczenia, wykonuje się większe kroki.
 
 Rozdzielczość i~dokładność uzyskiwanej głębi zależy praktycznie jedynie od
 zastosowanego sensora -- najsłabsze wyniki uzyskuje się przy stosowaniu
-czujników ultradźwiękowych bądź tanich czujników podczerwonych, te jednak są
+czujników ultradźwiękowych bądź tanich czujników podczerwieni, te jednak są
 jednymi z~najtańszych możliwych do zastosowania. Na drugim biegunie jest
 stosowanie skanerów laserowych (np. Sick LMS), te jednak są drogie i~ciężkie, co
 wymusza stosowanie droższych i~dokładniejszych serw. Przykładowa konstrukcja
@@ -132,7 +132,7 @@ one widok w~taki sposób, jakby płaszczyzny obrazowania kamer były równoległ
 (proces ten zwany jest rektyfikacją obrazu). W~tym celu konieczna jest wstępna
 kalibracja układu kamer, dająca w~wyniku położenie kamer względem siebie
 (przesunięcie oraz obrót), a~także wyliczająca parametry wewnętrzne każdej 
-z~kamer (zniekształcenia wnoszone przez soczewki obiektywu). Proces kalibracji
+z~kamer (zniekształcenia wnoszone m.in.~przez soczewki obiektywu). Proces kalibracji
 przeprowadza się raz dla danego położenia kamer, po każdorazowej zmianie ich
 pozycji konieczna jest powtórna kalibracja. Rysunek~\ref{fig:stereo_steps}
 przedstawia kolejne kroki podczas odtwarzania informacji o~głębi z~dwóch kamer.
@@ -187,8 +187,6 @@ od siebie (patrz rysunek~\ref{fig:bumblebee}).
 %-------------------------------------------------------------------------------
 \subsection{Złożoność obliczeń}
 %-------------------------------------------------------------------------------
-
-% TODO: wstawić odwołania w~odpowiednie miejsca
 
 Przy wykorzystaniu programowej wersji algorytmów stereowizyjnych działających
 na przeciętnym komputerze domowym, można osiągnąć wydajność od kilku do
@@ -257,7 +255,7 @@ wypełnione w~ponad 80\%, a~algorytm działa w~tempie powyżej 10FPS)~\cite{outd
 \subsection{Zasada działania}
 %-------------------------------------------------------------------------------
 
-Inną metodą pomiaru i~odtwarzania informacji i~głębi sceny bazującą na analizie
+Inną metodą pomiaru i~odtwarzania informacji o~głębi sceny bazującą na analizie
 obrazu jest wykorzystanie światła strukturalnego. Na scenę rzucane jest światło
 formujące znany wzór, a~kamera umieszczona jest w~taki sposób, aby obserwować
 scenę pod innym kątem niż orientacja rzutnika. Na podstawie odczytanej deformacji
@@ -380,7 +378,7 @@ Kamery TOF\footnote{z ang. {\it time-of-flight}, czas przelotu} działają na za
 pomiaru czasu przelotu wiązki światła od projektora do kamery po jego odbiciu od
 obiektów. Działanie to jest analogiczne do działania skanerów laserowych, z~tą różnicą,
 że w~przypadku skanerów emitowana jest pojedyncza wiązka światła, natomiast kamery TOF
-oświetlają i~wykonują pomiar całej sceny naraz.
+oświetlają i~wykonują pomiar całej widocznej części sceny naraz.
 
 %-------------------------------------------------------------------------------
 \subsection{Zasada działania i~wykorzystanie}
@@ -452,7 +450,7 @@ maksymalną rzędu 320x240px, a~tańsze modele często posiadają rozdzielczoś�
 poniżej 100x100px. Sama technika wykonywania pomiaru ma kilka cech, które mogą
 utrudniać jej wykorzystanie, np. występowanie wielokrotnych odbić, przez co
 do sensora może dotrzeć i~zostać zarejestrowane światło odbite i~załamane od
-obiektów znajdujących się bliżej, niż faktyczny punkt widziany w~danym miejscu
+obiektów znajdujących się bliżej niż faktyczny punkt widziany w~danym miejscu
 matrycy. Podobnie zafałszowane pomiary mogą wystąpić przy obecności 
 w~obserwowanej scenie silnych źródeł światła, praktycznie niemożliwe jest także
 stosowanie tych metod w~słoneczny dzień w~terenie otwartym. Przy stosowaniu
@@ -495,7 +493,7 @@ komputerze wyposażonym w~procesor Intel Core2Duo E6550 2.33GHz oraz 4GB pamięc
 RAM, pracującym pod kontrolą systemu Ubuntu 10.04. Wygenerowanie pojedynczej mapy
 głębi zajmowało ok. 130ms (7.7 klatki na sekundę).
 
-Poniżej przedstawione są wygenerowane mapy głębi nałożone na obraz z~którego powstały
+Poniżej przedstawione zostały wygenerowane mapy głębi nałożone na obraz z~którego powstały
 (dokładnie na obraz z~lewej kamery, ponieważ w~jej układzie mapa ta jest wyliczana).
 Przedstawione są trzy sceny przedstawiające charakterystyczne cechy tej metody
 pozyskiwania informacji o~głębi. Scena przedstawiona na rysunku~\ref{fig:stereo_1}
