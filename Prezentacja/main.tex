@@ -1,0 +1,281 @@
+%% Screen version %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass[xcolor=x11names,compress]{beamer}
+
+% Handout version %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\documentclass[xcolor=x11names,compress,handout]{beamer}
+%
+%\usepackage{pgfpages}
+%\pgfpagesuselayout{4 on 1}[a4paper,landscape,border shrink=5mm]
+
+% Ładniejsze tabelki
+\usepackage{booktabs}
+
+%% General document %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{graphicx}
+\usepackage[MeX]{polski}
+
+\usepackage[absolute]{textpos}
+
+\usepackage{fancybox}
+
+\usepackage[utf8]{inputenc}
+\usepackage{tikz}
+\usetikzlibrary{decorations.fractals}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%% Beamer Layout %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\useoutertheme[subsection=false,shadow,footline=authortitle]{miniframes}
+\useinnertheme{default}
+\usefonttheme{serif}
+\usepackage[T1]{fontenc}
+\usepackage{palatino}
+
+\setbeamerfont{title like}{shape=\scshape}
+\setbeamerfont{frametitle}{shape=\scshape}
+
+\setbeamercolor*{lower separation line head}{bg=DeepSkyBlue4}
+\setbeamercolor*{upper separation line foot}{bg=DeepSkyBlue4}
+\setbeamercolor*{normal text}{fg=black,bg=white}
+\setbeamercolor*{alerted text}{fg=DeepSkyBlue4}
+\setbeamercolor*{example text}{fg=black}
+\setbeamercolor*{structure}{fg=DeepSkyBlue4}
+\setbeamercolor*{itemize item}{fg=DeepSkyBlue4}
+
+\setbeamercolor*{palette tertiary}{fg=black,bg=black!10}
+\setbeamercolor*{palette quaternary}{fg=black,bg=black!10}
+
+\setbeamersize{
+  text margin left=1cm,
+  text margin right=1cm
+}
+
+\newcommand{\code}[1]{\textit{#1}}
+
+\renewcommand{\(}{\begin{columns}}
+\renewcommand{\)}{\end{columns}}
+\newcommand{\<}[1]{\begin{column}{#1}}
+\renewcommand{\>}{\end{column}}
+
+% definicja symboli do tabeli cech
+\def\YES{\CIRCLE}        % posiada
+\def\HALF{\LEFTcircle}   % częściowo posiada
+\def\NO{\Circle}         % nie posiada
+\def\NA{$\times$}          % nie dotyczy
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\setcounter{tocdepth}{2}
+
+% The following command gets rid of the navigation symbols that you usually
+% see at the bottom-right of people's Beamer talks.
+%
+\setbeamertemplate{navigation symbols}{}
+
+\setbeamercovered{transparent}
+
+\begin{document}
+
+\title{Wykorzystanie informacji z kamery 3D\\ do nawigacji robota mobilnego}
+\author{Maciej Stefańczyk}
+\institute{\it Wydział Elektroniki i Technik Informacyjnych Politechniki Warszawskiej}
+\date{
+	\begin{figure}[h!]
+	\centering
+	\includegraphics[width=4.4cm]{../Common/img/elektron/elektron_kinect}
+	\label{fig:p1}
+	\end{figure}
+
+	\vspace{.0cm}
+	8 września 2011
+}
+
+\AtBeginSection[]
+{
+  \begin{frame}<beamer>
+    \frametitle{Plan prezentacji}
+    \tableofcontents[currentsection]
+  \end{frame}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\setbeamercolor{normal text}{bg=black!10}
+
+\begin{frame}[plain]
+
+\titlepage
+\end{frame}
+
+\setbeamercolor{normal text}{bg=}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Plan prezentacji}
+	\frametitle{Plan prezentacji}
+	\tableofcontents
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{\scshape Cel pracy}
+\subsection{Stan istniejący}
+
+\begin{frame}{Stan istniejący}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\subsection{Inne rozwiązania}
+
+\begin{frame}{Inne rozwiązania}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Założenia projektowe}
+\begin{frame}{Założenia projektowe}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{\scshape Implementacja}
+\subsection{Struktura systemu}
+\begin{frame}{Struktura systemu}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\subsection{Struktura komponentowa}
+\begin{frame}{Podejście komponentowe}
+
+\end{frame}
+
+
+\begin{frame}{Komponent}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Komunikacja}
+
+\begin{frame}{Komunikacja: przesyłanie danych}
+
+\end{frame}
+
+
+
+
+
+\begin{frame}{Komunikacja: zdarzenia}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\subsection{Zadania}
+%\begin{frame}{Zadania}
+%
+%\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{\scshape Eksperymenty}
+\subsection{Przetwarzanie liniowe}
+\begin{frame}{Przetwarzanie liniowe: założenia}
+
+
+\end{frame}
+
+\begin{frame}{Przetwarzanie liniowe: działanie}
+
+\end{frame}
+
+
+\begin{frame}{Przetwarzanie liniowe: pomiary}
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Obliczenia równoległe}
+
+
+\begin{frame}{Obliczenia równoległe: założenia}
+
+\end{frame}
+
+
+\begin{frame}{Obliczenia równoległe: potok przetwarzania}
+
+\end{frame}
+
+
+
+\begin{frame}{Obliczenia równoległe: działanie}
+
+\end{frame}
+
+
+
+\begin{frame}{Obliczenia równoległe: pomiary}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{\scshape Podsumowanie}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection*{Wnioski}
+\begin{frame}{Wnioski}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection*{Perspektywy rozwoju}
+\begin{frame}{Perspektywy rozwoju}
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection*{}
+\begin{frame}{}
+
+\it
+\Large{Dziękuję za uwagę.}
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=3cm]{../Common/img/qmark}
+\end{figure}
+
+\hfill\Large{Pytania?}
+
+\end{frame}
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\end{document}
