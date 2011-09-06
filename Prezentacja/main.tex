@@ -171,14 +171,70 @@
 \subsection{Źródła obrazu 3D}
 \begin{frame}{Wykorzystanie czujników odległości}
 
+\alert{Działanie:}
+\begin{itemize}
+\item czujniki umieszczone na\\ruchomych głowicach,
+\item skanowanie sekwencyjne.
+\end{itemize}
+
+\vspace{.5cm}
+
+\alert{Zalety:}
+\begin{itemize}
+\item łatwe przetwarzanie wyników,
+\item .
+\end{itemize}
+
+\vspace{.5cm}
+
+\alert{Wady:}
+\begin{itemize}
+\item wymagane środowisko statyczne,
+\item szybkość działania.
+\end{itemize}
+
+\begin{textblock*}{50mm}(75mm,15mm)%
+%  \noindent\colorbox[rgb]{0,1,0}{%
+    \begin{minipage}[l]{50mm}%
+
+	\begin{figure}[h!]
+    \centering
+    \includegraphics[width=5.0cm]{../Common/img/sick_vert}
+    \end{figure}
+
+    \end{minipage}
+%  }%
+\end{textblock*}
+
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Stereowizja}
 
+\alert{Działanie:}
+\begin{itemize}
+\item korelacja obrazów \\z dwóch kamer,
+\item wyszukiwanie punktów \\charakterystycznych.
+\end{itemize}
 
-\begin{textblock*}{50mm}(70mm,10mm)%
+\vspace{.2cm}
+
+\alert{Zalety:}
+\begin{itemize}
+\item ,
+\item działanie na obszarach otwartych.
+\end{itemize}
+
+\vspace{.2cm}
+
+\alert{Wady:}
+\begin{itemize}
+\item obiekty jednolite,
+\item jakość kamer.
+\end{itemize}
+
+\begin{textblock*}{50mm}(75mm,15mm)%
 %  \noindent\colorbox[rgb]{0,1,0}{%
     \begin{minipage}[l]{50mm}%
 
@@ -203,6 +259,19 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Światło strukturalne}
 
+\begin{textblock*}{50mm}(75mm,15mm)%
+%  \noindent\colorbox[rgb]{0,1,0}{%
+    \begin{minipage}[l]{50mm}%
+
+	\begin{figure}[h!]
+    \centering
+    \includegraphics[width=5.0cm]{../Common/img/struct_vert}
+    \end{figure}
+
+    \end{minipage}
+%  }%
+\end{textblock*}
+
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -210,6 +279,11 @@
 \subsection{Porównanie wybranych rozwiązań}
 
 \begin{frame}{Porównanie wybranych rozwiązań}
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=9cm]{../Common/img/compare}
+\end{figure}
 
 \end{frame}
 
@@ -221,6 +295,45 @@
 \subsection{Dekompozycja zadania}
 \begin{frame}{Dekompozycja zadania}
 
+\alert{Podział na odrębne moduły:}
+\begin{itemize}
+\item zmniejszenie zależności,
+\item wymienność elementów,
+\item elastyczność zastosowania.
+\end{itemize}
+
+\vspace{.2cm}
+
+\alert{Wykorzysanie elementów istniejących:}
+\begin{itemize}
+\item niektóre algorytmy,
+\item struktura systemu nawigacji.
+\end{itemize}
+
+\vspace{.2cm}
+
+\alert{Implementacja nowych modułów:}
+\begin{itemize}
+\item filtrowanie danych,
+\item sterowanie bazą jezdną,
+\item diagnostyka.
+\end{itemize}
+
+\begin{textblock*}{70mm}(65mm,15mm)%
+%  \noindent\colorbox[rgb]{0,1,0}{%
+    \begin{minipage}[l]{70mm}%
+
+	\begin{figure}[h!]
+    \centering
+    \includegraphics[width=4.2cm]{../MSc/img/decomposition_vert}
+    \end{figure}
+    \end{minipage}
+%  }%
+\end{textblock*}
+
+\vspace{.2cm}
+\scriptsize \alert{Rysunek:} Najważniejsze moduły stworzonej platformy.
+
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -229,23 +342,60 @@
 
 \begin{frame}{Struktura systemu nawigacji}
 
+\alert{Wymienność modułów:}
+\begin{itemize}
+\item planowanie trasy,
+\item zachowania ratunkowe,
+\item lokalizacja,
+\item akwizycja danych sensorycznych.
+\end{itemize}
+
+\vspace{.5cm}
+
+\alert{Elastyczność:}
+\begin{itemize}
+\item możliwość wykorzystania\\jedynie niektórych\\modułów,
+\item abstrakcja danych.
+\end{itemize}
+
+\begin{textblock*}{70mm}(60mm,18mm)%
+    \begin{minipage}[c]{70mm}%
+		\begin{figure}[h!]
+		\includegraphics[width=5.2cm]{../MSc/img/diag_move_base}
+		\end{figure}
+		\hspace{1cm}\scriptsize \alert{Rysunek:} Struktura i zależności modułu
+		
+		\hspace{1cm}nawigacyjnego.
+    \end{minipage}
+\end{textblock*}
+
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Tworzenie map przeszkód}
+\begin{frame}{Tworzenie map przeszkód i lokalizacja}
+
+\alert{Mapa zajętości:}
+\begin{itemize}
+\item filtrowanie danych,
+\item czyszczenie,
+\item oznaczanie przeszkód.
+\end{itemize}
+
+\vspace{1cm}
+
+\alert{Lokalizacja:}
+\begin{itemize}
+\item mapa otoczenia,
+\item odczyty z odometrii,
+\item żyroskop.
+\end{itemize}
 
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Lokalizacja robota}
-
-\end{frame}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Planowanie trasy}
+\begin{frame}{Planowanie trasy i omijanie przeszkód}
 
 \end{frame}
 
