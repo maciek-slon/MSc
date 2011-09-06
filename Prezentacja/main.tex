@@ -182,7 +182,7 @@
 \alert{Zalety:}
 \begin{itemize}
 \item łatwe przetwarzanie wyników,
-\item .
+\item dostępność czujników.
 \end{itemize}
 
 \vspace{.5cm}
@@ -222,7 +222,7 @@
 
 \alert{Zalety:}
 \begin{itemize}
-\item ,
+\item dostępność sprzętu,
 \item działanie na obszarach otwartych.
 \end{itemize}
 
@@ -253,11 +253,55 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Kamery TOF}
 
+\alert{Działanie:}
+\begin{itemize}
+\item oświetlenie sceny i pomiar czasu powrotu światła.
+\end{itemize}
+
+\vspace{.4cm}
+
+\alert{Zalety:}
+\begin{itemize}
+\item szybkość działania,
+\item dokładność pokrycia.
+\end{itemize}
+
+\vspace{.4cm}
+
+\alert{Wady:}
+\begin{itemize}
+\item drogi sprzęt,
+\item niska rozdzielczość,
+\item interferencje.
+\end{itemize}
+
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Światło strukturalne}
+
+\alert{Działanie:}
+\begin{itemize}
+\item rzutowanie wzorca \\i analiza obrazu,
+\item różne wzorce.
+\end{itemize}
+
+\vspace{.2cm}
+
+\alert{Zalety:}
+\begin{itemize}
+\item dobre pokrycie,
+\item sceny statyczne i dynamiczne.
+\end{itemize}
+
+\vspace{.2cm}
+
+\alert{Wady:}
+\begin{itemize}
+\item problemy na zewnątrz,
+\item dodatkowy osprzęt.
+\end{itemize}
 
 \begin{textblock*}{50mm}(75mm,15mm)%
 %  \noindent\colorbox[rgb]{0,1,0}{%
@@ -282,7 +326,7 @@
 
 \begin{figure}[h!]
 \centering
-\includegraphics[width=9cm]{../Common/img/compare}
+\includegraphics[width=9.5cm]{../Common/img/compare}
 \end{figure}
 
 \end{frame}
@@ -319,7 +363,7 @@
 \item diagnostyka.
 \end{itemize}
 
-\begin{textblock*}{70mm}(65mm,15mm)%
+\begin{textblock*}{70mm}(65mm,10mm)%
 %  \noindent\colorbox[rgb]{0,1,0}{%
     \begin{minipage}[l]{70mm}%
 
@@ -331,8 +375,7 @@
 %  }%
 \end{textblock*}
 
-\vspace{.2cm}
-\scriptsize \alert{Rysunek:} Najważniejsze moduły stworzonej platformy.
+\hspace{3.5cm} \scriptsize \alert{Rysunek:} Najważniejsze moduły stworzonej platformy.
 
 \end{frame}
 
@@ -360,12 +403,12 @@
 
 \begin{textblock*}{70mm}(60mm,18mm)%
     \begin{minipage}[c]{70mm}%
-		\begin{figure}[h!]
-		\includegraphics[width=5.2cm]{../MSc/img/diag_move_base}
-		\end{figure}
-		\hspace{1cm}\scriptsize \alert{Rysunek:} Struktura i zależności modułu
-		
-		\hspace{1cm}nawigacyjnego.
+	\begin{figure}[h!]
+	\includegraphics[width=5.2cm]{../MSc/img/diag_move_base}
+	\end{figure}
+	\hspace{1cm}\scriptsize \alert{Rysunek:} Struktura i zależności modułu
+
+	\hspace{1cm}nawigacyjnego.
     \end{minipage}
 \end{textblock*}
 
@@ -373,16 +416,7 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Tworzenie map przeszkód i lokalizacja}
-
-\alert{Mapa zajętości:}
-\begin{itemize}
-\item filtrowanie danych,
-\item czyszczenie,
-\item oznaczanie przeszkód.
-\end{itemize}
-
-\vspace{1cm}
+\begin{frame}{Lokalizacja i tworzenie map przeszkód}
 
 \alert{Lokalizacja:}
 \begin{itemize}
@@ -391,11 +425,56 @@
 \item żyroskop.
 \end{itemize}
 
+\vspace{1cm}
+
+\alert{Mapa zajętości:}
+\begin{itemize}
+\item filtrowanie danych,
+\item czyszczenie,
+\item oznaczanie przeszkód,
+\item zachowania ratunkowe.
+\end{itemize}
+
+
+
+\begin{textblock*}{70mm}(60mm,25mm)%
+%  \noindent\colorbox[rgb]{0,1,0}{%
+    \begin{minipage}[l]{70mm}%
+
+	\begin{figure}[h!]
+	\centering
+	\includegraphics[width=5.2cm]{../MSc/img/costmap}
+	\end{figure}
+
+	\hspace{1cm}\scriptsize \alert{Rysunek:} Fragment mapy globalnej
+
+	\hspace{1cm}oraz lokalna mapa zajętości.
+    \end{minipage}
+%  }%
+\end{textblock*}
+
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Planowanie trasy i omijanie przeszkód}
+
+\alert{Planowanie trasy:}
+\begin{itemize}
+\item off-line,
+\item mapa globalna,
+\item uogólnienia dot. kształtu.
+\end{itemize}
+
+\vspace{.7cm}
+
+\alert{Omijanie przeszkód:}
+\begin{itemize}
+\item on-line,
+\item otoczenie robota,
+\item uwzględniona kinematyka robota,
+\item dokładny model robota.
+\end{itemize}
 
 \end{frame}
 
@@ -410,17 +489,91 @@
 \subsection*{}
 \begin{frame}{Wykorzystanie symulacji}
 
+
+\alert{Możliwości:}
+\begin{itemize}
+\item dobór parametrów,
+\item sprawdzenie poprawności \\koncepcji,
+\item testy niektórych algorytmów.
+\end{itemize}
+
+\vspace{.7cm}
+
+\alert{Problemy:}
+\begin{itemize}
+\item modelowanie czujników,
+\item brak ,,naturalnych'' zachowań,
+\item odwzorowanie środowiska.
+\end{itemize}
+
+\begin{textblock*}{70mm}(60mm,18mm)%
+    \begin{minipage}[c]{70mm}%
+	\begin{figure}[h!]
+	\includegraphics[width=5.2cm]{../MSc/img/gazebo}
+	\end{figure}
+	\hspace{1cm}\scriptsize \alert{Rysunek:} Robot Elektron w symulatorze.
+    \end{minipage}
+\end{textblock*}
+
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Testy w kontrolowanych warunkach}
 
+\alert{Możliwości:}
+\begin{itemize}
+\item ostateczne dopasowanie \\parametrów,
+\item aranżacja zagrożeń,
+\item naturalne zachowania.
+\end{itemize}
+
+\vspace{.7cm}
+
+\alert{Problemy:}
+\begin{itemize}
+\item ,,bezpieczne'' ruchy,
+\item zabezpieczenie robota,
+\item destrukcja otoczenia.
+\end{itemize}
+
+\begin{textblock*}{70mm}(60mm,18mm)%
+    \begin{minipage}[c]{70mm}%
+	\begin{figure}[h!]
+	\includegraphics[width=5.2cm]{../Common/img/placeholder}
+	\end{figure}
+	\hspace{1cm}\scriptsize \alert{Rysunek:} Przejazdy testowe.
+    \end{minipage}
+\end{textblock*}
+
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Testy w docelowym środowisku}
+
+\alert{Możliwości:}
+\begin{itemize}
+\item potwierdzenie prawidłowości \\działania,
+\item pełna gama sytuacji \\wyjątkowych.
+\end{itemize}
+
+\vspace{.7cm}
+
+\alert{Problemy:}
+\begin{itemize}
+\item wpływ otoczenia,
+\item uwzgędnione w algorytmach.
+\end{itemize}
+
+\begin{textblock*}{70mm}(60mm,18mm)%
+    \begin{minipage}[c]{70mm}%
+	\begin{figure}[h!]
+	\includegraphics[width=5.2cm]{../Common/img/placeholder}
+	\end{figure}
+	\hspace{1cm}\scriptsize \alert{Rysunek:} Działanie w otoczeniu docelowym.
+    \end{minipage}
+\end{textblock*}
 
 \end{frame}
 
@@ -435,12 +588,44 @@
 \subsection*{Wnioski}
 \begin{frame}{Wnioski}
 
+\alert{Wykorzystanie danych trójwymiarowych:}
+\begin{itemize}
+\item zdecydowana poprawa wykrywania przeszkód,
+\item nowe możliwości,
+\item dużo większe nakłady obliczeniowe.
+\end{itemize}
+
+\vspace{.7cm}
+
+\alert{Platforma badawcza:}
+\begin{itemize}
+\item elastyczność,
+\item uniwersalność,
+\item niezawodność.
+\end{itemize}
+
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection*{Perspektywy rozwoju}
 \begin{frame}{Perspektywy rozwoju}
+
+\alert{Zastosowania systemu na innych platformach:}
+\begin{itemize}
+\item roboty usługowe,
+\item mobilne platformy telekonferencyjne,
+\item roboty współdziałające z ludźmi.
+\end{itemize}
+
+\vspace{.7cm}
+
+\alert{Robot Elektron:}
+\begin{itemize}
+\item rozwój elektroniki,
+\item dodatkowe czujniki,
+\item systemy wielorobotowe.
+\end{itemize}
 
 \end{frame}
 
