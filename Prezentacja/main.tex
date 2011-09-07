@@ -149,18 +149,20 @@
 
 \begin{frame}{Cel pracy}
 
-\alert{Wykorzystanie kamery 3D:}
+\alert{System nawigacji:}
 \begin{itemize}
-\item wybór odpowiedniego rozwiązania,
-\item przetwarzanie danych o otoczeniu.
+\item integracja wielu drobnych systemów,
+\item dobór parametrów,
+\item gotowe do wykorzystania stanowisko eksperymentalne,
+\item budowa modułowa.
 \end{itemize}
 
 \vspace{.5cm}
 
-\alert{System nawigacji:}
+\alert{Wykorzystanie kamery 3D:}
 \begin{itemize}
-\item gotowe do wykorzystania stanowisko eksperymentalne,
-\item budowa modułowa.
+\item wybór odpowiedniego rozwiązania,
+\item przetwarzanie danych o otoczeniu.
 \end{itemize}
 
 \end{frame}
@@ -169,154 +171,208 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{\scshape Wykorzystanie kamery 3D}
 \subsection{Źródła obrazu 3D}
-\begin{frame}{Wykorzystanie czujników odległości}
 
-\alert{Działanie:}
-\begin{itemize}
-\item czujniki umieszczone na\\ruchomych głowicach,
-\item skanowanie sekwencyjne.
-\end{itemize}
 
-\vspace{.5cm}
+\begin{frame}{Źródła obrazu 3D}
 
-\alert{Zalety:}
-\begin{itemize}
-\item łatwe przetwarzanie wyników,
-\item dostępność czujników.
-\end{itemize}
 
-\vspace{.5cm}
-
-\alert{Wady:}
-\begin{itemize}
-\item wymagane środowisko statyczne,
-\item szybkość działania.
-\end{itemize}
-
-\begin{textblock*}{50mm}(75mm,15mm)%
-%  \noindent\colorbox[rgb]{0,1,0}{%
-    \begin{minipage}[l]{50mm}%
-
+\begin{textblock*}{46mm}(0mm,19mm)%
+%  \noindent\colorbox[rgb]{1,0,0}{%
+    \begin{minipage}[l]{46mm}%
+    \centering
+	\alert{Skanowanie sekwencyjne}
 	\begin{figure}[h!]
     \centering
-    \includegraphics[width=5.0cm]{../Common/img/sick_vert}
+    \includegraphics[width=3.8cm]{../Common/img/sick_vert}
     \end{figure}
 
     \end{minipage}
 %  }%
 \end{textblock*}
 
-\end{frame}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Stereowizja}
-
-\alert{Działanie:}
-\begin{itemize}
-\item korelacja obrazów \\z dwóch kamer,
-\item wyszukiwanie punktów \\charakterystycznych.
-\end{itemize}
-
-\vspace{.2cm}
-
-\alert{Zalety:}
-\begin{itemize}
-\item dostępność sprzętu,
-\item działanie na obszarach otwartych.
-\end{itemize}
-
-\vspace{.2cm}
-
-\alert{Wady:}
-\begin{itemize}
-\item obiekty jednolite,
-\item jakość kamer.
-\end{itemize}
-
-\begin{textblock*}{50mm}(75mm,15mm)%
-%  \noindent\colorbox[rgb]{0,1,0}{%
-    \begin{minipage}[l]{50mm}%
-
+\begin{textblock*}{40mm}(43mm,19mm)%
+%  \noindent\colorbox[rgb]{1,1,0}{%
+    \begin{minipage}[l]{40mm}%
+    \centering
+	\alert{Stereowizja}
 	\begin{figure}[h!]
     \centering
-    \includegraphics[width=5.0cm]{../Common/img/stereo_steps_vert}
+    \includegraphics[width=3.8cm]{../Common/img/stereo_steps_vert}
     \end{figure}
 
     \end{minipage}
 %  }%
 \end{textblock*}
 
-\end{frame}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Kamery TOF}
-
-\alert{Działanie:}
-\begin{itemize}
-\item oświetlenie sceny i pomiar czasu powrotu światła.
-\end{itemize}
-
-\vspace{.4cm}
-
-\alert{Zalety:}
-\begin{itemize}
-\item szybkość działania,
-\item dokładność pokrycia.
-\end{itemize}
-
-\vspace{.4cm}
-
-\alert{Wady:}
-\begin{itemize}
-\item drogi sprzęt,
-\item niska rozdzielczość,
-\item interferencje.
-\end{itemize}
-
-\end{frame}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Światło strukturalne}
-
-\alert{Działanie:}
-\begin{itemize}
-\item rzutowanie wzorca \\i analiza obrazu,
-\item różne wzorce.
-\end{itemize}
-
-\vspace{.2cm}
-
-\alert{Zalety:}
-\begin{itemize}
-\item dobre pokrycie,
-\item sceny statyczne i dynamiczne.
-\end{itemize}
-
-\vspace{.2cm}
-
-\alert{Wady:}
-\begin{itemize}
-\item problemy na zewnątrz,
-\item dodatkowy osprzęt.
-\end{itemize}
-
-\begin{textblock*}{50mm}(75mm,15mm)%
-%  \noindent\colorbox[rgb]{0,1,0}{%
-    \begin{minipage}[l]{50mm}%
-
+\begin{textblock*}{40mm}(83mm,19mm)%
+%  \noindent\colorbox[rgb]{1,0,1}{%
+    \begin{minipage}[l]{40mm}%
+    \centering
+	\alert{Światło strukturalne}
 	\begin{figure}[h!]
     \centering
-    \includegraphics[width=5.0cm]{../Common/img/struct_vert}
+    \includegraphics[width=3.8cm]{../Common/img/struct_vert}
     \end{figure}
 
     \end{minipage}
 %  }%
 \end{textblock*}
 
+
 \end{frame}
+
+
+
+
+
+%\begin{frame}{Wykorzystanie czujników odległości}
+
+%\alert{Działanie:}
+%\begin{itemize}
+%\item czujniki umieszczone na\\ruchomych głowicach,
+%\item skanowanie sekwencyjne.
+%\end{itemize}
+
+%\vspace{.5cm}
+
+%\alert{Zalety:}
+%\begin{itemize}
+%\item łatwe przetwarzanie wyników,
+%\item dostępność czujników.
+%\end{itemize}
+
+%\vspace{.5cm}
+
+%\alert{Wady:}
+%\begin{itemize}
+%\item wymagane środowisko statyczne,
+%\item szybkość działania.
+%\end{itemize}
+
+%\begin{textblock*}{50mm}(75mm,15mm)%
+%%  \noindent\colorbox[rgb]{0,1,0}{%
+    %\begin{minipage}[l]{50mm}%
+
+	%\begin{figure}[h!]
+    %\centering
+    %\includegraphics[width=5.0cm]{../Common/img/sick_vert}
+    %\end{figure}
+
+    %\end{minipage}
+%%  }%
+%\end{textblock*}
+
+%\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\begin{frame}{Stereowizja}
+
+%\alert{Działanie:}
+%\begin{itemize}
+%\item korelacja obrazów \\z dwóch kamer,
+%\item wyszukiwanie punktów \\charakterystycznych.
+%\end{itemize}
+
+%\vspace{.2cm}
+
+%\alert{Zalety:}
+%\begin{itemize}
+%\item dostępność sprzętu,
+%\item działanie na obszarach otwartych.
+%\end{itemize}
+
+%\vspace{.2cm}
+
+%\alert{Wady:}
+%\begin{itemize}
+%\item obiekty jednolite,
+%\item jakość kamer.
+%\end{itemize}
+
+%\begin{textblock*}{50mm}(75mm,15mm)%
+%%  \noindent\colorbox[rgb]{0,1,0}{%
+    %\begin{minipage}[l]{50mm}%
+
+	%\begin{figure}[h!]
+    %\centering
+    %\includegraphics[width=5.0cm]{../Common/img/stereo_steps_vert}
+    %\end{figure}
+
+    %\end{minipage}
+%%  }%
+%\end{textblock*}
+
+%\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\begin{frame}{Kamery TOF}
+
+%\alert{Działanie:}
+%\begin{itemize}
+%\item oświetlenie sceny i pomiar czasu powrotu światła.
+%\end{itemize}
+
+%\vspace{.4cm}
+
+%\alert{Zalety:}
+%\begin{itemize}
+%\item szybkość działania,
+%\item dokładność pokrycia.
+%\end{itemize}
+
+%\vspace{.4cm}
+
+%\alert{Wady:}
+%\begin{itemize}
+%\item drogi sprzęt,
+%\item niska rozdzielczość,
+%\item interferencje.
+%\end{itemize}
+
+%\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\begin{frame}{Światło strukturalne}
+
+%\alert{Działanie:}
+%\begin{itemize}
+%\item rzutowanie wzorca \\i analiza obrazu,
+%\item różne wzorce.
+%\end{itemize}
+
+%\vspace{.2cm}
+
+%\alert{Zalety:}
+%\begin{itemize}
+%\item dobre pokrycie,
+%\item sceny statyczne i dynamiczne.
+%\end{itemize}
+
+%\vspace{.2cm}
+
+%\alert{Wady:}
+%\begin{itemize}
+%\item problemy na zewnątrz,
+%\item dodatkowy osprzęt.
+%\end{itemize}
+
+%\begin{textblock*}{50mm}(75mm,15mm)%
+%%  \noindent\colorbox[rgb]{0,1,0}{%
+    %\begin{minipage}[l]{50mm}%
+
+	%\begin{figure}[h!]
+    %\centering
+    %\includegraphics[width=5.0cm]{../Common/img/struct_vert}
+    %\end{figure}
+
+    %\end{minipage}
+%%  }%
+%\end{textblock*}
+
+%\end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -348,7 +404,7 @@
 
 \vspace{.2cm}
 
-\alert{Wykorzysanie elementów istniejących:}
+\alert{Wykorzystanie elementów istniejących:}
 \begin{itemize}
 \item niektóre algorytmy,
 \item struktura systemu nawigacji.
@@ -422,10 +478,11 @@
 \begin{itemize}
 \item mapa otoczenia,
 \item odczyty z odometrii,
-\item żyroskop.
+\item żyroskop,
+\item kalibracja czujników.
 \end{itemize}
 
-\vspace{1cm}
+\vspace{0.7cm}
 
 \alert{Mapa zajętości:}
 \begin{itemize}
@@ -466,7 +523,7 @@
 \item uogólnienia dot. kształtu.
 \end{itemize}
 
-\vspace{.7cm}
+\vspace{.3cm}
 
 \alert{Omijanie przeszkód:}
 \begin{itemize}
@@ -474,6 +531,53 @@
 \item otoczenie robota,
 \item uwzględniona kinematyka robota,
 \item dokładny model robota.
+\end{itemize}
+
+\vspace{.3cm}
+
+\alert{Nadzór nad wykonaniem zadania}
+
+\begin{textblock*}{70mm}(70mm,17mm)%
+%  \noindent\colorbox[rgb]{0,1,0}{%
+    \begin{minipage}[l]{70mm}%
+
+	\begin{figure}[h!]
+	\centering
+	\includegraphics[width=3.7cm]{../Common/img/cloud}
+	\end{figure}
+
+	\hspace{1.5cm}\scriptsize \alert{Rysunek:} Testowa konfiguracja
+
+	\hspace{1.5cm}przeszkód i jej obraz.
+    \end{minipage}
+%  }%
+\end{textblock*}
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Dodatkowe moduły}
+
+\alert{Diagnostyka robota:}
+\begin{itemize}
+\item poziom naładowania akumulatorów,
+\item obciążenie systemu,
+\item konsola komunikatów systemowych.
+\end{itemize}
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=8.7cm]{../Common/img/ros/elektron_dashboard}
+\end{figure}
+
+\alert{Mniejsze komponenty:}
+\begin{itemize}
+\item teleoperacja (joystick, klawiatura),
+\item konwersja chmury punktów,
+\item losowa eksploracja terenu,
+\item automatyczne pozycjonowanie sensora.
 \end{itemize}
 
 \end{frame}
@@ -506,10 +610,10 @@
 \item odwzorowanie środowiska.
 \end{itemize}
 
-\begin{textblock*}{70mm}(60mm,18mm)%
+\begin{textblock*}{70mm}(60mm,42mm)%
     \begin{minipage}[c]{70mm}%
 	\begin{figure}[h!]
-	\includegraphics[width=5.2cm]{../MSc/img/gazebo}
+	\includegraphics[width=4.8cm]{../MSc/img/gazebo}
 	\end{figure}
 	\hspace{1cm}\scriptsize \alert{Rysunek:} Robot Elektron w symulatorze.
     \end{minipage}
@@ -537,10 +641,10 @@
 \item destrukcja otoczenia.
 \end{itemize}
 
-\begin{textblock*}{70mm}(60mm,18mm)%
+\begin{textblock*}{70mm}(60mm,42mm)%
     \begin{minipage}[c]{70mm}%
 	\begin{figure}[h!]
-	\includegraphics[width=5.2cm]{../Common/img/placeholder}
+	\includegraphics[width=4.8cm]{../Common/img/test_1}
 	\end{figure}
 	\hspace{1cm}\scriptsize \alert{Rysunek:} Przejazdy testowe.
     \end{minipage}
@@ -563,13 +667,13 @@
 \alert{Problemy:}
 \begin{itemize}
 \item wpływ otoczenia,
-\item uwzgędnione w algorytmach.
+\item uwzględnione w algorytmach.
 \end{itemize}
 
-\begin{textblock*}{70mm}(60mm,18mm)%
+\begin{textblock*}{70mm}(60mm,42mm)%
     \begin{minipage}[c]{70mm}%
 	\begin{figure}[h!]
-	\includegraphics[width=5.2cm]{../Common/img/placeholder}
+	\includegraphics[width=4.8cm]{../Common/img/test_2}
 	\end{figure}
 	\hspace{1cm}\scriptsize \alert{Rysunek:} Działanie w otoczeniu docelowym.
     \end{minipage}
@@ -595,7 +699,7 @@
 \item dużo większe nakłady obliczeniowe.
 \end{itemize}
 
-\vspace{.7cm}
+\vspace{.2cm}
 
 \alert{Platforma badawcza:}
 \begin{itemize}
@@ -604,12 +708,7 @@
 \item niezawodność.
 \end{itemize}
 
-\end{frame}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection*{Perspektywy rozwoju}
-\begin{frame}{Perspektywy rozwoju}
+\vspace{.2cm}
 
 \alert{Zastosowania systemu na innych platformach:}
 \begin{itemize}
@@ -618,17 +717,7 @@
 \item roboty współdziałające z ludźmi.
 \end{itemize}
 
-\vspace{.7cm}
-
-\alert{Robot Elektron:}
-\begin{itemize}
-\item rozwój elektroniki,
-\item dodatkowe czujniki,
-\item systemy wielorobotowe.
-\end{itemize}
-
 \end{frame}
-
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
